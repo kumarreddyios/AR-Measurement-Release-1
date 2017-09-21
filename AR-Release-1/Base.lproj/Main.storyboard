@@ -1,27 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A278a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
-                    <arscnView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="BrB-h1-WRS">
+                <viewController id="BV1-FR-VrT" customClass="ViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rcs-kW-4dp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </arscnView>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2LF-id-qFf">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </arscnView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdo-CD-AGg">
+                                <rect key="frame" x="25" y="45" width="325" height="54"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="era-4A-gso">
+                                        <rect key="frame" x="15" y="15" width="147.5" height="24"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bxx-zA-tFq">
+                                        <rect key="frame" x="162.5" y="15" width="147.5" height="24"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.48073133330000001" blue="0.40970873740000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Bxx-zA-tFq" firstAttribute="top" secondItem="era-4A-gso" secondAttribute="top" id="BEM-M7-VMx"/>
+                                    <constraint firstItem="Bxx-zA-tFq" firstAttribute="leading" secondItem="gdo-CD-AGg" secondAttribute="centerX" id="IGM-9Y-oce"/>
+                                    <constraint firstItem="era-4A-gso" firstAttribute="top" secondItem="gdo-CD-AGg" secondAttribute="top" constant="15" id="KIO-DX-dzk"/>
+                                    <constraint firstItem="era-4A-gso" firstAttribute="leading" secondItem="gdo-CD-AGg" secondAttribute="leading" constant="15" id="X7p-hg-m9T"/>
+                                    <constraint firstItem="era-4A-gso" firstAttribute="trailing" secondItem="gdo-CD-AGg" secondAttribute="centerX" id="dbd-Eg-upT"/>
+                                    <constraint firstAttribute="bottom" secondItem="era-4A-gso" secondAttribute="bottom" constant="15" id="jz7-2p-itI"/>
+                                    <constraint firstAttribute="trailing" secondItem="Bxx-zA-tFq" secondAttribute="trailing" constant="15" id="pnB-jk-9MN"/>
+                                    <constraint firstItem="Bxx-zA-tFq" firstAttribute="bottom" secondItem="era-4A-gso" secondAttribute="bottom" id="wEP-fz-3Bf"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="2LF-id-qFf" firstAttribute="leading" secondItem="bmb-hD-mne" secondAttribute="leading" id="2K2-GC-FmY"/>
+                            <constraint firstItem="bmb-hD-mne" firstAttribute="trailing" secondItem="gdo-CD-AGg" secondAttribute="trailing" constant="25" id="Bx1-mb-rIx"/>
+                            <constraint firstItem="bmb-hD-mne" firstAttribute="trailing" secondItem="2LF-id-qFf" secondAttribute="trailing" id="Fhr-mi-EDy"/>
+                            <constraint firstItem="gdo-CD-AGg" firstAttribute="top" secondItem="bmb-hD-mne" secondAttribute="top" constant="25" id="Ox4-WT-NFY"/>
+                            <constraint firstItem="bmb-hD-mne" firstAttribute="bottom" secondItem="2LF-id-qFf" secondAttribute="bottom" id="X4V-qX-MYx"/>
+                            <constraint firstItem="gdo-CD-AGg" firstAttribute="leading" secondItem="bmb-hD-mne" secondAttribute="leading" constant="25" id="bV7-rX-FSn"/>
+                            <constraint firstItem="2LF-id-qFf" firstAttribute="top" secondItem="rcs-kW-4dp" secondAttribute="top" id="cgE-Kf-lqw"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bmb-hD-mne"/>
+                    </view>
                     <connections>
-                        <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
+                        <outlet property="cmsLabel" destination="era-4A-gso" id="fWZ-BX-1a8"/>
+                        <outlet property="sceneView" destination="2LF-id-qFf" id="uAe-Pu-rs7"/>
+                        <outlet property="statsView" destination="gdo-CD-AGg" id="aUm-O4-3jw"/>
+                        <outlet property="ukSizeLabel" destination="Bxx-zA-tFq" id="tkn-5D-WWw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-156" y="204.64767616191907"/>
         </scene>
     </scenes>
 </document>

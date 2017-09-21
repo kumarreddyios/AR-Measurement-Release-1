@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "PlaneNode.h"
+#import "SizeChart.h"
 
 #define BoxWidth 0.10
 #define BoxHeight 0.001
@@ -20,6 +21,9 @@
 @interface ViewController () <ARSCNViewDelegate>
 
 @property (nonatomic, strong) IBOutlet ARSCNView *sceneView;
+@property (weak, nonatomic) IBOutlet UIView *statsView;
+@property (weak, nonatomic) IBOutlet UILabel *cmsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ukSizeLabel;
 @property (nonatomic, strong) NSMutableDictionary<NSString*,PlaneNode*> *dectedAnchors;
 @property (nonatomic) SCNVector3 startPosition; //startpoint is fixed, it will change only if you reset the tracking or restart the process.
 @property (nonatomic) SCNVector3 endPosition; // this will change when a user moved the endline.
@@ -28,6 +32,10 @@
 @property (nonatomic) BOOL tapEnabled;
 @property (nonatomic) BOOL panEnabled;
 @property (nonatomic) BOOL tempValue;
+@property (nonatomic, strong) NSArray *colors;
+@property (nonatomic, strong) NSMutableArray *scaleNodes;
+@property (nonatomic, strong) SizeChart *sizeChart;
+@property (nonatomic, strong) SCNNode *cmScaleNode;
 @end
 
     
@@ -41,6 +49,9 @@
     self.dectedAnchors = [[NSMutableDictionary alloc] init];
     self.tapEnabled = false;
     self.panEnabled = false;
+    self.colors = @[[UIColor redColor],[UIColor blackColor],[UIColor greenColor],[UIColor blueColor],[UIColor yellowColor],[UIColor cyanColor]];
+    self.scaleNodes = [[NSMutableArray alloc] init];
+    [self loadSizeChart];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -51,6 +62,10 @@
         //return
     }
     [self setupGestures];
+
+    //views decoration
+    self.statsView.layer.cornerRadius = 8.0f;
+    [self.statsView setHidden:true];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -138,8 +153,7 @@
         }else{
             self.endPosition = SCNVector3Make(self.endPosition.x, self.endPosition.y, worldLocation.z);
             self.endNode.position = self.endPosition;
-            NSLog(@"Distance is %f cms",ExtSCNVectorDistance(self.startPosition, self.endPosition));
-//            [self buildAScale];
+            [self buildAScale];
         }
     }
 }
@@ -181,18 +195,62 @@
 #pragma mark Building a Scale
 
 -(void)buildAScale{
+    /*remove the scale nodes*/
+    for (int index = 0; index < self.scaleNodes.count; index++) {
+        SCNNode *scaleNode = [self.scaleNodes objectAtIndex:index];
+        [scaleNode removeFromParentNode];
+    }
     CGFloat prevLength = 0;
-    CGFloat distance = ExtSCNVectorDistance(self.startPosition,self.endPosition);
-    SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - 0.1, self.startPosition.y, self.startPosition.z - ScaleLength/2);
-    while (prevLength < distance) {
+    CGFloat distance = ExtSCNVectorDistanceInCms(self.startPosition,self.endPosition);
+    [self.statsView setHidden:false];
+    NSString* formattedString = [NSString stringWithFormat:@"%.1f cms", distance];
+    [self.cmsLabel setText:formattedString];
+    /*SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - 0.1, self.startPosition.y, self.startPosition.z - ScaleLength/2);
+    while (prevLength < (distance/100)) {
         SCNBox *box = [SCNBox boxWithWidth:ScaleWIdth height:ScaleHeight length:ScaleLength chamferRadius:0];
         box.firstMaterial.diffuse.contents = [self getRandomColor];
         SCNNode *node = [SCNNode nodeWithGeometry:box];
         node.position = scaleStartPosition;
         [self.sceneView.scene.rootNode addChildNode:node];
+        [self.scaleNodes addObject:node];
         scaleStartPosition = SCNVector3Make(scaleStartPosition.x, scaleStartPosition.y, scaleStartPosition.z - ScaleLength);
         prevLength = prevLength + ScaleLength;
+    }*/
+
+    if (self.cmScaleNode == nil) {
+        SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - 0.1, self.startPosition.y, self.startPosition.z - (distance/200));
+        SCNBox *box = [SCNBox boxWithWidth:ScaleWIdth height:ScaleHeight length:(distance/100) chamferRadius:0];
+        box.firstMaterial.diffuse.contents = [UIColor yellowColor];
+        SCNNode *node = [SCNNode nodeWithGeometry:box];
+        node.position = scaleStartPosition;
+        self.cmScaleNode = node;
+        [self.sceneView.scene.rootNode addChildNode:self.cmScaleNode];
+        [self buildCentimeterScaleFor:self.cmScaleNode presentDistance:0 andNewDistance:(CGFloat)distance/100];
+    }else{
+        SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - 0.1, self.startPosition.y, self.startPosition.z - (distance/200));
+        SCNBox *box = (SCNBox*)self.cmScaleNode.geometry;
+        box.length = (distance/100);
+        self.cmScaleNode.position = scaleStartPosition;
     }
+}
+
+-(void)buildCentimeterScaleFor:(SCNNode*)node presentDistance:(CGFloat)presentDistance andNewDistance:(CGFloat)newDistance{
+    // if the newDistance is more than the present distance, add the scale from present Distance to new Distance.
+    // presentDistance < newDistance
+    while (presentDistance < newDistance) {
+        presentDistance = presentDistance + 0.01;
+        SCNBox *box = [SCNBox boxWithWidth:ScaleWIdth/2 height:0.005 length:0.002 chamferRadius:0];
+        box.firstMaterial.diffuse.contents = [UIColor blackColor];
+        SCNNode *tempNode = [SCNNode nodeWithGeometry:box];
+        tempNode.position = SCNVector3Make(self.startPosition.x-0.1, self.startPosition.y+0.01, self.startPosition.z - presentDistance);
+        [self.sceneView.scene.rootNode addChildNode:tempNode];
+
+    }
+
+
+//    SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - 0.1, self.startPosition.y, self.startPosition.z - (distance/200));
+
+
 }
 
 #pragma mark SCNVector3 - Utilities
@@ -201,11 +259,10 @@ static inline SCNVector3 ExtSCNVector3Subtract(SCNVector3 vectorA, SCNVector3 ve
     return SCNVector3Make(vectorA.x - vectorB.x, vectorA.y - vectorB.y, vectorA.z - vectorB.z);
 }
 
-static inline CGFloat ExtSCNVectorDistance(SCNVector3 vectorA, SCNVector3 vectorB) {
+static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 vectorB) {
     CGFloat distance = sqrt(pow(vectorA.x - vectorB.x, 2) + pow(vectorA.y - vectorB.y, 2) + pow(vectorA.z - vectorB.z, 2));
     distance = distance * 100;
     NSString* formattedString = [NSString stringWithFormat:@"%.1f", distance];
-    NSLog(@"formatted string %@",formattedString);
     return formattedString.floatValue;
 }
 
@@ -215,11 +272,25 @@ static inline CGFloat ExtSCNVectorDistance(SCNVector3 vectorA, SCNVector3 vector
 
 #pragma mark Random color generator
 
--(UIColor*)getRandomColor{
-    int r = arc4random() % 10;
-    int g = arc4random() % 10;
-    int b = arc4random() % 10;
-    return [UIColor colorWithRed:r/255 green:g/255 blue:b/255 alpha:0.8];
+-(UIColor*)getRandomColor {
+    /*int r = arc4random() % 255;
+    int g = arc4random() % 255;
+    int b = arc4random() % 255;
+    NSLog(@" r g b values %d %d %d",r,g,b);
+    return [UIColor colorWithRed:r/255 green:g/255 blue:b/255 alpha:1.0];*/
+
+    int random = arc4random() % self.colors.count;
+    return [self.colors objectAtIndex:random];
+}
+
+#pragma mark - load the size data
+
+-(void)loadSizeChart {
+    NSError *error;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"ShoeSizeData" ofType:@"json"];
+    NSData *sizeData = [NSData dataWithContentsOfFile:path];
+    NSDictionary *sizeDictionary = [NSJSONSerialization JSONObjectWithData:sizeData options:kNilOptions error:&error];
+    self.sizeChart = [[SizeChart alloc] initWithSizeDictionary:sizeDictionary];
 }
 
 @end

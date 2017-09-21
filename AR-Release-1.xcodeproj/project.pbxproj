@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D6A52201F739AA600B0ACF1 /* ShoeSizeData.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D6A521F1F739AA600B0ACF1 /* ShoeSizeData.json */; };
+		2D6A52231F73A50C00B0ACF1 /* SizeChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6A52221F73A50C00B0ACF1 /* SizeChart.m */; };
 		2DAB9B871F723E3F00E0293F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB9B861F723E3F00E0293F /* AppDelegate.m */; };
 		2DAB9B891F723E3F00E0293F /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DAB9B881F723E3F00E0293F /* art.scnassets */; };
 		2DAB9B8C1F723E3F00E0293F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB9B8B1F723E3F00E0293F /* ViewController.m */; };
@@ -18,6 +20,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D6A521F1F739AA600B0ACF1 /* ShoeSizeData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ShoeSizeData.json; sourceTree = "<group>"; };
+		2D6A52211F73A50C00B0ACF1 /* SizeChart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SizeChart.h; sourceTree = "<group>"; };
+		2D6A52221F73A50C00B0ACF1 /* SizeChart.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SizeChart.m; sourceTree = "<group>"; };
 		2DAB9B821F723E3F00E0293F /* AR-Release-1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AR-Release-1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DAB9B851F723E3F00E0293F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2DAB9B861F723E3F00E0293F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -75,6 +80,9 @@
 				2DAB9B961F723E3F00E0293F /* main.m */,
 				2DAB9B9D1F7245C000E0293F /* PlaneNode.h */,
 				2DAB9B9E1F7245C000E0293F /* PlaneNode.m */,
+				2D6A521F1F739AA600B0ACF1 /* ShoeSizeData.json */,
+				2D6A52211F73A50C00B0ACF1 /* SizeChart.h */,
+				2D6A52221F73A50C00B0ACF1 /* SizeChart.m */,
 			);
 			path = "AR-Release-1";
 			sourceTree = "<group>";
@@ -139,6 +147,7 @@
 			files = (
 				2DAB9B891F723E3F00E0293F /* art.scnassets in Resources */,
 				2DAB9B941F723E3F00E0293F /* LaunchScreen.storyboard in Resources */,
+				2D6A52201F739AA600B0ACF1 /* ShoeSizeData.json in Resources */,
 				2DAB9B911F723E3F00E0293F /* Assets.xcassets in Resources */,
 				2DAB9B8F1F723E3F00E0293F /* Main.storyboard in Resources */,
 			);
@@ -153,6 +162,7 @@
 			files = (
 				2DAB9B9F1F7245C000E0293F /* PlaneNode.m in Sources */,
 				2DAB9B8C1F723E3F00E0293F /* ViewController.m in Sources */,
+				2D6A52231F73A50C00B0ACF1 /* SizeChart.m in Sources */,
 				2DAB9B971F723E3F00E0293F /* main.m in Sources */,
 				2DAB9B871F723E3F00E0293F /* AppDelegate.m in Sources */,
 			);
