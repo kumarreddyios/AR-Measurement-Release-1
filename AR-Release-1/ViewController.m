@@ -14,9 +14,11 @@
 #define BoxHeight 0.001
 #define BoxLength 0.005
 #define DefaultDifferenceBetweenStartAndEnd 0.20 /* 20 cms */
-#define ScaleWIdth 0.05
+#define ScaleWIdth 0.1
 #define ScaleHeight 0.01
 #define ScaleLength 0.05
+#define CMsScaleWidth 0.05
+#define CMsTextWidth 0.05
 
 @interface ViewController () <ARSCNViewDelegate>
 
@@ -218,7 +220,7 @@
     }*/
 
     if (self.cmScaleNode == nil) {
-        SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - 0.1, self.startPosition.y, self.startPosition.z - (distance/200));
+        SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - 0.15, self.startPosition.y, self.startPosition.z - (distance/200));
         SCNBox *box = [SCNBox boxWithWidth:ScaleWIdth height:ScaleHeight length:(distance/100) chamferRadius:0];
         box.firstMaterial.diffuse.contents = [UIColor yellowColor];
         SCNNode *node = [SCNNode nodeWithGeometry:box];
@@ -227,7 +229,7 @@
         [self.sceneView.scene.rootNode addChildNode:self.cmScaleNode];
         [self buildCentimeterScaleFor:self.cmScaleNode presentDistance:0 andNewDistance:(CGFloat)distance/100];
     }else{
-        SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - 0.1, self.startPosition.y, self.startPosition.z - (distance/200));
+        SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - 0.15, self.startPosition.y, self.startPosition.z - (distance/200));
         SCNBox *box = (SCNBox*)self.cmScaleNode.geometry;
         box.length = (distance/100);
         self.cmScaleNode.position = scaleStartPosition;
@@ -237,20 +239,34 @@
 -(void)buildCentimeterScaleFor:(SCNNode*)node presentDistance:(CGFloat)presentDistance andNewDistance:(CGFloat)newDistance{
     // if the newDistance is more than the present distance, add the scale from present Distance to new Distance.
     // presentDistance < newDistance
+    int index=1;
     while (presentDistance < newDistance) {
         presentDistance = presentDistance + 0.01;
-        SCNBox *box = [SCNBox boxWithWidth:ScaleWIdth/2 height:0.005 length:0.002 chamferRadius:0];
+        SCNBox *box = [SCNBox boxWithWidth:CMsScaleWidth height:0.005 length:0.002 chamferRadius:0];
         box.firstMaterial.diffuse.contents = [UIColor blackColor];
         SCNNode *tempNode = [SCNNode nodeWithGeometry:box];
-        tempNode.position = SCNVector3Make(self.startPosition.x-0.1, self.startPosition.y+0.01, self.startPosition.z - presentDistance);
+        tempNode.position = SCNVector3Make(self.startPosition.x-0.15-(CMsScaleWidth/2), self.startPosition.y+0.01, self.startPosition.z - presentDistance);
         [self.sceneView.scene.rootNode addChildNode:tempNode];
-
+        if (index % 5 == 0 || index == 1) {
+            [self createTextNodes:tempNode.position andText:[NSString stringWithFormat:@" %d",index]];
+        }
+        index = index + 1;
     }
+}
 
+-(void)createTextNodes:(SCNVector3)position andText:(NSString*)text{
 
-//    SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - 0.1, self.startPosition.y, self.startPosition.z - (distance/200));
+    SCNText *scnText = [SCNText textWithString:text  extrusionDepth:1.0];
+    scnText.firstMaterial.diffuse.contents = [UIColor blackColor];
+    scnText.font = [UIFont systemFontOfSize:6.0];
+    scnText.flatness = 1.0;
 
-
+    SCNNode *textNode = [SCNNode nodeWithGeometry:scnText];
+    CGFloat xPosition = position.x + CMsScaleWidth/2 + (0.05/2);
+    textNode.position = SCNVector3Make(xPosition, position.y, position.z);
+    textNode.eulerAngles = SCNVector3Make(0, M_PI_2, M_PI_2);
+    [self.sceneView.scene.rootNode addChildNode:textNode];
+    textNode.scale = SCNVector3Make(0.003, 0.003, 0.003);
 }
 
 #pragma mark SCNVector3 - Utilities
