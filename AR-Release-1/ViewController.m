@@ -12,8 +12,8 @@
 
 #define BoxWidth 0.10
 #define BoxHeight 0.001
-#define BoxLength 0.005
-#define DefaultDifferenceBetweenStartAndEnd 0.20 /* 20 cms */
+#define BoxLength 0.003
+#define DefaultDifferenceBetweenStartAndEnd 0.05 /* 20 cms */
 #define ScaleWIdth 0.1
 #define ScaleHeight 0.01
 #define ScaleLength 0.05
@@ -35,9 +35,11 @@
 @property (nonatomic) BOOL panEnabled;
 @property (nonatomic) BOOL tempValue;
 @property (nonatomic, strong) NSArray *colors;
-@property (nonatomic, strong) NSMutableArray *scaleNodes;
 @property (nonatomic, strong) SizeChart *sizeChart;
 @property (nonatomic, strong) SCNNode *cmScaleNode;
+@property (nonatomic, strong) NSMutableDictionary<NSNumber*,NSMutableArray<SCNNode*>*> *scaleNodesDict;
+@property (nonatomic) NSInteger cmNumber;
+@property (nonatomic) CGFloat presentDistance;;
 @end
 
     
@@ -52,8 +54,9 @@
     self.tapEnabled = false;
     self.panEnabled = false;
     self.colors = @[[UIColor redColor],[UIColor blackColor],[UIColor greenColor],[UIColor blueColor],[UIColor yellowColor],[UIColor cyanColor]];
-    self.scaleNodes = [[NSMutableArray alloc] init];
     [self loadSizeChart];
+    self.scaleNodesDict = [[NSMutableDictionary alloc] init];
+    self.cmNumber = 1;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -197,28 +200,10 @@
 #pragma mark Building a Scale
 
 -(void)buildAScale{
-    /*remove the scale nodes*/
-    for (int index = 0; index < self.scaleNodes.count; index++) {
-        SCNNode *scaleNode = [self.scaleNodes objectAtIndex:index];
-        [scaleNode removeFromParentNode];
-    }
-    CGFloat prevLength = 0;
     CGFloat distance = ExtSCNVectorDistanceInCms(self.startPosition,self.endPosition);
     [self.statsView setHidden:false];
     NSString* formattedString = [NSString stringWithFormat:@"%.1f cms", distance];
     [self.cmsLabel setText:formattedString];
-    /*SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - 0.1, self.startPosition.y, self.startPosition.z - ScaleLength/2);
-    while (prevLength < (distance/100)) {
-        SCNBox *box = [SCNBox boxWithWidth:ScaleWIdth height:ScaleHeight length:ScaleLength chamferRadius:0];
-        box.firstMaterial.diffuse.contents = [self getRandomColor];
-        SCNNode *node = [SCNNode nodeWithGeometry:box];
-        node.position = scaleStartPosition;
-        [self.sceneView.scene.rootNode addChildNode:node];
-        [self.scaleNodes addObject:node];
-        scaleStartPosition = SCNVector3Make(scaleStartPosition.x, scaleStartPosition.y, scaleStartPosition.z - ScaleLength);
-        prevLength = prevLength + ScaleLength;
-    }*/
-
     if (self.cmScaleNode == nil) {
         SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - 0.15, self.startPosition.y, self.startPosition.z - (distance/200));
         SCNBox *box = [SCNBox boxWithWidth:ScaleWIdth height:ScaleHeight length:(distance/100) chamferRadius:0];
@@ -229,33 +214,57 @@
         [self.sceneView.scene.rootNode addChildNode:self.cmScaleNode];
         [self buildCentimeterScaleFor:self.cmScaleNode presentDistance:0 andNewDistance:(CGFloat)distance/100];
     }else{
-        SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - 0.15, self.startPosition.y, self.startPosition.z - (distance/200));
         SCNBox *box = (SCNBox*)self.cmScaleNode.geometry;
+        SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - 0.15, self.startPosition.y, self.startPosition.z - (distance/200));
         box.length = (distance/100);
         self.cmScaleNode.position = scaleStartPosition;
+        [self buildCentimeterScaleFor:self.cmScaleNode presentDistance:self.presentDistance andNewDistance:(CGFloat)distance/100];
     }
 }
 
 -(void)buildCentimeterScaleFor:(SCNNode*)node presentDistance:(CGFloat)presentDistance andNewDistance:(CGFloat)newDistance{
     // if the newDistance is more than the present distance, add the scale from present Distance to new Distance.
-    // presentDistance < newDistance
-    int index=1;
-    while (presentDistance < newDistance) {
-        presentDistance = presentDistance + 0.01;
-        SCNBox *box = [SCNBox boxWithWidth:CMsScaleWidth height:0.005 length:0.002 chamferRadius:0];
-        box.firstMaterial.diffuse.contents = [UIColor blackColor];
-        SCNNode *tempNode = [SCNNode nodeWithGeometry:box];
-        tempNode.position = SCNVector3Make(self.startPosition.x-0.15-(CMsScaleWidth/2), self.startPosition.y+0.01, self.startPosition.z - presentDistance);
-        [self.sceneView.scene.rootNode addChildNode:tempNode];
-        if (index % 5 == 0 || index == 1) {
-            [self createTextNodes:tempNode.position andText:[NSString stringWithFormat:@" %d",index]];
+    if (presentDistance < newDistance){
+        while ((newDistance - 0.01) > presentDistance) {
+            presentDistance = presentDistance + 0.01;
+            SCNVector3 scaleNodePosition = SCNVector3Make(self.startPosition.x-0.15-(CMsScaleWidth/2), self.startPosition.y+0.01, self.startPosition.z - presentDistance);
+            SCNNode *node = [self createScaleNode:scaleNodePosition];
+            self.scaleNodesDict[[NSNumber numberWithFloat:presentDistance]] = [[NSMutableArray alloc] initWithObjects:node, nil];
+            if (self.cmNumber % 5 == 0 || self.cmNumber == 1) {
+                SCNNode *textNode = [self createTextNode:scaleNodePosition andText:[NSString stringWithFormat:@" %ld",self.cmNumber]];
+                NSMutableArray *nodesArray = [self.scaleNodesDict objectForKey:[NSNumber numberWithFloat:presentDistance]];
+                if (nodesArray != NULL && nodesArray != nil && nodesArray.count > 0) {
+                    [nodesArray addObject:textNode];
+                }
+            }
+            self.cmNumber = self.cmNumber + 1;
+            self.presentDistance = presentDistance;
         }
-        index = index + 1;
+    }else if ((newDistance+0.01) < presentDistance){
+        while (presentDistance > newDistance) {
+            NSMutableArray *nodes = [self.scaleNodesDict objectForKey:[NSNumber numberWithFloat:presentDistance]];
+            for (node in nodes) {
+                [node removeFromParentNode];
+                NSLog(@"removed node names %f",presentDistance);
+            }
+            self.cmNumber = self.cmNumber - 1;
+            [self.scaleNodesDict removeObjectForKey:[NSNumber numberWithFloat:presentDistance]];
+            presentDistance = presentDistance - 0.01;
+            self.presentDistance = presentDistance;
+        }
     }
 }
 
--(void)createTextNodes:(SCNVector3)position andText:(NSString*)text{
+-(SCNNode*)createScaleNode:(SCNVector3)position{
+    SCNBox *box = [SCNBox boxWithWidth:CMsScaleWidth height:0.005 length:0.002 chamferRadius:0];
+    box.firstMaterial.diffuse.contents = [UIColor blackColor];
+    SCNNode *scaleNode = [SCNNode nodeWithGeometry:box];
+    scaleNode.position = position;
+    [self.sceneView.scene.rootNode addChildNode:scaleNode];
+    return scaleNode;
+}
 
+-(SCNNode*)createTextNode:(SCNVector3)position andText:(NSString*)text{
     SCNText *scnText = [SCNText textWithString:text  extrusionDepth:1.0];
     scnText.firstMaterial.diffuse.contents = [UIColor blackColor];
     scnText.font = [UIFont systemFontOfSize:6.0];
@@ -263,10 +272,11 @@
 
     SCNNode *textNode = [SCNNode nodeWithGeometry:scnText];
     CGFloat xPosition = position.x + CMsScaleWidth/2 + (0.05/2);
-    textNode.position = SCNVector3Make(xPosition, position.y, position.z);
+    textNode.position = SCNVector3Make(xPosition, position.y, position.z+0.01);
     textNode.eulerAngles = SCNVector3Make(0, M_PI_2, M_PI_2);
-    [self.sceneView.scene.rootNode addChildNode:textNode];
     textNode.scale = SCNVector3Make(0.003, 0.003, 0.003);
+    [self.sceneView.scene.rootNode addChildNode:textNode];
+    return textNode;
 }
 
 #pragma mark SCNVector3 - Utilities
@@ -282,24 +292,7 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
     return formattedString.floatValue;
 }
 
-/*static inline SCNVector3 ExtSCNVector3Add(SCNVector3 vectorA,SCNVector3 vectorB){
-    return SCNVector3Make(vectorA.x + vectorB.x, vectorA.y + vectorB.y, vectorA.z + vectorB.z);
-}*/
-
-#pragma mark Random color generator
-
--(UIColor*)getRandomColor {
-    /*int r = arc4random() % 255;
-    int g = arc4random() % 255;
-    int b = arc4random() % 255;
-    NSLog(@" r g b values %d %d %d",r,g,b);
-    return [UIColor colorWithRed:r/255 green:g/255 blue:b/255 alpha:1.0];*/
-
-    int random = arc4random() % self.colors.count;
-    return [self.colors objectAtIndex:random];
-}
-
-#pragma mark - load the size data
+#pragma mark - Load the size data
 
 -(void)loadSizeChart {
     NSError *error;
