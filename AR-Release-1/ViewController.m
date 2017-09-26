@@ -13,7 +13,7 @@
 #define BoxWidth 0.10
 #define BoxHeight 0.001
 #define BoxLength 0.003
-#define DefaultDifferenceBetweenStartAndEnd 0.05 /* 20 cms */
+#define DefaultDifferenceBetweenStartAndEnd 0.20 /* 20 cms */
 #define ScaleWIdth 0.1
 #define ScaleHeight 0.01
 #define ScaleLength 0.05
@@ -57,6 +57,7 @@
     [self loadSizeChart];
     self.scaleNodesDict = [[NSMutableDictionary alloc] init];
     self.cmNumber = 1;
+    [UIApplication.sharedApplication setIdleTimerDisabled:true];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -84,11 +85,32 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+#pragma mark - Reset Tracking
+
+
+- (IBAction)clickedOnReset:(id)sender {
+    [self resetTracking];
+}
+
 - (void)resetTracking {
     ARWorldTrackingConfiguration *configuration = [ARWorldTrackingConfiguration new];
     configuration.planeDetection = ARPlaneDetectionHorizontal;
     self.sceneView.debugOptions = ARSCNDebugOptionShowFeaturePoints;
-    [self.sceneView.session runWithConfiguration:configuration options:(ARSessionRunOptionResetTracking)];
+    [self.sceneView.session runWithConfiguration:configuration options:(ARSessionRunOptionRemoveExistingAnchors)];
+    [self deleteAllTheNodes];
+    self.cmNumber = 1;
+}
+
+-(void)deleteAllTheNodes{
+    for (SCNNode *node in self.sceneView.scene.rootNode.childNodes) {
+        [node removeFromParentNode];
+    }
+    [self.dectedAnchors removeAllObjects];
+    self.startNode = nil;
+    self.endNode = nil;
+    self.cmScaleNode = nil;
+    self.tapEnabled = false;
+    self.panEnabled = false;
 }
 
 #pragma mark - ARSCNViewDelegate
@@ -97,6 +119,7 @@
     if ([anchor isKindOfClass:[ARPlaneAnchor class]]){
         ARPlaneAnchor *pAnchor = (ARPlaneAnchor*)anchor;
         PlaneNode *planeNode = [[PlaneNode alloc] initWithAnchor:pAnchor];
+        //planeNode.simdTransform = pAnchor.transform;
         planeNode.position = SCNVector3Make(pAnchor.transform.columns[3].x, pAnchor.transform.columns[3].y, pAnchor.transform.columns[3].z);
         [self.sceneView.scene.rootNode addChildNode:planeNode];
         self.dectedAnchors[pAnchor.identifier.UUIDString]=planeNode;
@@ -156,7 +179,18 @@
         if (worldLocation.x == 0 && worldLocation.y == 0 && worldLocation.z == 0) {
             return;
         }else{
-            self.endPosition = SCNVector3Make(self.endPosition.x, self.endPosition.y, worldLocation.z);
+            SCNVector3 newEndPosition = SCNVector3Make(self.endPosition.x, self.endPosition.y, worldLocation.z);
+            CGFloat minDistanceFromStart = ExtSCNVectorDistanceInCms(self.startPosition, newEndPosition);
+            if (minDistanceFromStart/100 < DefaultDifferenceBetweenStartAndEnd) {
+                NSLog(@"This is the minimum foot size, you can not have less than this.");
+                return;
+            }
+            CGFloat distanceMoved = ExtSCNVectorDistanceInCms(self.endPosition, newEndPosition);
+            if (distanceMoved/100 > 0.1) {
+                NSLog(@"you are paaning too far from the end point");
+                return;
+            }
+            self.endPosition = newEndPosition;
             self.endNode.position = self.endPosition;
             [self buildAScale];
         }
@@ -164,10 +198,10 @@
 }
 
 -(void)createStartAndEndPonintsOnPlane {
-    self.startNode = [self createAndAddToRootNode:self.startPosition withMaterial:[UIColor redColor]];
+    self.startNode = [self createAndAddToRootNode:self.startPosition withMaterial:[UIColor whiteColor]];
     /* increase the Z co ordiante by DefaultDifferenceBetweenStartAndEnd and draw end line*/
     self.endPosition = ExtSCNVector3Subtract(self.startPosition, SCNVector3Make(0, 0, DefaultDifferenceBetweenStartAndEnd));
-    self.endNode = [self createAndAddToRootNode:self.endPosition withMaterial:[UIColor blueColor]];
+    self.endNode = [self createAndAddToRootNode:self.endPosition withMaterial:[UIColor whiteColor]];
     [self buildAScale];
 }
 
@@ -193,6 +227,7 @@
         node.rotation = self.sceneView.pointOfView.rotation;
         self.tempValue = !self.tempValue;
     }*/
+//    node.rotation = self.sceneView.pointOfView.rotation;
     [self.sceneView.scene.rootNode addChildNode:node];
     return node;
 }
@@ -245,7 +280,7 @@
             NSMutableArray *nodes = [self.scaleNodesDict objectForKey:[NSNumber numberWithFloat:presentDistance]];
             for (node in nodes) {
                 [node removeFromParentNode];
-                NSLog(@"removed node names %f",presentDistance);
+//                NSLog(@"removed node names %f",presentDistance);
             }
             self.cmNumber = self.cmNumber - 1;
             [self.scaleNodesDict removeObjectForKey:[NSNumber numberWithFloat:presentDistance]];

@@ -49,6 +49,15 @@
                                     <constraint firstItem="Bxx-zA-tFq" firstAttribute="bottom" secondItem="era-4A-gso" secondAttribute="bottom" id="wEP-fz-3Bf"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMe-jl-YWs">
+                                <rect key="frame" x="331" y="5" width="39" height="35"/>
+                                <state key="normal" title="Reset">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="clickedOnReset:" destination="BV1-FR-VrT" eventType="touchUpInside" id="AKG-gW-L9g"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -56,9 +65,12 @@
                             <constraint firstItem="bmb-hD-mne" firstAttribute="trailing" secondItem="gdo-CD-AGg" secondAttribute="trailing" constant="25" id="Bx1-mb-rIx"/>
                             <constraint firstItem="bmb-hD-mne" firstAttribute="trailing" secondItem="2LF-id-qFf" secondAttribute="trailing" id="Fhr-mi-EDy"/>
                             <constraint firstItem="gdo-CD-AGg" firstAttribute="top" secondItem="bmb-hD-mne" secondAttribute="top" constant="25" id="Ox4-WT-NFY"/>
+                            <constraint firstItem="dMe-jl-YWs" firstAttribute="top" secondItem="rcs-kW-4dp" secondAttribute="top" constant="5" id="R8e-Mg-ZJ6"/>
                             <constraint firstItem="bmb-hD-mne" firstAttribute="bottom" secondItem="2LF-id-qFf" secondAttribute="bottom" id="X4V-qX-MYx"/>
                             <constraint firstItem="gdo-CD-AGg" firstAttribute="leading" secondItem="bmb-hD-mne" secondAttribute="leading" constant="25" id="bV7-rX-FSn"/>
                             <constraint firstItem="2LF-id-qFf" firstAttribute="top" secondItem="rcs-kW-4dp" secondAttribute="top" id="cgE-Kf-lqw"/>
+                            <constraint firstItem="gdo-CD-AGg" firstAttribute="top" secondItem="dMe-jl-YWs" secondAttribute="bottom" constant="5" id="gjx-gS-MeU"/>
+                            <constraint firstItem="bmb-hD-mne" firstAttribute="trailing" secondItem="dMe-jl-YWs" secondAttribute="trailing" constant="5" id="mAY-G5-qpn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bmb-hD-mne"/>
                     </view>
