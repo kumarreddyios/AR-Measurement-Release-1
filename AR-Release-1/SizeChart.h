@@ -9,22 +9,31 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@class SizeParameters;
+@class SizeClass;
+
+enum Gender{
+    Male,
+    Female
+};
 
 @interface SizeChart : NSObject
 
-@property (nonatomic, strong) NSMutableDictionary<NSString*,NSMutableArray<SizeParameters*>*> *sizeChart;
+@property (nonatomic, strong) NSMutableDictionary<NSString*,NSMutableArray<SizeClass*>*> *sizeChart;
+@property enum Gender gender;
 
 -(instancetype)initWithSizeDictionary:(NSDictionary*)sizeDictionary;
+-(NSString*)getSizeFromCentimeters:(CGFloat)cms;
 
 @end
 
 
-@interface SizeParameters : NSObject
+@interface SizeClass : NSObject
 
-@property (nonatomic) CGFloat centimeters;
+@property (nonatomic) CGFloat startCms,endCms;
 @property (nonatomic, strong) NSString *ukSize;
 @property (nonatomic, strong) NSString *euroSize;
+@property (nonatomic, strong) NSString *usSize;
 
+-(instancetype)initWith:(NSDictionary*)dictionary;
 @end
 

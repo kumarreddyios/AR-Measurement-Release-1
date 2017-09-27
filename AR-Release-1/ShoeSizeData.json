@@ -1,0 +1,14 @@
+{
+    "men" :[
+                {"startCms":24.24,"endCms":25.14,"euro":40,"uk":6,"us":6.5},
+                {"startCms":25.14,"endCms":26.04,"euro":41,"uk":7,"us":7.5},
+                {"startCms":26.04,"endCms":26.94,"euro":42,"uk":8,"us":8.5},
+                {"startCms":26.94,"endCms":27.78,"euro":43,"uk":9,"us":9.5},
+                {"startCms":27.78,"endCms":28.64,"euro":44,"uk":10,"us":10.5},
+                {"startCms":28.64,"endCms":29.54,"euro":45,"uk":11,"us":11.5}
+     ],
+    "women" :[
+               {"startCms":21.00,"endCms":21.90,"euro":35},
+               {"startCms":21.90,"endCms":22.60,"euro":36}
+     ]
+}

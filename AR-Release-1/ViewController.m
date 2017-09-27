@@ -166,6 +166,12 @@
             self.tapEnabled = true;
             self.panEnabled = true;
             self.startPosition = worldLocation;
+            NSLog(@"start position x %f y %f z %f",worldLocation.x,worldLocation.y,worldLocation.z);
+            /*CGFloat raidians = atan(worldLocation.z);
+            CGFloat newZ = cos(raidians);
+            self.endPosition = SCNVector3Make(worldLocation.x, worldLocation.y, newZ);
+            NSLog(@"end position x %f y %f z %f \n\n",worldLocation.x,worldLocation.y,newZ);
+            NSLog(@"cos values %f",sin(raidians));*/
             [self createStartAndEndPonintsOnPlane];
         }
     }
@@ -174,6 +180,17 @@
 
 -(void)panningOnPlane:(UIPanGestureRecognizer*)panGesture {
     if (self.panEnabled) {
+        if (panGesture.state == UIGestureRecognizerStateEnded) {
+            CGFloat distance = ExtSCNVectorDistanceInCms(self.startPosition,self.endPosition);
+            [self.statsView setHidden:false];
+            NSString* formattedString = [NSString stringWithFormat:@"%.2f cms", distance];
+            [self.cmsLabel setText:formattedString];
+            //process UK calculation.
+            CGFloat cms = formattedString.floatValue;
+            NSString *bandSize = [self.sizeChart getSizeFromCentimeters:cms];
+            [self.ukSizeLabel setText:bandSize];
+            return;
+        }
         CGPoint point = [panGesture locationInView:self.sceneView];
         SCNVector3 worldLocation = [self worldLocationFromPoint:point];
         if (worldLocation.x == 0 && worldLocation.y == 0 && worldLocation.z == 0) {
@@ -201,7 +218,7 @@
     self.startNode = [self createAndAddToRootNode:self.startPosition withMaterial:[UIColor whiteColor]];
     /* increase the Z co ordiante by DefaultDifferenceBetweenStartAndEnd and draw end line*/
     self.endPosition = ExtSCNVector3Subtract(self.startPosition, SCNVector3Make(0, 0, DefaultDifferenceBetweenStartAndEnd));
-    self.endNode = [self createAndAddToRootNode:self.endPosition withMaterial:[UIColor whiteColor]];
+    self.endNode = [self createAndAddToRootNode:self.endPosition withMaterial:[UIColor greenColor]];
     [self buildAScale];
 }
 
@@ -236,9 +253,6 @@
 
 -(void)buildAScale{
     CGFloat distance = ExtSCNVectorDistanceInCms(self.startPosition,self.endPosition);
-    [self.statsView setHidden:false];
-    NSString* formattedString = [NSString stringWithFormat:@"%.1f cms", distance];
-    [self.cmsLabel setText:formattedString];
     if (self.cmScaleNode == nil) {
         SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - 0.15, self.startPosition.y, self.startPosition.z - (distance/200));
         SCNBox *box = [SCNBox boxWithWidth:ScaleWIdth height:ScaleHeight length:(distance/100) chamferRadius:0];
