@@ -17,6 +17,7 @@
 		2DAB9B941F723E3F00E0293F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DAB9B921F723E3F00E0293F /* LaunchScreen.storyboard */; };
 		2DAB9B971F723E3F00E0293F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB9B961F723E3F00E0293F /* main.m */; };
 		2DAB9B9F1F7245C000E0293F /* PlaneNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB9B9E1F7245C000E0293F /* PlaneNode.m */; };
+		2DB14EC31F7C24350008D86C /* ARIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB14EC21F7C24350008D86C /* ARIntroViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,8 @@
 		2DAB9B961F723E3F00E0293F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2DAB9B9D1F7245C000E0293F /* PlaneNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaneNode.h; sourceTree = "<group>"; };
 		2DAB9B9E1F7245C000E0293F /* PlaneNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaneNode.m; sourceTree = "<group>"; };
+		2DB14EC11F7C24350008D86C /* ARIntroViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARIntroViewController.h; sourceTree = "<group>"; };
+		2DB14EC21F7C24350008D86C /* ARIntroViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARIntroViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +86,8 @@
 				2D6A521F1F739AA600B0ACF1 /* ShoeSizeData.json */,
 				2D6A52211F73A50C00B0ACF1 /* SizeChart.h */,
 				2D6A52221F73A50C00B0ACF1 /* SizeChart.m */,
+				2DB14EC11F7C24350008D86C /* ARIntroViewController.h */,
+				2DB14EC21F7C24350008D86C /* ARIntroViewController.m */,
 			);
 			path = "AR-Release-1";
 			sourceTree = "<group>";
@@ -162,6 +167,7 @@
 			files = (
 				2DAB9B9F1F7245C000E0293F /* PlaneNode.m in Sources */,
 				2DAB9B8C1F723E3F00E0293F /* ARViewController.m in Sources */,
+				2DB14EC31F7C24350008D86C /* ARIntroViewController.m in Sources */,
 				2D6A52231F73A50C00B0ACF1 /* SizeChart.m in Sources */,
 				2DAB9B971F723E3F00E0293F /* main.m in Sources */,
 				2DAB9B871F723E3F00E0293F /* AppDelegate.m in Sources */,

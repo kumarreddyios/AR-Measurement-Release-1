@@ -99,6 +99,7 @@
     configuration.planeDetection = ARPlaneDetectionHorizontal;
     self.sceneView.debugOptions = ARSCNDebugOptionShowFeaturePoints;
     [self.sceneView.session runWithConfiguration:configuration options:(ARSessionRunOptionRemoveExistingAnchors)];
+    [self.sceneView.session runWithConfiguration:configuration options:(ARSessionRunOptionResetTracking)];
     [self deleteAllTheNodes];
     self.scaleNumber = 1;
 }
@@ -348,4 +349,10 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
     self.sizeChart = [[SizeChart alloc] initWithSizeDictionary:sizeDictionary];
 }
 
+#pragma mark - Get View Controller
+
++(ARViewController*)getARViewController{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"ARKit" bundle:[NSBundle mainBundle]];
+    return (ARViewController*)[storyboard instantiateViewControllerWithIdentifier:@"arViewController"];
+}
 @end

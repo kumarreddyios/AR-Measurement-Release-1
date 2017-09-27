@@ -12,4 +12,7 @@
 
 @interface ARViewController : UIViewController
 
+@property enum Gender gender;
++(ARViewController*)getARViewController;
+
 @end
