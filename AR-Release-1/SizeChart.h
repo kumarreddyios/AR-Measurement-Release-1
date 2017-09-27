@@ -12,8 +12,8 @@
 @class SizeClass;
 
 enum Gender{
-    Male,
-    Female
+    Men,
+    Women
 };
 
 @interface SizeChart : NSObject

@@ -45,10 +45,10 @@
 -(NSString*)getSizeFromCentimeters:(CGFloat)cms{
     NSMutableArray *dataArray;
     switch (self.gender) {
-        case Male:
+        case Men:
         dataArray = [self.sizeChart objectForKey:@"men"];
         break;
-        case Female:
+        case Women:
         dataArray = [self.sizeChart objectForKey:@"women"];
         default:
         break;
@@ -56,7 +56,15 @@
 
     for (SizeClass *sizeClass in dataArray) {
         if (cms >= sizeClass.startCms && cms < sizeClass.endCms) {
-            return [NSString stringWithFormat:@"UK-%@ | Euro-%@",sizeClass.ukSize,sizeClass.euroSize];
+            switch (self.gender) {
+                case Men:
+                return [NSString stringWithFormat:@"UK %@ | Euro %@ | US %@",sizeClass.ukSize,sizeClass.euroSize,sizeClass.usSize];
+                break;
+                case Women:
+                return [NSString stringWithFormat:@"Euro %@",sizeClass.euroSize];
+                default:
+                break;
+            }
         }
     }
     return @"";
@@ -69,7 +77,7 @@
 -(instancetype)initWith:(NSDictionary*)dictionary{
     self = [super init];
     if (self){
-        self.startCms = ((NSString*)dictionary[@"startCms1"]).floatValue;
+        self.startCms = ((NSString*)dictionary[@"startCms"]).floatValue;
         self.endCms = ((NSString*)dictionary[@"endCms"]).floatValue;
         self.ukSize = dictionary[@"uk"];
         self.usSize = dictionary[@"us"];

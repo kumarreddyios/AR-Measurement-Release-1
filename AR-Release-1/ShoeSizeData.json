@@ -1,14 +1,22 @@
 {
-    "men" :[
-                {"startCms":24.24,"endCms":25.14,"euro":40,"uk":6,"us":6.5},
-                {"startCms":25.14,"endCms":26.04,"euro":41,"uk":7,"us":7.5},
-                {"startCms":26.04,"endCms":26.94,"euro":42,"uk":8,"us":8.5},
-                {"startCms":26.94,"endCms":27.78,"euro":43,"uk":9,"us":9.5},
-                {"startCms":27.78,"endCms":28.64,"euro":44,"uk":10,"us":10.5},
-                {"startCms":28.64,"endCms":29.54,"euro":45,"uk":11,"us":11.5}
+    "men" :
+    [
+     {"startCms":24.24,"endCms":25.14,"euro":40,"uk":6,"us":6.5},
+     {"startCms":25.14,"endCms":26.04,"euro":41,"uk":7,"us":7.5},
+     {"startCms":26.04,"endCms":26.94,"euro":42,"uk":8,"us":8.5},
+     {"startCms":26.94,"endCms":27.78,"euro":43,"uk":8,"us":6.5},
+     {"startCms":27.78,"endCms":28.64,"euro":44,"uk":10,"us":10.5},
+     {"startCms":28.64,"endCms":29.54,"euro":45,"uk":11,"us":11.5}
      ],
-    "women" :[
-               {"startCms":21.00,"endCms":21.90,"euro":35},
-               {"startCms":21.90,"endCms":22.60,"euro":36}
+    "women" :
+    [
+     {"startCms":21.00,"endCms":21.90,"euro":35},
+     {"startCms":21.90,"endCms":22.70,"euro":36},
+     {"startCms":22.70,"endCms":23.50,"euro":37},
+     {"startCms":23.50,"endCms":24.30,"euro":38},
+     {"startCms":24.30,"endCms":25.10,"euro":39},
+     {"startCms":25.10,"endCms":25.90,"euro":40},
+     {"startCms":25.90,"endCms":26.70,"euro":41},
+     {"startCms":26.70,"endCms":27.30,"euro":42}
      ]
 }

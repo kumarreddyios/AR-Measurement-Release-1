@@ -11,8 +11,8 @@
 		2D6A52231F73A50C00B0ACF1 /* SizeChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6A52221F73A50C00B0ACF1 /* SizeChart.m */; };
 		2DAB9B871F723E3F00E0293F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB9B861F723E3F00E0293F /* AppDelegate.m */; };
 		2DAB9B891F723E3F00E0293F /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DAB9B881F723E3F00E0293F /* art.scnassets */; };
-		2DAB9B8C1F723E3F00E0293F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB9B8B1F723E3F00E0293F /* ViewController.m */; };
-		2DAB9B8F1F723E3F00E0293F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DAB9B8D1F723E3F00E0293F /* Main.storyboard */; };
+		2DAB9B8C1F723E3F00E0293F /* ARViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB9B8B1F723E3F00E0293F /* ARViewController.m */; };
+		2DAB9B8F1F723E3F00E0293F /* ARKit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DAB9B8D1F723E3F00E0293F /* ARKit.storyboard */; };
 		2DAB9B911F723E3F00E0293F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DAB9B901F723E3F00E0293F /* Assets.xcassets */; };
 		2DAB9B941F723E3F00E0293F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DAB9B921F723E3F00E0293F /* LaunchScreen.storyboard */; };
 		2DAB9B971F723E3F00E0293F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB9B961F723E3F00E0293F /* main.m */; };
@@ -27,9 +27,9 @@
 		2DAB9B851F723E3F00E0293F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2DAB9B861F723E3F00E0293F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		2DAB9B881F723E3F00E0293F /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
-		2DAB9B8A1F723E3F00E0293F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		2DAB9B8B1F723E3F00E0293F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		2DAB9B8E1F723E3F00E0293F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2DAB9B8A1F723E3F00E0293F /* ARViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARViewController.h; sourceTree = "<group>"; };
+		2DAB9B8B1F723E3F00E0293F /* ARViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARViewController.m; sourceTree = "<group>"; };
+		2DAB9B8E1F723E3F00E0293F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ARKit.storyboard; sourceTree = "<group>"; };
 		2DAB9B901F723E3F00E0293F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2DAB9B931F723E3F00E0293F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2DAB9B951F723E3F00E0293F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -71,9 +71,9 @@
 				2DAB9B851F723E3F00E0293F /* AppDelegate.h */,
 				2DAB9B861F723E3F00E0293F /* AppDelegate.m */,
 				2DAB9B881F723E3F00E0293F /* art.scnassets */,
-				2DAB9B8A1F723E3F00E0293F /* ViewController.h */,
-				2DAB9B8B1F723E3F00E0293F /* ViewController.m */,
-				2DAB9B8D1F723E3F00E0293F /* Main.storyboard */,
+				2DAB9B8A1F723E3F00E0293F /* ARViewController.h */,
+				2DAB9B8B1F723E3F00E0293F /* ARViewController.m */,
+				2DAB9B8D1F723E3F00E0293F /* ARKit.storyboard */,
 				2DAB9B901F723E3F00E0293F /* Assets.xcassets */,
 				2DAB9B921F723E3F00E0293F /* LaunchScreen.storyboard */,
 				2DAB9B951F723E3F00E0293F /* Info.plist */,
@@ -149,7 +149,7 @@
 				2DAB9B941F723E3F00E0293F /* LaunchScreen.storyboard in Resources */,
 				2D6A52201F739AA600B0ACF1 /* ShoeSizeData.json in Resources */,
 				2DAB9B911F723E3F00E0293F /* Assets.xcassets in Resources */,
-				2DAB9B8F1F723E3F00E0293F /* Main.storyboard in Resources */,
+				2DAB9B8F1F723E3F00E0293F /* ARKit.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,7 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DAB9B9F1F7245C000E0293F /* PlaneNode.m in Sources */,
-				2DAB9B8C1F723E3F00E0293F /* ViewController.m in Sources */,
+				2DAB9B8C1F723E3F00E0293F /* ARViewController.m in Sources */,
 				2D6A52231F73A50C00B0ACF1 /* SizeChart.m in Sources */,
 				2DAB9B971F723E3F00E0293F /* main.m in Sources */,
 				2DAB9B871F723E3F00E0293F /* AppDelegate.m in Sources */,
@@ -171,12 +171,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		2DAB9B8D1F723E3F00E0293F /* Main.storyboard */ = {
+		2DAB9B8D1F723E3F00E0293F /* ARKit.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				2DAB9B8E1F723E3F00E0293F /* Base */,
 			);
-			name = Main.storyboard;
+			name = ARKit.storyboard;
 			sourceTree = "<group>";
 		};
 		2DAB9B921F723E3F00E0293F /* LaunchScreen.storyboard */ = {

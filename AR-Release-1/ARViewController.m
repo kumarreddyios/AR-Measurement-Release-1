@@ -6,7 +6,7 @@
 //  Copyright © 2017 Myntra Design Pvt Ltd. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "ARViewController.h"
 #import "PlaneNode.h"
 #import "SizeChart.h"
 
@@ -27,7 +27,7 @@
 #define CMLineHeight 0.005
 #define CMLineLength 0.002
 
-@interface ViewController () <ARSCNViewDelegate>
+@interface ARViewController () <ARSCNViewDelegate>
 
 @property (nonatomic, strong) IBOutlet ARSCNView *sceneView;
 @property (weak, nonatomic) IBOutlet UIView *statsView;
@@ -47,7 +47,7 @@
 @property (nonatomic) CGFloat presentDistance;
 @end
 
-@implementation ViewController
+@implementation ARViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -169,6 +169,10 @@
             self.panEnabled = true;
             self.startPosition = worldLocation;
             NSLog(@"start position x %f y %f z %f",worldLocation.x,worldLocation.y,worldLocation.z);
+            CGFloat raidians = atan(worldLocation.z);
+            CGFloat newZ1 = sin(raidians);
+            CGFloat newZ2 = cos(raidians);
+            NSLog(@"sin %f cos %f",newZ1,newZ2);
             /*CGFloat raidians = atan(worldLocation.z);
             CGFloat newZ = cos(raidians);
             self.endPosition = SCNVector3Make(worldLocation.x, worldLocation.y, newZ);
@@ -206,12 +210,12 @@
             SCNVector3 newEndPosition = SCNVector3Make(self.endPosition.x, self.endPosition.y, worldLocation.z);
             CGFloat minDistanceFromStart = ExtSCNVectorDistanceInCms(self.startPosition, newEndPosition);
             if (minDistanceFromStart/100 < DefaultDifferenceBetweenStartAndEnd) {
-                NSLog(@"This is the minimum foot size, you can not have less than this.");
+//                NSLog(@"This is the minimum foot size, you can not have less than this.");
                 return;
             }
             CGFloat distanceMoved = ExtSCNVectorDistanceInCms(self.endPosition, newEndPosition);
             if (distanceMoved/100 > 0.1) {
-                NSLog(@"you are paaning too far from the end point");
+//                NSLog(@"you are paaning too far from the end point");
                 return;
             }
             self.endPosition = newEndPosition;
@@ -343,6 +347,5 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
     NSDictionary *sizeDictionary = [NSJSONSerialization JSONObjectWithData:sizeData options:kNilOptions error:&error];
     self.sizeChart = [[SizeChart alloc] initWithSizeDictionary:sizeDictionary];
 }
-
 
 @end

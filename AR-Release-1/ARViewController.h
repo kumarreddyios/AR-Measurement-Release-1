@@ -10,6 +10,6 @@
 #import <SceneKit/SceneKit.h>
 #import <ARKit/ARKit.h>
 
-@interface ViewController : UIViewController
+@interface ARViewController : UIViewController
 
 @end
