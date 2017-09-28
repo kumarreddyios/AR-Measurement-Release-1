@@ -9,6 +9,10 @@
 #import "ARViewController.h"
 #import "PlaneNode.h"
 #import "SizeChart.h"
+#import "SitDownInstructionView.h"
+#import "PlaneDetectionInstructionView.h"
+#import "BaseMarkerInstructionView.h"
+#import "CustomNavigationView.h"
 
 // start and end marker geometry
 #define MarkerWidth 0.10
@@ -28,8 +32,11 @@
 #define CMLineLength 0.002
 
 @interface ARViewController () <ARSCNViewDelegate>
-
 @property (nonatomic, strong) IBOutlet ARSCNView *sceneView;
+@property (strong, nonatomic) IBOutlet SitDownInstructionView *sitDownView;
+@property (strong, nonatomic) IBOutlet PlaneDetectionInstructionView *planeDetectionView;
+@property (strong, nonatomic) IBOutlet BaseMarkerInstructionView *baseMarketView;
+
 @property (weak, nonatomic) IBOutlet UIView *statsView;
 @property (weak, nonatomic) IBOutlet UILabel *cmsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ukSizeLabel;
@@ -45,6 +52,7 @@
 @property (nonatomic, strong) NSMutableDictionary<NSNumber*,NSMutableArray<SCNNode*>*> *scaleNodesDict; // it will be having the list of nodes ( line node & text node ) for each centimeter.
 @property (nonatomic) NSInteger scaleNumber; // it represents the scale number starting from 1.
 @property (nonatomic) CGFloat presentDistance;
+@property (nonatomic, strong) CustomNavigationView *customNavigationView;
 @end
 
 @implementation ARViewController
@@ -65,16 +73,49 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (ARWorldTrackingConfiguration.isSupported){
-        [self resetTracking];
-    }else{
-        // we should show an error that the iPhone does not support world tracking.
-    }
-    [self setupGestures];
+    //self.customNavigationView = [[CustomNavigationView alloc] init];
+//    self.customNavigationView.mainView = self.view;
+//    [self.customNavigationView initwithRootView:self.sitDownView];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (ARWorldTrackingConfiguration.isSupported){
+            [self resetTracking];
+        }else{
+            // we should show an error that the iPhone does not support world tracking.
+        }
+        [self setupGestures];
+    });
 
     //views decoration
     self.statsView.layer.cornerRadius = 8.0f;
     [self.statsView setHidden:true];
+
+
+
+    /*[self.view addSubview:self.testView];
+    [self.testView setTranslatesAutoresizingMaskIntoConstraints:false];
+    NSArray *hConstarints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[view]-|" options:nil metrics:nil views:@{@"view":self.testView}];
+    NSArray *vConstarints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[view]-|" options:nil metrics:nil views:@{@"view":self.testView}];
+
+    [self.view addConstraints:hConstarints];
+    [self.view addConstraints:vConstarints];
+    [self.view bringSubviewToFront:self.testView];*/
+
+
+    /*[self.sitDownView setTranslatesAutoresizingMaskIntoConstraints:false];
+    [self.view addSubview:self.sitDownView];
+    NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.sitDownView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0];
+    NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.sitDownView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
+    NSLayoutConstraint *leadConstraint = [NSLayoutConstraint constraintWithItem:self.sitDownView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0];
+    NSLayoutConstraint *trailConstraint = [NSLayoutConstraint constraintWithItem:self.sitDownView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0];
+    [self.view addConstraint:topConstraint];
+    [self.view addConstraint:bottomConstraint];
+    [self.view addConstraint:leadConstraint];
+    [self.view addConstraint:trailConstraint];
+    [self.view bringSubviewToFront:self.sitDownView];*/
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

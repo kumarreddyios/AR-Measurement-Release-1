@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		2D6A52201F739AA600B0ACF1 /* ShoeSizeData.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D6A521F1F739AA600B0ACF1 /* ShoeSizeData.json */; };
 		2D6A52231F73A50C00B0ACF1 /* SizeChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6A52221F73A50C00B0ACF1 /* SizeChart.m */; };
+		2D8ACD6B1F7C469800957A91 /* SitDownInstructionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8ACD6A1F7C469800957A91 /* SitDownInstructionView.m */; };
+		2D8ACD6E1F7C4C5200957A91 /* PlaneDetectionInstructionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8ACD6D1F7C4C5200957A91 /* PlaneDetectionInstructionView.m */; };
+		2D8ACD711F7C4C6F00957A91 /* BaseMarkerInstructionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8ACD701F7C4C6F00957A91 /* BaseMarkerInstructionView.m */; };
+		2D8ACD741F7C4C8100957A91 /* MeasureInstructionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8ACD731F7C4C8100957A91 /* MeasureInstructionView.m */; };
+		2D8ACD771F7C501400957A91 /* CustomNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8ACD761F7C501400957A91 /* CustomNavigationView.m */; };
+		2D8ACD7B1F7C531200957A91 /* BaseInstructionVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8ACD7A1F7C531200957A91 /* BaseInstructionVIew.m */; };
 		2DAB9B871F723E3F00E0293F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB9B861F723E3F00E0293F /* AppDelegate.m */; };
 		2DAB9B891F723E3F00E0293F /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DAB9B881F723E3F00E0293F /* art.scnassets */; };
 		2DAB9B8C1F723E3F00E0293F /* ARViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB9B8B1F723E3F00E0293F /* ARViewController.m */; };
@@ -24,6 +30,18 @@
 		2D6A521F1F739AA600B0ACF1 /* ShoeSizeData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ShoeSizeData.json; sourceTree = "<group>"; };
 		2D6A52211F73A50C00B0ACF1 /* SizeChart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SizeChart.h; sourceTree = "<group>"; };
 		2D6A52221F73A50C00B0ACF1 /* SizeChart.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SizeChart.m; sourceTree = "<group>"; };
+		2D8ACD691F7C469800957A91 /* SitDownInstructionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SitDownInstructionView.h; sourceTree = "<group>"; };
+		2D8ACD6A1F7C469800957A91 /* SitDownInstructionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SitDownInstructionView.m; sourceTree = "<group>"; };
+		2D8ACD6C1F7C4C5200957A91 /* PlaneDetectionInstructionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaneDetectionInstructionView.h; sourceTree = "<group>"; };
+		2D8ACD6D1F7C4C5200957A91 /* PlaneDetectionInstructionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaneDetectionInstructionView.m; sourceTree = "<group>"; };
+		2D8ACD6F1F7C4C6F00957A91 /* BaseMarkerInstructionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseMarkerInstructionView.h; sourceTree = "<group>"; };
+		2D8ACD701F7C4C6F00957A91 /* BaseMarkerInstructionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseMarkerInstructionView.m; sourceTree = "<group>"; };
+		2D8ACD721F7C4C8100957A91 /* MeasureInstructionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeasureInstructionView.h; sourceTree = "<group>"; };
+		2D8ACD731F7C4C8100957A91 /* MeasureInstructionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeasureInstructionView.m; sourceTree = "<group>"; };
+		2D8ACD751F7C501400957A91 /* CustomNavigationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomNavigationView.h; sourceTree = "<group>"; };
+		2D8ACD761F7C501400957A91 /* CustomNavigationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationView.m; sourceTree = "<group>"; };
+		2D8ACD791F7C531200957A91 /* BaseInstructionVIew.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseInstructionVIew.h; sourceTree = "<group>"; };
+		2D8ACD7A1F7C531200957A91 /* BaseInstructionVIew.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseInstructionVIew.m; sourceTree = "<group>"; };
 		2DAB9B821F723E3F00E0293F /* AR-Release-1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AR-Release-1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DAB9B851F723E3F00E0293F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2DAB9B861F723E3F00E0293F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -52,6 +70,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D8ACD681F7C466B00957A91 /* InstructionViews */ = {
+			isa = PBXGroup;
+			children = (
+				2D8ACD691F7C469800957A91 /* SitDownInstructionView.h */,
+				2D8ACD6A1F7C469800957A91 /* SitDownInstructionView.m */,
+				2D8ACD6C1F7C4C5200957A91 /* PlaneDetectionInstructionView.h */,
+				2D8ACD6D1F7C4C5200957A91 /* PlaneDetectionInstructionView.m */,
+				2D8ACD6F1F7C4C6F00957A91 /* BaseMarkerInstructionView.h */,
+				2D8ACD701F7C4C6F00957A91 /* BaseMarkerInstructionView.m */,
+				2D8ACD721F7C4C8100957A91 /* MeasureInstructionView.h */,
+				2D8ACD731F7C4C8100957A91 /* MeasureInstructionView.m */,
+				2D8ACD751F7C501400957A91 /* CustomNavigationView.h */,
+				2D8ACD761F7C501400957A91 /* CustomNavigationView.m */,
+				2D8ACD791F7C531200957A91 /* BaseInstructionVIew.h */,
+				2D8ACD7A1F7C531200957A91 /* BaseInstructionVIew.m */,
+			);
+			path = InstructionViews;
+			sourceTree = "<group>";
+		};
 		2DAB9B791F723E3F00E0293F = {
 			isa = PBXGroup;
 			children = (
@@ -71,6 +108,7 @@
 		2DAB9B841F723E3F00E0293F /* AR-Release-1 */ = {
 			isa = PBXGroup;
 			children = (
+				2D8ACD681F7C466B00957A91 /* InstructionViews */,
 				2DAB9B851F723E3F00E0293F /* AppDelegate.h */,
 				2DAB9B861F723E3F00E0293F /* AppDelegate.m */,
 				2DAB9B881F723E3F00E0293F /* art.scnassets */,
@@ -166,10 +204,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DAB9B9F1F7245C000E0293F /* PlaneNode.m in Sources */,
+				2D8ACD771F7C501400957A91 /* CustomNavigationView.m in Sources */,
 				2DAB9B8C1F723E3F00E0293F /* ARViewController.m in Sources */,
 				2DB14EC31F7C24350008D86C /* ARIntroViewController.m in Sources */,
+				2D8ACD6B1F7C469800957A91 /* SitDownInstructionView.m in Sources */,
+				2D8ACD741F7C4C8100957A91 /* MeasureInstructionView.m in Sources */,
 				2D6A52231F73A50C00B0ACF1 /* SizeChart.m in Sources */,
 				2DAB9B971F723E3F00E0293F /* main.m in Sources */,
+				2D8ACD7B1F7C531200957A91 /* BaseInstructionVIew.m in Sources */,
+				2D8ACD6E1F7C4C5200957A91 /* PlaneDetectionInstructionView.m in Sources */,
+				2D8ACD711F7C4C6F00957A91 /* BaseMarkerInstructionView.m in Sources */,
 				2DAB9B871F723E3F00E0293F /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
