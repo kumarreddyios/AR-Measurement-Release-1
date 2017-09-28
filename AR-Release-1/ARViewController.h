@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <SceneKit/SceneKit.h>
 #import <ARKit/ARKit.h>
+#import "BaseInstructionVIew.h"
 
-@interface ARViewController : UIViewController
+@interface ARViewController : UIViewController<InstructionDelegate>
 
 @property enum Gender gender;
 +(ARViewController*)getARViewController;

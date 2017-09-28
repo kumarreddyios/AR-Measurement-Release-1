@@ -9,10 +9,8 @@
 #import "ARViewController.h"
 #import "PlaneNode.h"
 #import "SizeChart.h"
-#import "SitDownInstructionView.h"
-#import "PlaneDetectionInstructionView.h"
-#import "BaseMarkerInstructionView.h"
-#import "CustomNavigationView.h"
+#import "InstructionsModel.h"
+#import "BaseInstructionVIew.h"
 
 // start and end marker geometry
 #define MarkerWidth 0.10
@@ -33,10 +31,7 @@
 
 @interface ARViewController () <ARSCNViewDelegate>
 @property (nonatomic, strong) IBOutlet ARSCNView *sceneView;
-@property (strong, nonatomic) IBOutlet SitDownInstructionView *sitDownView;
-@property (strong, nonatomic) IBOutlet PlaneDetectionInstructionView *planeDetectionView;
-@property (strong, nonatomic) IBOutlet BaseMarkerInstructionView *baseMarketView;
-
+@property (weak, nonatomic) IBOutlet BaseInstructionVIew *baseInstructionView;
 @property (weak, nonatomic) IBOutlet UIView *statsView;
 @property (weak, nonatomic) IBOutlet UILabel *cmsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ukSizeLabel;
@@ -52,7 +47,7 @@
 @property (nonatomic, strong) NSMutableDictionary<NSNumber*,NSMutableArray<SCNNode*>*> *scaleNodesDict; // it will be having the list of nodes ( line node & text node ) for each centimeter.
 @property (nonatomic) NSInteger scaleNumber; // it represents the scale number starting from 1.
 @property (nonatomic) CGFloat presentDistance;
-@property (nonatomic, strong) CustomNavigationView *customNavigationView;
+@property (nonatomic, strong) NSArray *instructionModels;
 @end
 
 @implementation ARViewController
@@ -73,9 +68,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    //self.customNavigationView = [[CustomNavigationView alloc] init];
-//    self.customNavigationView.mainView = self.view;
-//    [self.customNavigationView initwithRootView:self.sitDownView];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (ARWorldTrackingConfiguration.isSupported){
             [self resetTracking];
@@ -112,6 +104,13 @@
     [self.view addConstraint:leadConstraint];
     [self.view addConstraint:trailConstraint];
     [self.view bringSubviewToFront:self.sitDownView];*/
+
+    self.instructionModels = [InstructionsModel prepareInstructionsDataset];
+    [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:0]];
+    self.baseInstructionView.delegate = self;
+
+//    [self.baseInstructionView popInstructions];
+
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -167,6 +166,11 @@
         planeNode.position = SCNVector3Make(pAnchor.transform.columns[3].x, pAnchor.transform.columns[3].y, pAnchor.transform.columns[3].z);
         [self.sceneView.scene.rootNode addChildNode:planeNode];
         self.dectedAnchors[pAnchor.identifier.UUIDString]=planeNode;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.dectedAnchors.count == 1) {
+                [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:2]];
+            }
+        });
     }
 }
 
@@ -221,6 +225,7 @@
             NSLog(@"end position x %f y %f z %f \n\n",worldLocation.x,worldLocation.y,newZ);
             NSLog(@"cos values %f",sin(raidians));*/
             [self createStartAndEndPonintsOnPlane];
+            [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:3]];
         }
     }
 }
@@ -395,5 +400,27 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
 +(ARViewController*)getARViewController{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"ARKit" bundle:[NSBundle mainBundle]];
     return (ARViewController*)[storyboard instantiateViewControllerWithIdentifier:@"arViewController"];
+}
+
+#pragma mark - Instruction Delegate
+
+-(void)clickedOnInstruction:(InstructionsModel *)model{
+    switch (model.type) {
+        case ARIntroduction:
+            [self.baseInstructionView popInstructions];
+            [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:1]];
+            break;
+        case ARPlane:
+            [self.baseInstructionView popInstructionView];
+            break;
+        case ARMarker:
+            [self.baseInstructionView popInstructionView];
+            break;
+        case ARMeasure:
+            [self.baseInstructionView popInstructionView];
+            break;
+        default:
+            break;
+    }
 }
 @end
