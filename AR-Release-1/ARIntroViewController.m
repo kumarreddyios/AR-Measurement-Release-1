@@ -44,6 +44,8 @@
     self.maleView.tag = 1;
     self.femaleView.tag = 2;
     [self setupGestures];
+
+    [self.navigationController.navigationBar setHidden:YES];
 }
 
 - (void)didReceiveMemoryWarning {

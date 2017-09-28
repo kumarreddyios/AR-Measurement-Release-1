@@ -81,36 +81,9 @@
     self.statsView.layer.cornerRadius = 8.0f;
     [self.statsView setHidden:true];
 
-
-
-    /*[self.view addSubview:self.testView];
-    [self.testView setTranslatesAutoresizingMaskIntoConstraints:false];
-    NSArray *hConstarints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[view]-|" options:nil metrics:nil views:@{@"view":self.testView}];
-    NSArray *vConstarints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[view]-|" options:nil metrics:nil views:@{@"view":self.testView}];
-
-    [self.view addConstraints:hConstarints];
-    [self.view addConstraints:vConstarints];
-    [self.view bringSubviewToFront:self.testView];*/
-
-
-    /*[self.sitDownView setTranslatesAutoresizingMaskIntoConstraints:false];
-    [self.view addSubview:self.sitDownView];
-    NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.sitDownView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0];
-    NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.sitDownView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
-    NSLayoutConstraint *leadConstraint = [NSLayoutConstraint constraintWithItem:self.sitDownView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0];
-    NSLayoutConstraint *trailConstraint = [NSLayoutConstraint constraintWithItem:self.sitDownView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0];
-    [self.view addConstraint:topConstraint];
-    [self.view addConstraint:bottomConstraint];
-    [self.view addConstraint:leadConstraint];
-    [self.view addConstraint:trailConstraint];
-    [self.view bringSubviewToFront:self.sitDownView];*/
-
     self.instructionModels = [InstructionsModel prepareInstructionsDataset];
     [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:0]];
     self.baseInstructionView.delegate = self;
-
-//    [self.baseInstructionView popInstructions];
-
 }
 
 -(void)viewDidAppear:(BOOL)animated{
