@@ -13,7 +13,7 @@
 #import "BaseInstructionVIew.h"
 
 // start and end marker geometry
-#define MarkerWidth 0.10
+#define MarkerWidth 0.20
 #define MarketHeight 0.001
 #define MarkerLength 0.003
 
@@ -40,6 +40,9 @@
 @property (weak, nonatomic) IBOutlet UIView *gradientView;
 @property (weak, nonatomic) IBOutlet UILabel *bandSize;
 @property (weak, nonatomic) IBOutlet UILabel *bandSizeInCms;
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *actionButtonView;
+@property (weak, nonatomic) IBOutlet UIButton *actionButtonTitle;
+
 @property (nonatomic, strong) NSMutableDictionary<NSString*,PlaneNode*> *dectedAnchors;
 @property (nonatomic) SCNVector3 startPosition; //startpoint is fixed, it will change only if you reset the tracking or restart the process.
 @property (nonatomic) SCNVector3 endPosition; // this will change when a user moved the endline.
@@ -54,6 +57,7 @@
 @property (nonatomic) NSInteger scaleNumber; // it represents the scale number starting from 1.
 @property (nonatomic) CGFloat presentDistance;
 @property (nonatomic, strong) NSArray *instructionModels;
+@property (nonatomic, strong) InstructionsModel *currentlyShowingInstruction;
 @property (nonatomic, strong) SCNNode *testNode;
 @end
 
@@ -78,19 +82,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (ARWorldTrackingConfiguration.isSupported){
-            [self resetTracking];
-        }else{
-            // we should show an error that the iPhone does not support world tracking.
-        }
-        [self setupGestures];
-    });
-
     //views decoration
-
     [self.footSizeStatsView setHidden:true];
-
     UIColor *colorOne = [UIColor colorWithRed:48.0/255.0 green:35.0/255.0 blue:174.0/255.0 alpha:1.0];
     UIColor *colorTwo = [UIColor colorWithRed:147.0/255.0 green:61.0/255.0 blue:224.0/255.0 alpha:1.0];
     NSNumber *locationOne = [NSNumber numberWithFloat:0.3];
@@ -101,12 +94,17 @@
     gradientLayer.frame = CGRectMake(0, 0, bounds.size.width,bounds.size.height);
     gradientLayer.colors = @[(id)colorOne.CGColor, (id)colorTwo.CGColor];
     gradientLayer.locations = locationArray;
-    gradientLayer.cornerRadius = 8.0f;
+    gradientLayer.cornerRadius = 2.0f;
     [self.gradientView.layer insertSublayer:gradientLayer atIndex:0];
 
     self.instructionModels = [InstructionsModel prepareInstructionsDataset];
-    [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:0]];
     self.baseInstructionView.delegate = self;
+    [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:0]];
+    self.currentlyShowingInstruction = [self.instructionModels objectAtIndex:0];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self resetTracking:false];
+    });
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -127,12 +125,14 @@
 #pragma mark - Reset Tracking
 
 - (IBAction)clickedOnReset:(id)sender {
-    [self resetTracking];
+    [self resetTracking:true];
 }
 
-- (void)resetTracking {
+- (void)resetTracking:(BOOL)isPlaneDetection{
     ARWorldTrackingConfiguration *configuration = [ARWorldTrackingConfiguration new];
-    configuration.planeDetection = ARPlaneDetectionHorizontal;
+    if (isPlaneDetection) {
+        configuration.planeDetection = ARPlaneDetectionHorizontal;
+    }
     self.sceneView.debugOptions = ARSCNDebugOptionShowFeaturePoints;
     [self.sceneView.session runWithConfiguration:configuration options:(ARSessionRunOptionRemoveExistingAnchors)];
     [self.sceneView.session runWithConfiguration:configuration options:(ARSessionRunOptionResetTracking)];
@@ -164,8 +164,9 @@
         [self.sceneView.scene.rootNode addChildNode:planeNode];
         self.dectedAnchors[pAnchor.identifier.UUIDString]=planeNode;
         dispatch_async(dispatch_get_main_queue(), ^{
+            // it means that plane got detected.
             if (self.dectedAnchors.count == 1) {
-                [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:2]];
+                [self.actionButtonView setHidden:false];
             }
         });
     }
@@ -211,14 +212,12 @@
             self.tapEnabled = true;
             self.panEnabled = true;
             self.startPosition = worldLocation;
-            [self createStartAndEndPonintsOnPlane];
-            [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:3]];
+            self.startNode = [self createAndAddToRootNode:MarkerWidth andHeight:MarketHeight andLength:MarkerLength atPosition:self.startPosition withMaterial:[UIColor whiteColor] withRotation:SCNVector4Zero];
         }
     }
 }
 
--(void)createStartAndEndPonintsOnPlane {
-    self.startNode = [self createAndAddToRootNode:MarkerWidth andHeight:MarketHeight andLength:MarkerLength atPosition:self.startPosition withMaterial:[UIColor whiteColor] withRotation:SCNVector4Zero];
+-(void)createEndPonintsOnPlane {
     self.endPosition = ExtSCNVector3Subtract(self.startPosition, SCNVector3Make(0, 0, DefaultDifferenceBetweenStartAndEnd));
     self.endNode = [self createAndAddToRootNode:MarkerWidth andHeight:MarketHeight andLength:MarkerLength atPosition:self.endPosition withMaterial:[UIColor whiteColor] withRotation:SCNVector4Zero];
     // create a nob for the end line, as the given 3D marker model is not working due to scaling issues.
@@ -472,18 +471,48 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
         case ARIntroduction:
             [self.baseInstructionView popInstructions];
             [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:1]];
+            self.currentlyShowingInstruction = [self.instructionModels objectAtIndex:1];
             break;
         case ARPlane:
             [self.baseInstructionView popInstructionView];
+            if (ARWorldTrackingConfiguration.isSupported){
+                [self resetTracking:true];
+            }else{
+                // we should show an error that the iPhone does not support world tracking.
+            }
             break;
         case ARMarker:
             [self.baseInstructionView popInstructionView];
+            [self setupGestures];
+            [self.actionButtonView setHidden:false];
             break;
         case ARMeasure:
             [self.baseInstructionView popInstructionView];
+            [self createEndPonintsOnPlane];
+            [self.actionButtonView setHidden:false];
+            [self.actionButtonTitle setTitle:@"SAVE MY SIZE" forState:UIControlStateNormal];
             break;
         default:
             break;
     }
 }
+
+- (IBAction)clickedOnBackButton:(id)sender {
+    [self.navigationController popViewControllerAnimated:true];
+}
+- (IBAction)clickedOnNextButton:(id)sender {
+    [self.actionButtonView setHidden:true];
+    switch (self.currentlyShowingInstruction.type) {
+        case ARPlane:
+            [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:2]];
+            self.currentlyShowingInstruction = [self.instructionModels objectAtIndex:2];
+            break;
+        case ARMarker:
+            [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:3]];
+            self.currentlyShowingInstruction = [self.instructionModels objectAtIndex:3];
+        default:
+            break;
+    }
+}
+
 @end

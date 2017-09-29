@@ -30,12 +30,14 @@
 }
 
 -(void)presentInstructionView:(InstructionsModel *)model{
+    [self setHidden:false];
     self.presentShowingInstruction = model;
     self.alpha = 1.0;
     self.titleLable.text = model.mainTitle;
     self.subTitle.text = model.subTitle;
     self.imageView.image = [UIImage imageNamed:model.imageName];
-    self.actionButton.titleLabel.text = model.buttonTitle;
+    NSLog(@"Image width & height %f %f",self.imageView.image.size.width,self.imageView.image.size.height);
+    [self.actionButton setTitle:model.buttonTitle forState:UIControlStateNormal];
     self.titleTop.constant = -500;
     self.actionButtonBottom.constant = -500;
     [self layoutIfNeeded];
@@ -50,6 +52,7 @@
     [self popInstructions];
     [UIView animateWithDuration:0.3 animations:^{
         self.alpha = 0.0;
+        [self setHidden:true];
     }];
 }
 

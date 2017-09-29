@@ -16,7 +16,7 @@
     iModel1.mainTitle = @"Let's get started";
     iModel1.subTitle = @"Remove your footwear and sit comfortbly. Bend a little and point your phone towards the floor";
     iModel1.imageName = @"sittingIllustration";
-    iModel1.buttonTitle = @"Try Now";
+    iModel1.buttonTitle = @"NEXT";
     iModel1.type = ARIntroduction;
     [instructionsDS addObject:iModel1];
 
@@ -24,7 +24,7 @@
     iModel2.mainTitle = @"Surface Detection";
     iModel2.subTitle = @"Slowly move your phone up and down till dots appear on the screenand you see a highlited area on the floor.";
     iModel2.imageName = @"planeDetection";
-    iModel2.buttonTitle = @"Try Now";
+    iModel2.buttonTitle = @"TRY IT NOW";
     iModel2.type = ARPlane;
     [instructionsDS addObject:iModel2];
 
