@@ -31,6 +31,7 @@
 #define CMLineLength 0.002
 
 #define CMTextWidth 0.03
+#define NobRadius 0.01
 
 @interface ARViewController () <ARSCNViewDelegate>
 @property (nonatomic, strong) IBOutlet ARSCNView *sceneView;
@@ -44,6 +45,7 @@
 @property (nonatomic) SCNVector3 endPosition; // this will change when a user moved the endline.
 @property (nonatomic, strong) SCNNode *startNode;
 @property (nonatomic, strong) SCNNode *endNode;
+@property (nonatomic, strong) SCNNode *nobNode;
 @property (nonatomic) BOOL tapEnabled;
 @property (nonatomic) BOOL panEnabled;
 @property (nonatomic, strong) SizeChart *sizeChart;
@@ -209,16 +211,6 @@
             self.tapEnabled = true;
             self.panEnabled = true;
             self.startPosition = worldLocation;
-            /*NSLog(@"start position x %f y %f z %f",worldLocation.x,worldLocation.y,worldLocation.z);
-            CGFloat raidians = atan(worldLocation.z);
-            CGFloat newZ1 = sin(raidians);
-            CGFloat newZ2 = cos(raidians);
-            NSLog(@"sin %f cos %f",newZ1,newZ2);
-            CGFloat raidians = atan(worldLocation.z);
-            CGFloat newZ = cos(raidians);
-            self.endPosition = SCNVector3Make(worldLocation.x, worldLocation.y, newZ);
-            NSLog(@"end position x %f y %f z %f \n\n",worldLocation.x,worldLocation.y,newZ);
-            NSLog(@"cos values %f",sin(raidians));*/
             [self createStartAndEndPonintsOnPlane];
             [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:3]];
         }
@@ -229,9 +221,81 @@
     self.startNode = [self createAndAddToRootNode:MarkerWidth andHeight:MarketHeight andLength:MarkerLength atPosition:self.startPosition withMaterial:[UIColor whiteColor] withRotation:SCNVector4Zero];
     self.endPosition = ExtSCNVector3Subtract(self.startPosition, SCNVector3Make(0, 0, DefaultDifferenceBetweenStartAndEnd));
     self.endNode = [self createAndAddToRootNode:MarkerWidth andHeight:MarketHeight andLength:MarkerLength atPosition:self.endPosition withMaterial:[UIColor whiteColor] withRotation:SCNVector4Zero];
-//    [self.sceneView.scene.rootNode addChildNode:self.testNode];
-    self.testNode.position = self.endPosition;
+    // create a nob for the end line, as the given 3D marker model is not working due to scaling issues.
+
+    SCNSphere *nob = [SCNSphere sphereWithRadius:NobRadius];
+    nob.firstMaterial.diffuse.contents = [UIColor redColor];
+    self.nobNode = [SCNNode nodeWithGeometry:nob];
+    self.nobNode.position = SCNVector3Make(self.endPosition.x + (MarkerWidth/2)+(NobRadius/2), self.endPosition.y-0.01, self.endPosition.z);
+    [self.sceneView.scene.rootNode addChildNode:self.nobNode];
+
     [self drawCentimeterScale];
+
+    /* extracted the rotarion from camera, however we could not able to apply it to node and to get the line perpendicular to camera.*/
+
+    /*SCNNode *tempNode = [self createAndAddToRootNode:MarkerWidth andHeight:MarketHeight andLength:MarkerLength atPosition:SCNVector3Zero withMaterial:[UIColor redColor] withRotation:SCNVector4Zero];
+
+    SCNMatrix4 matrix = tempNode.worldTransform;
+    NSLog(@"%f %f %f %f",matrix.m11,matrix.m12,matrix.m13,matrix.m14);
+    NSLog(@"%f %f %f %f",matrix.m21,matrix.m22,matrix.m23,matrix.m24);
+    NSLog(@"%f %f %f %f",matrix.m31,matrix.m32,matrix.m33,matrix.m34);
+    NSLog(@"%f %f %f %f",matrix.m41,matrix.m42,matrix.m43,matrix.m44);
+
+    //SCNMatrix4 matrix = SCNM
+    matrix_float4x4 matrix1 = self.sceneView.session.currentFrame.camera.transform;
+    SCNMatrix4 matrix2 = SCNMatrix4FromMat4(matrix1);
+    matrix2.m41 = 0;
+    matrix2.m42 = 0;
+    matrix2.m43 = 0;
+
+    CGFloat sx = sqrt(pow(matrix2.m11, 2)+pow(matrix2.m21, 2)+pow(matrix2.m31, 2));
+    CGFloat sy = sqrt(pow(matrix2.m12, 2)+pow(matrix2.m22, 2)+pow(matrix2.m32, 2));
+    CGFloat sz = sqrt(pow(matrix2.m13, 2)+pow(matrix2.m23, 2)+pow(matrix2.m33, 2));
+
+    NSLog(@"Scaling %f %f %f",sx,sy,sz);
+
+    matrix2.m11 = matrix2.m11/sx;
+    matrix2.m21 = matrix2.m21/sx;
+    matrix2.m31 = matrix2.m31/sx;
+
+    matrix2.m12 = matrix2.m12/sy;
+    matrix2.m22 = matrix2.m22/sy;
+    matrix2.m32 = matrix2.m32/sy;
+
+    matrix2.m13 = matrix2.m13/sz;
+    matrix2.m23 = matrix2.m23/sz;
+    matrix2.m33 = matrix2.m33/sz;
+
+    NSLog(@"\n Rotation matrix \n");
+    NSLog(@"%f %f %f %f",matrix2.m11,matrix2.m12,matrix2.m13,matrix2.m14);
+    NSLog(@"%f %f %f %f",matrix2.m21,matrix2.m22,matrix2.m23,matrix2.m24);
+    NSLog(@"%f %f %f %f",matrix2.m31,matrix2.m32,matrix2.m33,matrix2.m34);
+    NSLog(@"%f %f %f %f",matrix2.m41,matrix2.m42,matrix2.m43,matrix2.m44);
+
+    //tempNode.worldTransform = SCNMatrix4Mult(tempNode.worldTransform, matrix2);
+    SCNMatrix4  finalMatrix = SCNMatrix4Mult(SCNMatrix4Identity,matrix2);
+    finalMatrix.m41 = self.endPosition.x;
+    finalMatrix.m42 = self.endPosition.y;
+    finalMatrix.m43 = self.endPosition.z;
+
+    tempNode.worldTransform = finalMatrix;
+
+    SCNNode *tempNode2 = [self createAndAddToRootNode:MarkerWidth andHeight:MarketHeight andLength:MarkerLength atPosition:self.endPosition withMaterial:[UIColor blueColor] withRotation:SCNVector4Zero];
+
+    tempNode2.geometry.firstMaterial.diffuse.contents=@[(id)[UIColor redColor],[UIColor yellowColor]];
+
+//    tempNode2.worldTransform = finalMatrix;
+//    tempNode2.eulerAngles = SCNVector3Make(tempNode.eulerAngles.x, 0, tempNode.eulerAngles.z);
+
+    tempNode2.rotation = self.sceneView.pointOfView.rotation;
+    tempNode2.eulerAngles = SCNVector3Make(0, tempNode2.eulerAngles.y, tempNode2.eulerAngles.z);
+
+    matrix = tempNode.worldTransform;
+    NSLog(@"\n Final Matrix \n");
+    NSLog(@"%f %f %f %f",matrix.m11,matrix.m12,matrix.m13,matrix.m14);
+    NSLog(@"%f %f %f %f",matrix.m21,matrix.m22,matrix.m23,matrix.m24);
+    NSLog(@"%f %f %f %f",matrix.m31,matrix.m32,matrix.m33,matrix.m34);
+    NSLog(@"%f %f %f %f",matrix.m41,matrix.m42,matrix.m43,matrix.m44);*/
 }
 
 -(void)panningOnPlane:(UIPanGestureRecognizer*)panGesture {
@@ -267,6 +331,7 @@
             }
             self.endPosition = newEndPosition;
             self.endNode.position = self.endPosition;
+            self.nobNode.position = SCNVector3Make(self.nobNode.position.x, self.nobNode.position.y, newEndPosition.z);
             [self drawCentimeterScale];
         }
     }
@@ -279,12 +344,7 @@
     CGFloat distanceInMeters = distance/100;
     if (self.cmScaleNode == nil) {
         SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - (MarkerWidth*0.5) - (ScaleWIdth*0.5), self.startPosition.y, self.startPosition.z - (distanceInMeters*0.5));
-        SCNBox *box = [SCNBox boxWithWidth:ScaleWIdth height:ScaleHeight length:distanceInMeters chamferRadius:0];
-        box.firstMaterial.diffuse.contents = [UIColor yellowColor];
-        SCNNode *node = [SCNNode nodeWithGeometry:box];
-        node.position = scaleStartPosition;
-        self.cmScaleNode = node;
-        [self.sceneView.scene.rootNode addChildNode:self.cmScaleNode];
+        self.cmScaleNode = [self createAndAddToRootNode:ScaleWIdth andHeight:ScaleHeight andLength:distanceInMeters atPosition:scaleStartPosition withMaterial:[UIColor yellowColor] withRotation:SCNVector4Zero];
         [self addLineAndTextNodesToCentimeterScale:0 andNewDistance:distanceInMeters];
     }else{
         SCNBox *box = (SCNBox*)self.cmScaleNode.geometry;
@@ -353,13 +413,11 @@
     box.firstMaterial.diffuse.contents = color;
     SCNNode *node = [SCNNode nodeWithGeometry:box];
     node.position = position ;
-
-    /* rotation */
-    /*if (!self.tempValue) {
+    /* rotation
      node.rotation = self.sceneView.pointOfView.rotation;
+     node.eulerAngles = SCNVector3Make(0, node.eulerAngles.y, node.eulerAngles.z);
      self.tempValue = !self.tempValue;
      }*/
-    //    node.rotation = self.sceneView.pointOfView.rotation;
     [self.sceneView.scene.rootNode addChildNode:node];
     return node;
 }
