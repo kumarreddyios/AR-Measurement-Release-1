@@ -99,10 +99,8 @@
     gradientLayer.frame = CGRectMake(0, 0, bounds.size.width,bounds.size.height);
     gradientLayer.colors = @[(id)colorOne.CGColor, (id)colorTwo.CGColor];
     gradientLayer.locations = locationArray;
+    gradientLayer.cornerRadius = 8.0f;
     [self.gradientView.layer insertSublayer:gradientLayer atIndex:0];
-
-    self.footSizeStatsView.layer.cornerRadius = 15.0f;
-    self.gradientView.layer.cornerRadius = 15.0f;
 
     self.instructionModels = [InstructionsModel prepareInstructionsDataset];
     [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:0]];
