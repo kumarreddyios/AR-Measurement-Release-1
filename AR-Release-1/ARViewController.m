@@ -20,14 +20,17 @@
 #define DefaultDifferenceBetweenStartAndEnd 0.20 /* 20 cms */
 
 // centimeter scale geometry
-#define ScaleWIdth 0.1
+#define ScaleWIdth 0.05
 #define ScaleHeight 0.01
 #define ScaleLength 0.05
 
 // geometry of centimeter lines on the centimeter scale
-#define CMLineWidth 0.05
-#define CMLineHeight 0.005
+#define CMLineWidth 0.02
+#define CMLineWidth2 0.01
+#define CMLineHeight 0.003
 #define CMLineLength 0.002
+
+#define CMTextWidth 0.03
 
 @interface ARViewController () <ARSCNViewDelegate>
 @property (nonatomic, strong) IBOutlet ARSCNView *sceneView;
@@ -187,12 +190,12 @@
             self.tapEnabled = true;
             self.panEnabled = true;
             self.startPosition = worldLocation;
-            NSLog(@"start position x %f y %f z %f",worldLocation.x,worldLocation.y,worldLocation.z);
+            /*NSLog(@"start position x %f y %f z %f",worldLocation.x,worldLocation.y,worldLocation.z);
             CGFloat raidians = atan(worldLocation.z);
             CGFloat newZ1 = sin(raidians);
             CGFloat newZ2 = cos(raidians);
             NSLog(@"sin %f cos %f",newZ1,newZ2);
-            /*CGFloat raidians = atan(worldLocation.z);
+            CGFloat raidians = atan(worldLocation.z);
             CGFloat newZ = cos(raidians);
             self.endPosition = SCNVector3Make(worldLocation.x, worldLocation.y, newZ);
             NSLog(@"end position x %f y %f z %f \n\n",worldLocation.x,worldLocation.y,newZ);
@@ -249,21 +252,22 @@
 
 -(void)drawCentimeterScale{
     CGFloat distance = ExtSCNVectorDistanceInCms(self.startPosition,self.endPosition);
+    CGFloat distanceInMeters = distance/100;
     if (self.cmScaleNode == nil) {
-        SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - 0.15, self.startPosition.y, self.startPosition.z - (distance/200));
-        SCNBox *box = [SCNBox boxWithWidth:ScaleWIdth height:ScaleHeight length:(distance/100) chamferRadius:0];
+        SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - (MarkerWidth*0.5) - (ScaleWIdth*0.5), self.startPosition.y, self.startPosition.z - (distanceInMeters*0.5));
+        SCNBox *box = [SCNBox boxWithWidth:ScaleWIdth height:ScaleHeight length:distanceInMeters chamferRadius:0];
         box.firstMaterial.diffuse.contents = [UIColor yellowColor];
         SCNNode *node = [SCNNode nodeWithGeometry:box];
         node.position = scaleStartPosition;
         self.cmScaleNode = node;
         [self.sceneView.scene.rootNode addChildNode:self.cmScaleNode];
-        [self addLineAndTextNodesToCentimeterScale:0 andNewDistance:(CGFloat)distance/100];
+        [self addLineAndTextNodesToCentimeterScale:0 andNewDistance:distanceInMeters];
     }else{
         SCNBox *box = (SCNBox*)self.cmScaleNode.geometry;
-        SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - 0.15, self.startPosition.y, self.startPosition.z - (distance/200));
-        box.length = (distance/100);
+        SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - (MarkerWidth*0.5) - (ScaleWIdth*0.5), self.startPosition.y, self.startPosition.z - (distanceInMeters*0.5));
+        box.length = distanceInMeters;
         self.cmScaleNode.position = scaleStartPosition;
-        [self addLineAndTextNodesToCentimeterScale:self.presentDistance andNewDistance:(CGFloat)distance/100];
+        [self addLineAndTextNodesToCentimeterScale:self.presentDistance andNewDistance:distanceInMeters];
     }
 }
 
@@ -272,15 +276,19 @@
     if (presentDistance < newDistance){
         while ((newDistance - 0.01) > presentDistance) {
             presentDistance = presentDistance + 0.01;
-            SCNVector3 scaleNodePosition = SCNVector3Make(self.startPosition.x-0.15-(CMLineWidth/2), self.startPosition.y+0.01, self.startPosition.z - presentDistance);
-            SCNNode *node = [self createAndAddToRootNode:CMLineWidth andHeight:CMLineHeight andLength:CMLineLength atPosition:scaleNodePosition withMaterial:[UIColor blueColor] withRotation:SCNVector4Zero];
-            self.scaleNodesDict[[NSNumber numberWithFloat:presentDistance]] = [[NSMutableArray alloc] initWithObjects:node, nil];
             if (self.scaleNumber % 5 == 0 || self.scaleNumber == 1) {
+                SCNVector3 scaleNodePosition = SCNVector3Make(self.startPosition.x- (MarkerWidth*0.5) -(CMLineWidth*0.5), self.startPosition.y+0.01, self.startPosition.z - presentDistance);
+                SCNNode *node = [self createAndAddToRootNode:CMLineWidth andHeight:CMLineHeight andLength:CMLineLength atPosition:scaleNodePosition withMaterial:[UIColor blackColor] withRotation:SCNVector4Zero];
+                self.scaleNodesDict[[NSNumber numberWithFloat:presentDistance]] = [[NSMutableArray alloc] initWithObjects:node, nil];
                 SCNNode *textNode = [self createTextNode:scaleNodePosition andText:[NSString stringWithFormat:@" %ld",self.scaleNumber]];
                 NSMutableArray *nodesArray = [self.scaleNodesDict objectForKey:[NSNumber numberWithFloat:presentDistance]];
                 if (nodesArray != NULL && nodesArray != nil && nodesArray.count > 0) {
                     [nodesArray addObject:textNode];
                 }
+            }else{
+                SCNVector3 scaleNodePosition = SCNVector3Make(self.startPosition.x- (MarkerWidth*0.5) -(CMLineWidth2*0.5), self.startPosition.y+0.01, self.startPosition.z - presentDistance);
+                SCNNode *node = [self createAndAddToRootNode:CMLineWidth2 andHeight:CMLineHeight andLength:CMLineLength atPosition:scaleNodePosition withMaterial:[UIColor blackColor] withRotation:SCNVector4Zero];
+                self.scaleNodesDict[[NSNumber numberWithFloat:presentDistance]] = [[NSMutableArray alloc] initWithObjects:node, nil];
             }
             self.scaleNumber = self.scaleNumber + 1;
             self.presentDistance = presentDistance;
@@ -306,7 +314,7 @@
     scnText.flatness = 1.0;
 
     SCNNode *textNode = [SCNNode nodeWithGeometry:scnText];
-    CGFloat xPosition = position.x + CMLineWidth/2 + (0.05/2);
+    CGFloat xPosition = position.x - (CMLineWidth*0.5);
     textNode.position = SCNVector3Make(xPosition, position.y, position.z+0.01);
     textNode.eulerAngles = SCNVector3Make(0, M_PI_2, M_PI_2);
     textNode.scale = SCNVector3Make(0.003, 0.003, 0.003);
