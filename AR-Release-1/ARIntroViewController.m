@@ -14,7 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIView *maleView;
 @property (weak, nonatomic) IBOutlet UIView *femaleView;
 @property (weak, nonatomic) IBOutlet UILabel *maleText;
-@property (weak, nonatomic) IBOutlet UILabel *femalText;
+@property (weak, nonatomic) IBOutlet UILabel *femaleText;
 @property enum Gender gender;
 
 @end
@@ -63,11 +63,15 @@
 -(void)handleTap:(UITapGestureRecognizer*)tapGesture{
     if (tapGesture.view.tag == 1) {
         [self.maleView setBackgroundColor:[UIColor whiteColor]];
-        [self.femaleView setBackgroundColor:[UIColor colorWithRed:235.0/255.0 green:235.0/255.0 blue:241.0/255.0 alpha:1.0]];
+        [self.maleText setTextColor:[UIColor whiteColor]];
+        [self.femaleView setBackgroundColor:[UIColor colorWithRed:164.0/255.0 green:140.0/255.0 blue:201.0/255.0 alpha:1.0]];
+       [ self.femaleText setTextColor:[UIColor colorWithRed:164.0/255.0 green:140.0/255.0 blue:201.0/255.0 alpha:1.0]];
         self.gender = Men;
     }else if(tapGesture.view.tag == 2){
         [self.femaleView setBackgroundColor:[UIColor whiteColor]];
-        [self.maleView setBackgroundColor:[UIColor colorWithRed:235.0/255.0 green:235.0/255.0 blue:241.0/255.0 alpha:1.0]];
+        [self.femaleText setTextColor:[UIColor whiteColor]];
+        [self.maleView setBackgroundColor:[UIColor colorWithRed:164.0/255.0 green:140.0/255.0 blue:201.0/255.0 alpha:1.0]];
+        [self.maleText setTextColor:[UIColor colorWithRed:164.0/255.0 green:140.0/255.0 blue:201.0/255.0 alpha:1.0]];
         self.gender = Women;
     }
 }

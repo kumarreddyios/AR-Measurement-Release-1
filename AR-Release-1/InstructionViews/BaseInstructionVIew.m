@@ -32,26 +32,31 @@
 -(void)presentInstructionView:(InstructionsModel *)model{
     [self setHidden:false];
     self.presentShowingInstruction = model;
-    self.alpha = 1.0;
     self.titleLable.text = model.mainTitle;
     self.subTitle.text = model.subTitle;
     self.imageView.image = [UIImage imageNamed:model.imageName];
-    NSLog(@"Image width & height %f %f",self.imageView.image.size.width,self.imageView.image.size.height);
+    self.imageWidth.constant = self.imageView.image.size.width;
+    self.imageHeight.constant = self.imageView.image.size.height;
     [self.actionButton setTitle:model.buttonTitle forState:UIControlStateNormal];
     self.titleTop.constant = -500;
     self.actionButtonBottom.constant = -500;
     [self layoutIfNeeded];
-    [UIView animateWithDuration:0.9 animations:^{
+    [UIView animateWithDuration:1.0 animations:^{
         self.titleTop.constant = 60;
         self.actionButtonBottom.constant = 40;
+        self.alpha = 1.0;
         [[self superview] layoutIfNeeded];
     }];
 }
 
 -(void)popInstructionView{
-    [self popInstructions];
-    [UIView animateWithDuration:0.3 animations:^{
+    [self layoutIfNeeded];
+    [UIView animateWithDuration:0.3 delay:0.0 options:(UIViewAnimationOptionCurveLinear) animations:^{
+        self.titleTop.constant = -500;
+        self.actionButtonBottom.constant = -500;
+        [self.superview layoutIfNeeded];
         self.alpha = 0.0;
+    } completion:^(BOOL finished) {
         [self setHidden:true];
     }];
 }
