@@ -35,9 +35,10 @@
 @interface ARViewController () <ARSCNViewDelegate>
 @property (nonatomic, strong) IBOutlet ARSCNView *sceneView;
 @property (weak, nonatomic) IBOutlet BaseInstructionVIew *baseInstructionView;
-@property (weak, nonatomic) IBOutlet UIView *statsView;
-@property (weak, nonatomic) IBOutlet UILabel *cmsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *ukSizeLabel;
+@property (weak, nonatomic) IBOutlet UIView *footSizeStatsView;
+@property (weak, nonatomic) IBOutlet UIView *gradientView;
+@property (weak, nonatomic) IBOutlet UILabel *bandSize;
+@property (weak, nonatomic) IBOutlet UILabel *bandSizeInCms;
 @property (nonatomic, strong) NSMutableDictionary<NSString*,PlaneNode*> *dectedAnchors;
 @property (nonatomic) SCNVector3 startPosition; //startpoint is fixed, it will change only if you reset the tracking or restart the process.
 @property (nonatomic) SCNVector3 endPosition; // this will change when a user moved the endline.
@@ -51,6 +52,7 @@
 @property (nonatomic) NSInteger scaleNumber; // it represents the scale number starting from 1.
 @property (nonatomic) CGFloat presentDistance;
 @property (nonatomic, strong) NSArray *instructionModels;
+@property (nonatomic, strong) SCNNode *testNode;
 @end
 
 @implementation ARViewController
@@ -67,6 +69,9 @@
     self.scaleNodesDict = [[NSMutableDictionary alloc] init];
     self.scaleNumber = 1;
     [UIApplication.sharedApplication setIdleTimerDisabled:true];
+    /*SCNScene *scene = [SCNScene sceneNamed:@"art.scnassets/marker.scn"];
+    self.testNode = [[scene rootNode] childNodeWithName:@"EndNode" recursively:YES];*/
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -81,8 +86,23 @@
     });
 
     //views decoration
-    self.statsView.layer.cornerRadius = 8.0f;
-    [self.statsView setHidden:true];
+
+    [self.footSizeStatsView setHidden:true];
+
+    UIColor *colorOne = [UIColor colorWithRed:48.0/255.0 green:35.0/255.0 blue:174.0/255.0 alpha:1.0];
+    UIColor *colorTwo = [UIColor colorWithRed:147.0/255.0 green:61.0/255.0 blue:224.0/255.0 alpha:1.0];
+    NSNumber *locationOne = [NSNumber numberWithFloat:0.3];
+    NSNumber *locationTwo = [NSNumber numberWithFloat:0.7];
+    NSArray *locationArray = @[locationOne, locationTwo];
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    CGRect bounds = self.footSizeStatsView.frame;
+    gradientLayer.frame = CGRectMake(0, 0, bounds.size.width,bounds.size.height);
+    gradientLayer.colors = @[(id)colorOne.CGColor, (id)colorTwo.CGColor];
+    gradientLayer.locations = locationArray;
+    [self.gradientView.layer insertSublayer:gradientLayer atIndex:0];
+
+    self.footSizeStatsView.layer.cornerRadius = 15.0f;
+    self.gradientView.layer.cornerRadius = 15.0f;
 
     self.instructionModels = [InstructionsModel prepareInstructionsDataset];
     [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:0]];
@@ -130,6 +150,7 @@
     self.cmScaleNode = nil;
     self.tapEnabled = false;
     self.panEnabled = false;
+    [self.footSizeStatsView setHidden:true];
 }
 
 #pragma mark - ARSCNViewDelegate
@@ -210,6 +231,8 @@
     self.startNode = [self createAndAddToRootNode:MarkerWidth andHeight:MarketHeight andLength:MarkerLength atPosition:self.startPosition withMaterial:[UIColor whiteColor] withRotation:SCNVector4Zero];
     self.endPosition = ExtSCNVector3Subtract(self.startPosition, SCNVector3Make(0, 0, DefaultDifferenceBetweenStartAndEnd));
     self.endNode = [self createAndAddToRootNode:MarkerWidth andHeight:MarketHeight andLength:MarkerLength atPosition:self.endPosition withMaterial:[UIColor whiteColor] withRotation:SCNVector4Zero];
+//    [self.sceneView.scene.rootNode addChildNode:self.testNode];
+    self.testNode.position = self.endPosition;
     [self drawCentimeterScale];
 }
 
@@ -217,13 +240,16 @@
     if (self.panEnabled) {
         if (panGesture.state == UIGestureRecognizerStateEnded) {
             CGFloat distance = ExtSCNVectorDistanceInCms(self.startPosition,self.endPosition);
-            [self.statsView setHidden:false];
-            NSString* formattedString = [NSString stringWithFormat:@"%.2f cms", distance];
-            [self.cmsLabel setText:formattedString];
+            [self.footSizeStatsView setHidden:false];
+            NSString* formattedString = [NSString stringWithFormat:@"%.2f", distance];
             CGFloat cms = formattedString.floatValue;
             NSString *bandSize = [self.sizeChart getSizeFromCentimeters:cms];
-            [self.ukSizeLabel setText:bandSize];
+            [self.bandSizeInCms setText:[NSString stringWithFormat:@" ( %@ cm )",formattedString]];
+            [self.bandSize setText:bandSize];
             return;
+        }
+        if (panGesture.state == UIGestureRecognizerStateBegan) {
+            [self.footSizeStatsView setHidden:true];
         }
         CGPoint point = [panGesture locationInView:self.sceneView];
         SCNVector3 worldLocation = [self worldLocationFromPoint:point];

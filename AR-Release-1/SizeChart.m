@@ -58,7 +58,7 @@
         if (cms >= sizeClass.startCms && cms < sizeClass.endCms) {
             switch (self.gender) {
                 case Men:
-                return [NSString stringWithFormat:@"UK %@ | Euro %@ | US %@",sizeClass.ukSize,sizeClass.euroSize,sizeClass.usSize];
+                return [NSString stringWithFormat:@"UK %@ US %@",sizeClass.ukSize,sizeClass.usSize];
                 break;
                 case Women:
                 return [NSString stringWithFormat:@"Euro %@",sizeClass.euroSize];
@@ -67,7 +67,7 @@
             }
         }
     }
-    return @"";
+    return @" . . . ";
 }
 
 @end
