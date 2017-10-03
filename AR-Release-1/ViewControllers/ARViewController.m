@@ -77,7 +77,6 @@
     [UIApplication.sharedApplication setIdleTimerDisabled:true];
     /*SCNScene *scene = [SCNScene sceneNamed:@"art.scnassets/marker.scn"];
     self.testNode = [[scene rootNode] childNodeWithName:@"EndNode" recursively:YES];*/
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -97,14 +96,30 @@
     gradientLayer.cornerRadius = 2.0f;
     [self.gradientView.layer insertSublayer:gradientLayer atIndex:0];
 
-    self.instructionModels = [InstructionsModel prepareInstructionsDataset];
-    self.baseInstructionView.delegate = self;
-    [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:0]];
-    self.currentlyShowingInstruction = [self.instructionModels objectAtIndex:0];
-
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self resetTracking:false];
-    });
+    //camera permission code
+    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (status == AVAuthorizationStatusAuthorized) {
+        [self startInstructions];
+    }else if(status == AVAuthorizationStatusNotDetermined){
+        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+            if (granted) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self startInstructions];
+                });
+            }else{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.navigationController popViewControllerAnimated:true];
+                });
+            }
+        }];
+    }else if(status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted){
+        UIAlertController *cameraPermissionAlert = [UIAlertController alertControllerWithTitle:@"Camera Access" message:@"Myntra AR requires use of camera for Augmented Reality. Go to settings - > Myntra AR -> Camera (ON) " preferredStyle:(UIAlertControllerStyleAlert)];
+         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+             [self.navigationController popViewControllerAnimated:true];
+         }];
+         [cameraPermissionAlert addAction:okAction];
+         [self presentViewController:cameraPermissionAlert animated:true completion:nil];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -123,6 +138,16 @@
 }
 
 #pragma mark - Reset Tracking
+
+-(void)startInstructions{
+    self.instructionModels = [InstructionsModel prepareInstructionsDataset];
+    self.baseInstructionView.delegate = self;
+    [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:0]];
+    self.currentlyShowingInstruction = [self.instructionModels objectAtIndex:0];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self resetTracking:false];
+    });
+}
 
 - (IBAction)clickedOnReset:(id)sender {
     [self resetTracking:true];
