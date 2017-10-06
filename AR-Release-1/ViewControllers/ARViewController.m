@@ -31,7 +31,7 @@
 #define CMLineLength 0.002
 
 #define CMTextWidth 0.03
-#define NobRadius 0.01
+#define NobRadius 0.008
 
 @interface ARViewController () <ARSCNViewDelegate>
 @property (nonatomic, strong) IBOutlet ARSCNView *sceneView;
@@ -247,10 +247,15 @@
     self.endNode = [self createAndAddToRootNode:MarkerWidth andHeight:MarketHeight andLength:MarkerLength atPosition:self.endPosition withMaterial:[UIColor whiteColor] withRotation:SCNVector4Zero];
     // create a nob for the end line, as the given 3D marker model is not working due to scaling issues.
 
-    SCNSphere *nob = [SCNSphere sphereWithRadius:NobRadius];
-    nob.firstMaterial.diffuse.contents = [UIColor redColor];
-    self.nobNode = [SCNNode nodeWithGeometry:nob];
-    self.nobNode.position = SCNVector3Make(self.endPosition.x + (MarkerWidth/2)+(NobRadius/2), self.endPosition.y-0.01, self.endPosition.z);
+    //SCNSphere *nob = [SCNSphere sphereWithRadius:NobRadius];
+    //nob.firstMaterial.diffuse.contents = [UIColor whiteColor];
+    SCNTorus *torus = [SCNTorus torusWithRingRadius:NobRadius pipeRadius:NobRadius/5];
+    torus.ringSegmentCount = 12;
+    torus.pipeSegmentCount = 6;
+    torus.firstMaterial.diffuse.contents = [UIColor whiteColor];
+    self.nobNode = [SCNNode nodeWithGeometry:torus];
+    
+    self.nobNode.position = SCNVector3Make(self.endPosition.x + (MarkerWidth/2), self.endPosition.y, self.endPosition.z - NobRadius);
     [self.sceneView.scene.rootNode addChildNode:self.nobNode];
 
     [self drawCentimeterScale];
@@ -355,7 +360,7 @@
             }
             self.endPosition = newEndPosition;
             self.endNode.position = self.endPosition;
-            self.nobNode.position = SCNVector3Make(self.nobNode.position.x, self.nobNode.position.y, newEndPosition.z);
+            self.nobNode.position = SCNVector3Make(self.nobNode.position.x, self.nobNode.position.y, newEndPosition.z - NobRadius);
             [self drawCentimeterScale];
         }
     }
