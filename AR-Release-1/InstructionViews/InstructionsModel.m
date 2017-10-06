@@ -24,7 +24,7 @@
     iModel2.mainTitle = @"Surface Detection";
     iModel2.subTitle = @"Slowly move your phone up and down till dots appear on the screen and you see a highlited area on the floor.";
     iModel2.imageName = @"planeDetection";
-    iModel2.buttonTitle = @"Try Now";
+    iModel2.buttonTitle = @"TRY NOW";
     iModel2.type = ARPlane;
     [instructionsDS addObject:iModel2];
 
@@ -32,7 +32,7 @@
     iModel3.mainTitle = @"Place a Base Marker";
     iModel3.subTitle = @"Tap on the screen to place a base marker towards the bottom of the detected plane.";
     iModel3.imageName = @"baseMarkerGraphics";
-    iModel3.buttonTitle = @"Try Now";
+    iModel3.buttonTitle = @"TRY NOW";
     iModel3.type = ARMarker;
     [instructionsDS addObject:iModel3];
 
@@ -40,7 +40,7 @@
     iModel4.mainTitle = @"Measure Your Foot";
     iModel4.subTitle = @"Place your foot so that the bottom marker touches the base of your foot. Now, slide the marker to the tip of your toe.";
     iModel4.imageName = @"scaleIllusion";
-    iModel4.buttonTitle = @"Try Now";
+    iModel4.buttonTitle = @"TRY NOW";
     iModel4.type = ARMeasure;
     [instructionsDS addObject:iModel4];
 

@@ -31,6 +31,6 @@
 
 -(void)presentInstructionView:(InstructionsModel*)model;
 -(void)popInstructionView;
--(void)popInstructions;
+-(void)popInstructionsAndPresent:(InstructionsModel*)model;
 
 @end

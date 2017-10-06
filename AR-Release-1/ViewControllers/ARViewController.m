@@ -441,7 +441,7 @@
     SCNBox *box = [SCNBox boxWithWidth:width height:height length:length chamferRadius:0];
     box.firstMaterial.diffuse.contents = color;
     SCNNode *node = [SCNNode nodeWithGeometry:box];
-    node.position = position ;
+    node.position = position;
     /* rotation
      node.rotation = self.sceneView.pointOfView.rotation;
      node.eulerAngles = SCNVector3Make(0, node.eulerAngles.y, node.eulerAngles.z);
@@ -499,8 +499,8 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
 -(void)clickedOnInstruction:(InstructionsModel *)model{
     switch (model.type) {
         case ARIntroduction:
-            [self.baseInstructionView popInstructions];
-            [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:1]];
+            [self.baseInstructionView popInstructionsAndPresent:[self.instructionModels objectAtIndex:1]];
+            //[self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:1]];
             self.currentlyShowingInstruction = [self.instructionModels objectAtIndex:1];
             break;
         case ARPlane:

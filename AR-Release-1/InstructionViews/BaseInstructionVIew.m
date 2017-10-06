@@ -47,6 +47,8 @@
         self.actionButtonBottom.constant = 40;
         self.alpha = 1.0;
         [[self superview] layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        [self.actionButton setTitle:model.buttonTitle forState:UIControlStateNormal];
     }];
 }
 
@@ -62,12 +64,14 @@
     }];
 }
 
--(void)popInstructions{
+-(void)popInstructionsAndPresent:(InstructionsModel*)model {
     [self layoutIfNeeded];
     [UIView animateWithDuration:0.3 animations:^{
         self.titleTop.constant = -500;
         self.actionButtonBottom.constant = -500;
         [self.superview layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        [self presentInstructionView:model];
     }];
 }
 
