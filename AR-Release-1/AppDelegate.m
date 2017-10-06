@@ -14,9 +14,22 @@
 
 @implementation AppDelegate
 
+#define KEY_IS_FIRST_LAUNCH @"key_is_first_launch"
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    //Check if first launch
+//    BOOL isFirstLaunch = [[NSUserDefaults standardUserDefaults] boolForKey:KEY_IS_FIRST_LAUNCH];
+//    if (isFirstLaunch) {
+//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:KEY_IS_FIRST_LAUNCH];
+//        //Load permission view controller.
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"ARKit" bundle:nil];
+//        UINavigationController *primaryNavController = [storyboard instantiateInitialViewController];
+//        UIViewController *permissionVC = [storyboard instantiateViewControllerWithIdentifier:@"ARPermissionViewController"];
+//        primaryNavController.viewControllers = [NSArray arrayWithObject:permissionVC];
+//    }
+    
     return YES;
 }
 

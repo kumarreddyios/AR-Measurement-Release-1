@@ -21,6 +21,10 @@
 		2DAB9B9F1F7245C000E0293F /* PlaneNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB9B9E1F7245C000E0293F /* PlaneNode.m */; };
 		2DB14EC31F7C24350008D86C /* ARIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB14EC21F7C24350008D86C /* ARIntroViewController.m */; };
 		2DC4ADD11F8338C10014F8FE /* LaunchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4ADD01F8338C10014F8FE /* LaunchView.m */; };
+		ED06CC441F879CC7004FD4EB /* Whitney-Book-Bas.otf in Resources */ = {isa = PBXBuildFile; fileRef = ED06CC3E1F879C5F004FD4EB /* Whitney-Book-Bas.otf */; };
+		ED06CC451F879CC7004FD4EB /* Whitney-BookItal-Bas.otf in Resources */ = {isa = PBXBuildFile; fileRef = ED06CC3F1F879C5F004FD4EB /* Whitney-BookItal-Bas.otf */; };
+		ED06CC461F879CC7004FD4EB /* Whitney-Semibold-Bas.otf in Resources */ = {isa = PBXBuildFile; fileRef = ED06CC401F879C5F004FD4EB /* Whitney-Semibold-Bas.otf */; };
+		ED06CC4C1F87A3EA004FD4EB /* ARPermissionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED06CC4B1F87A3EA004FD4EB /* ARPermissionViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +52,11 @@
 		2DB14EC21F7C24350008D86C /* ARIntroViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARIntroViewController.m; sourceTree = "<group>"; };
 		2DC4ADCF1F8338C10014F8FE /* LaunchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchView.h; sourceTree = "<group>"; };
 		2DC4ADD01F8338C10014F8FE /* LaunchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchView.m; sourceTree = "<group>"; };
+		ED06CC3E1F879C5F004FD4EB /* Whitney-Book-Bas.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Whitney-Book-Bas.otf"; sourceTree = "<group>"; };
+		ED06CC3F1F879C5F004FD4EB /* Whitney-BookItal-Bas.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Whitney-BookItal-Bas.otf"; sourceTree = "<group>"; };
+		ED06CC401F879C5F004FD4EB /* Whitney-Semibold-Bas.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Whitney-Semibold-Bas.otf"; sourceTree = "<group>"; };
+		ED06CC4A1F87A3EA004FD4EB /* ARPermissionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARPermissionViewController.h; sourceTree = "<group>"; };
+		ED06CC4B1F87A3EA004FD4EB /* ARPermissionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARPermissionViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +105,7 @@
 				2D8ACD681F7C466B00957A91 /* InstructionViews */,
 				2DAB9B851F723E3F00E0293F /* AppDelegate.h */,
 				2DAB9B861F723E3F00E0293F /* AppDelegate.m */,
+				ED06CC3D1F879C5F004FD4EB /* Fonts */,
 				2DAB9B881F723E3F00E0293F /* art.scnassets */,
 				2DAB9B901F723E3F00E0293F /* Assets.xcassets */,
 				2DAB9B951F723E3F00E0293F /* Info.plist */,
@@ -118,6 +128,8 @@
 				2DAB9B8B1F723E3F00E0293F /* ARViewController.m */,
 				2DB14EC11F7C24350008D86C /* ARIntroViewController.h */,
 				2DB14EC21F7C24350008D86C /* ARIntroViewController.m */,
+				ED06CC4A1F87A3EA004FD4EB /* ARPermissionViewController.h */,
+				ED06CC4B1F87A3EA004FD4EB /* ARPermissionViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -129,6 +141,16 @@
 				2DAB9B921F723E3F00E0293F /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		ED06CC3D1F879C5F004FD4EB /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				ED06CC3E1F879C5F004FD4EB /* Whitney-Book-Bas.otf */,
+				ED06CC3F1F879C5F004FD4EB /* Whitney-BookItal-Bas.otf */,
+				ED06CC401F879C5F004FD4EB /* Whitney-Semibold-Bas.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,6 +211,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED06CC441F879CC7004FD4EB /* Whitney-Book-Bas.otf in Resources */,
+				ED06CC451F879CC7004FD4EB /* Whitney-BookItal-Bas.otf in Resources */,
+				ED06CC461F879CC7004FD4EB /* Whitney-Semibold-Bas.otf in Resources */,
 				2DAB9B891F723E3F00E0293F /* art.scnassets in Resources */,
 				2DAB9B941F723E3F00E0293F /* LaunchScreen.storyboard in Resources */,
 				2D6A52201F739AA600B0ACF1 /* ShoeSizeData.json in Resources */,
@@ -206,6 +231,7 @@
 			files = (
 				2DAB9B9F1F7245C000E0293F /* PlaneNode.m in Sources */,
 				2DC4ADD11F8338C10014F8FE /* LaunchView.m in Sources */,
+				ED06CC4C1F87A3EA004FD4EB /* ARPermissionViewController.m in Sources */,
 				2DAB9B8C1F723E3F00E0293F /* ARViewController.m in Sources */,
 				2DB14EC31F7C24350008D86C /* ARIntroViewController.m in Sources */,
 				2D8ACD811F7D393D00957A91 /* InstructionsModel.m in Sources */,

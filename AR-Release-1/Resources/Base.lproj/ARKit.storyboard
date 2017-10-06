@@ -29,7 +29,7 @@
         <!--Intro View Controller-->
         <scene sceneID="KAp-A1-XQT">
             <objects>
-                <viewController id="zCa-Yu-bm6" customClass="ARIntroViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ARIntroViewController" id="zCa-Yu-bm6" customClass="ARIntroViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gaW-EL-IOJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -176,10 +176,10 @@
             </objects>
             <point key="canvasLocation" x="-311.19999999999999" y="205.54722638680661"/>
         </scene>
-        <!--View Controller-->
+        <!--Permission View Controller-->
         <scene sceneID="MM4-Zm-uJv">
             <objects>
-                <viewController id="DGP-ZZ-RTa" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ARPermissionViewController" id="DGP-ZZ-RTa" customClass="ARPermissionViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2yk-bQ-nMN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
