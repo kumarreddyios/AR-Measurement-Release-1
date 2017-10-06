@@ -27,6 +27,10 @@
     gradientLayer.colors = @[(id)colorOne.CGColor, (id)colorTwo.CGColor];
     gradientLayer.locations = locationArray;
     [self.gradientView.layer insertSublayer:gradientLayer atIndex:0];
+    //Set initial constants for animation.
+    self.titleTop.constant = -500;
+    self.actionButtonBottom.constant = -500;
+    [self layoutIfNeeded];
 }
 
 -(void)presentInstructionView:(InstructionsModel *)model{
@@ -38,9 +42,6 @@
     self.imageWidth.constant = self.imageView.image.size.width;
     self.imageHeight.constant = self.imageView.image.size.height;
     [self.actionButton setTitle:model.buttonTitle forState:UIControlStateNormal];
-    self.titleTop.constant = -500;
-    self.actionButtonBottom.constant = -500;
-    [self layoutIfNeeded];
     [UIView animateWithDuration:1.0 animations:^{
         self.titleTop.constant = 60;
         self.actionButtonBottom.constant = 40;
