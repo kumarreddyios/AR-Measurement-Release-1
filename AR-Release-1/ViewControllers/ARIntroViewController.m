@@ -15,6 +15,10 @@
 @property (weak, nonatomic) IBOutlet UIView *femaleView;
 @property (weak, nonatomic) IBOutlet UILabel *maleText;
 @property (weak, nonatomic) IBOutlet UILabel *femaleText;
+@property (weak, nonatomic) IBOutlet ARSCNView *sceneView;
+@property (weak, nonatomic) IBOutlet UIView *gradientView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *nextButtonBottomConstraint;
+
 @property enum Gender gender;
 
 @end
@@ -23,6 +27,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.sceneView.scene = [[SCNScene alloc] init];
+    ARWorldTrackingConfiguration *configuration = [ARWorldTrackingConfiguration new];
+    [self.sceneView.session runWithConfiguration:configuration options:(ARSessionRunOptionRemoveExistingAnchors)];
+    [self.sceneView.session runWithConfiguration:configuration options:(ARSessionRunOptionResetTracking)];
+    self.nextButtonBottomConstraint.constant = -100;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -37,7 +46,7 @@
     gradientLayer.frame = self.view.frame;
     gradientLayer.colors = @[(id)colorOne.CGColor, (id)colorTwo.CGColor];
     gradientLayer.locations = locationArray;
-    [self.view.layer insertSublayer:gradientLayer atIndex:0];
+    [self.gradientView.layer insertSublayer:gradientLayer atIndex:0];
 
     self.maleView.layer.cornerRadius = 42.5;
     self.femaleView.layer.cornerRadius = 42.5;
@@ -74,6 +83,14 @@
         [self.maleText setTextColor:[UIColor colorWithRed:164.0/255.0 green:140.0/255.0 blue:201.0/255.0 alpha:1.0]];
         self.gender = Women;
     }
+    [self animateNextButton];
+}
+
+-(void)animateNextButton {
+    [UIView animateWithDuration:0.3 animations:^{
+        self.nextButtonBottomConstraint.constant = 35;
+        [self.view layoutIfNeeded];
+    }];
 }
 
 - (IBAction)clickedOnNext:(id)sender {
