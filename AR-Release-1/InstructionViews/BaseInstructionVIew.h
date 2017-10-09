@@ -24,8 +24,8 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleTop;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *actionButtonBottom;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageWidth;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *subtitleTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageBottomConstant;
 
 @property (nonatomic, weak) id<InstructionDelegate> delegate;
 

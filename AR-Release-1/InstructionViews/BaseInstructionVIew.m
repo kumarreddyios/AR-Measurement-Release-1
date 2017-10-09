@@ -10,6 +10,7 @@
 
 @interface BaseInstructionVIew()
 @property (nonatomic,strong) InstructionsModel *presentShowingInstruction;
+
 @end
 
 @implementation BaseInstructionVIew
@@ -29,6 +30,8 @@
     [self.gradientView.layer insertSublayer:gradientLayer atIndex:0];
     //Set initial constants for animation.
     self.titleTop.constant = -500;
+    self.subtitleTop.constant = -500;
+    self.imageBottomConstant.constant = 500;
     self.actionButtonBottom.constant = -500;
     [self layoutIfNeeded];
 }
@@ -39,16 +42,24 @@
     self.titleLable.text = model.mainTitle;
     self.subTitle.text = model.subTitle;
     self.imageView.image = [UIImage imageNamed:model.imageName];
-    self.imageWidth.constant = self.imageView.image.size.width;
-    self.imageHeight.constant = self.imageView.image.size.height;
     [self.actionButton setTitle:model.buttonTitle forState:UIControlStateNormal];
-    [UIView animateWithDuration:1.0 animations:^{
-        self.titleTop.constant = 60;
-        self.actionButtonBottom.constant = 40;
+    self.titleTop.constant = -500;
+    self.subtitleTop.constant = -500;
+    self.imageBottomConstant.constant = 500;
+    self.actionButtonBottom.constant = -500;
+    [[self superview] layoutIfNeeded];
+    [UIView animateWithDuration:0.7 delay:0.0 options:(UIViewAnimationOptionCurveEaseIn) animations:^{
+        self.subtitleTop.constant = 160;
+        self.imageBottomConstant.constant = 80;
         self.alpha = 1.0;
         [[self superview] layoutIfNeeded];
-        [self layoutSubviews];
-        [self.actionButton layoutSubviews];
+    } completion:^(BOOL finished) {
+        [self.actionButton setTitle:model.buttonTitle forState:UIControlStateNormal];
+    }];
+    [UIView animateWithDuration:1.0 delay:0.1 options:(UIViewAnimationOptionCurveEaseIn) animations:^{
+        self.titleTop.constant = 105;
+        self.actionButtonBottom.constant = 40;
+        [[self superview] layoutIfNeeded];
     } completion:^(BOOL finished) {
         [self.actionButton setTitle:model.buttonTitle forState:UIControlStateNormal];
     }];
@@ -82,4 +93,6 @@
     [self.delegate clickedOnInstruction:self.presentShowingInstruction];
 }
 
+- (IBAction)actionButton:(UIButton *)sender {
+}
 @end
