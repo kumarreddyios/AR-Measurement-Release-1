@@ -48,8 +48,8 @@
     gradientLayer.locations = locationArray;
     [self.gradientView.layer insertSublayer:gradientLayer atIndex:0];
 
-    self.maleView.layer.cornerRadius = 42.5;
-    self.femaleView.layer.cornerRadius = 42.5;
+    self.maleView.layer.cornerRadius = self.maleView.bounds.size.height / 2;
+    self.femaleView.layer.cornerRadius = self.maleView.bounds.size.height / 2;
     self.maleView.tag = 1;
     self.femaleView.tag = 2;
     [self setupGestures];
@@ -73,13 +73,13 @@
     if (tapGesture.view.tag == 1) {
         [self.maleView setBackgroundColor:[UIColor whiteColor]];
         [self.maleText setTextColor:[UIColor whiteColor]];
-        [self.femaleView setBackgroundColor:[UIColor colorWithRed:164.0/255.0 green:140.0/255.0 blue:201.0/255.0 alpha:1.0]];
-       [ self.femaleText setTextColor:[UIColor colorWithRed:164.0/255.0 green:140.0/255.0 blue:201.0/255.0 alpha:1.0]];
+        [self.femaleView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.4]];
+        [self.femaleText setTextColor:[UIColor colorWithRed:164.0/255.0 green:140.0/255.0 blue:201.0/255.0 alpha:1.0]];
         self.gender = Men;
     }else if(tapGesture.view.tag == 2){
         [self.femaleView setBackgroundColor:[UIColor whiteColor]];
         [self.femaleText setTextColor:[UIColor whiteColor]];
-        [self.maleView setBackgroundColor:[UIColor colorWithRed:164.0/255.0 green:140.0/255.0 blue:201.0/255.0 alpha:1.0]];
+        [self.maleView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.4]];
         [self.maleText setTextColor:[UIColor colorWithRed:164.0/255.0 green:140.0/255.0 blue:201.0/255.0 alpha:1.0]];
         self.gender = Women;
     }

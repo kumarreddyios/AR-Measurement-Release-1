@@ -152,20 +152,22 @@
     [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:0]];
     self.currentlyShowingInstruction = [self.instructionModels objectAtIndex:0];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self resetTracking:false];
+        [self resetTracking:false showFeaturePoints:false];
     });
 }
 
 - (IBAction)clickedOnReset:(id)sender {
-    [self resetTracking:true];
+    [self resetTracking:true showFeaturePoints:true];
 }
 
-- (void)resetTracking:(BOOL)isPlaneDetection{
+- (void)resetTracking:(BOOL)isPlaneDetection showFeaturePoints:(BOOL)showFeaturePoints {
     ARWorldTrackingConfiguration *configuration = [ARWorldTrackingConfiguration new];
     if (isPlaneDetection) {
         configuration.planeDetection = ARPlaneDetectionHorizontal;
     }
-    self.sceneView.debugOptions = ARSCNDebugOptionShowFeaturePoints;
+    if (showFeaturePoints) {
+        self.sceneView.debugOptions = ARSCNDebugOptionShowFeaturePoints;
+    }
     [self.sceneView.session runWithConfiguration:configuration options:(ARSessionRunOptionRemoveExistingAnchors)];
     [self.sceneView.session runWithConfiguration:configuration options:(ARSessionRunOptionResetTracking)];
     [self deleteAllTheNodes];
@@ -225,10 +227,13 @@
 
 - (void)sessionWasInterrupted:(ARSession *)session {
     // Inform the user that the session has been interrupted, for example, by presenting an overlay
+    [self showToastViewWithErrorMessage:@"Session Interrupted"];
 }
 
 - (void)sessionInterruptionEnded:(ARSession *)session {
     // Reset tracking and/or remove existing anchors if consistent tracking is required
+    [self hideToastViewWithTime];
+    [self resetTracking:true showFeaturePoints:true];
 }
 
 # pragma mark - Toast View
@@ -560,7 +565,7 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
         case ARMeasure:
             [self.baseInstructionView popInstructionView];
             if (ARWorldTrackingConfiguration.isSupported){
-                [self resetTracking:true];
+                [self resetTracking:true showFeaturePoints:true];
                 [self showToastViewWithErrorMessage:@"Detecting Plane"];
             }else{
                 [self showToastViewWithErrorMessage:@"AR Tracking Not Supported!"];

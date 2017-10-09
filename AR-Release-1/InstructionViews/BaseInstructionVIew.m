@@ -47,6 +47,8 @@
         self.actionButtonBottom.constant = 40;
         self.alpha = 1.0;
         [[self superview] layoutIfNeeded];
+        [self layoutSubviews];
+        [self.actionButton layoutSubviews];
     } completion:^(BOOL finished) {
         [self.actionButton setTitle:model.buttonTitle forState:UIControlStateNormal];
     }];
