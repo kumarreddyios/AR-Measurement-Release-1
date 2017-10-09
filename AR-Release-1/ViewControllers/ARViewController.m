@@ -14,7 +14,7 @@
 
 // start and end marker geometry
 #define MarkerWidth 0.20
-#define MarketHeight 0.001
+#define MarkerHeight 0.001
 #define MarkerLength 0.003
 
 #define DefaultDifferenceBetweenStartAndEnd 0.20 /* 20 cms */
@@ -66,7 +66,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.sceneView.delegate = self;
-    //self.sceneView.showsStatistics = true;
+    self.sceneView.showsStatistics = true;
     self.sceneView.scene = [[SCNScene alloc] init];
     self.dectedAnchors = [[NSMutableDictionary alloc] init];
     self.tapEnabled = false;
@@ -192,6 +192,8 @@
             // it means that plane got detected.
             if (self.dectedAnchors.count == 1) {
                 [self.actionButtonView setHidden:false];
+                [self createInitialScaleOnPlaneAnchor:pAnchor];
+                [self createEndPointsInScale];
             }
         });
     }
@@ -228,23 +230,29 @@
 }
 
 -(void)tappedOnPlane:(UITapGestureRecognizer*)tapGesture {
-    if (!self.tapEnabled) {
-        CGPoint point = [tapGesture locationInView:self.sceneView];
-        SCNVector3 worldLocation = [self worldLocationFromPoint:point];
+    CGPoint point = [tapGesture locationInView:self.sceneView];
+    SCNVector3 worldLocation = [self worldLocationFromPoint:point];
+    //if (!self.tapEnabled) {
+        //CGPoint point = [tapGesture locationInView:self.sceneView];
         if (worldLocation.x == 0 && worldLocation.y == 0 && worldLocation.z == 0) {
             return;
         }else{
             self.tapEnabled = true;
             self.panEnabled = true;
             self.startPosition = worldLocation;
-            self.startNode = [self createAndAddToRootNode:MarkerWidth andHeight:MarketHeight andLength:MarkerLength atPosition:self.startPosition withMaterial:[UIColor whiteColor] withRotation:SCNVector4Zero];
+            self.startNode = [self createAndAddToRootNode:MarkerWidth andHeight:MarkerHeight andLength:MarkerLength atPosition:self.startPosition withMaterial:[UIColor whiteColor] withRotation:SCNVector4Zero];
         }
-    }
+    //}
 }
 
--(void)createEndPonintsOnPlane {
+-(void)createInitialScaleOnPlaneAnchor:(ARAnchor*)anchor {
+    self.startPosition = SCNVector3Make(anchor.transform.columns[3].x, anchor.transform.columns[3].y, anchor.transform.columns[3].z);
+    self.startNode = [self createAndAddToRootNode:MarkerWidth andHeight:MarkerHeight andLength:MarkerLength atPosition:self.startPosition withMaterial:[UIColor whiteColor] withRotation:SCNVector4Zero];
+}
+
+-(void)createEndPointsInScale {
     self.endPosition = ExtSCNVector3Subtract(self.startPosition, SCNVector3Make(0, 0, DefaultDifferenceBetweenStartAndEnd));
-    self.endNode = [self createAndAddToRootNode:MarkerWidth andHeight:MarketHeight andLength:MarkerLength atPosition:self.endPosition withMaterial:[UIColor whiteColor] withRotation:SCNVector4Zero];
+    self.endNode = [self createAndAddToRootNode:MarkerWidth andHeight:MarkerHeight andLength:MarkerLength atPosition:self.endPosition withMaterial:[UIColor whiteColor] withRotation:SCNVector4Zero];
     // create a nob for the end line, as the given 3D marker model is not working due to scaling issues.
 
     //SCNSphere *nob = [SCNSphere sphereWithRadius:NobRadius];
@@ -500,26 +508,27 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
     switch (model.type) {
         case ARIntroduction:
             [self.baseInstructionView popInstructionsAndPresent:[self.instructionModels objectAtIndex:1]];
-            //[self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:1]];
             self.currentlyShowingInstruction = [self.instructionModels objectAtIndex:1];
             break;
         case ARPlane:
-            [self.baseInstructionView popInstructionView];
-            if (ARWorldTrackingConfiguration.isSupported){
-                [self resetTracking:true];
-            }else{
-                // we should show an error that the iPhone does not support world tracking.
-            }
+            [self.baseInstructionView popInstructionsAndPresent:[self.instructionModels objectAtIndex:3]];
+            self.currentlyShowingInstruction = [self.instructionModels objectAtIndex:3];
             break;
         case ARMarker:
+            //NOTE: Case not used in new flow.
             [self.baseInstructionView popInstructionView];
             [self setupGestures];
             [self.actionButtonView setHidden:false];
             break;
         case ARMeasure:
             [self.baseInstructionView popInstructionView];
-            [self createEndPonintsOnPlane];
-            [self.actionButtonView setHidden:false];
+            if (ARWorldTrackingConfiguration.isSupported){
+                [self resetTracking:true];
+            }else{
+                //TODO: we should show an error that the iPhone does not support world tracking.
+            }
+            [self setupGestures];
+            [self.actionButtonView setHidden:true];
             [self.actionButtonTitle setTitle:@"SAVE MY SIZE" forState:UIControlStateNormal];
             break;
         default:

@@ -28,7 +28,6 @@
 
 -(void) createNode{
     SCNBox *childBox = [SCNBox boxWithWidth:_anchor.extent.x height:0 length:_anchor.extent.z chamferRadius:0];
-//    childBox.firstMaterial.diffuse.contents = [UIColor colorWithRed:0/255 green:128/255 blue:0/255 alpha:0.8];
     childBox.firstMaterial.diffuse.contents = [UIColor colorWithRed:0/255 green:0/255 blue:0/255 alpha:0.6];
     SCNNode *childNode = [SCNNode nodeWithGeometry:childBox];
     _childNode = childNode;
