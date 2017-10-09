@@ -41,7 +41,9 @@
     self.presentShowingInstruction = model;
     self.titleLable.text = model.mainTitle;
     self.subTitle.text = model.subTitle;
-    self.imageView.image = [UIImage imageNamed:model.imageName];
+    
+    
+    self.imageView.animatedImage = [[FLAnimatedImage alloc] initWithAnimatedGIFData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Plane-Detection" ofType:@"gif"]]];
     [self.actionButton setTitle:model.buttonTitle forState:UIControlStateNormal];
     self.titleTop.constant = -500;
     self.subtitleTop.constant = -500;

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "InstructionsModel.h"
+#import "FLAnimatedImage.h"
 
 @protocol InstructionDelegate
 
@@ -19,7 +20,7 @@
 @property (nonatomic, weak) IBOutlet UIView *gradientView;
 @property (nonatomic, weak) IBOutlet UILabel *titleLable;
 @property (nonatomic, weak) IBOutlet UILabel *subTitle;
-@property (nonatomic, weak) IBOutlet UIImageView *imageView;
+@property (nonatomic, weak) IBOutlet FLAnimatedImageView *imageView;
 @property (nonatomic, weak) IBOutlet UIButton *actionButton;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleTop;

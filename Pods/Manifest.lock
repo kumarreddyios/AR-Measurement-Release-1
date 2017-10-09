@@ -1,0 +1,12 @@
+PODS:
+  - FLAnimatedImage (1.0.12)
+
+DEPENDENCIES:
+  - FLAnimatedImage (~> 1.0)
+
+SPEC CHECKSUMS:
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
+
+PODFILE CHECKSUM: 0cf11eea86378d62abe159a46cfd703ff25bcf92
+
+COCOAPODS: 1.2.1

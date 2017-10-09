@@ -415,7 +415,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sittingIllustration" translatesAutoresizingMaskIntoConstraints="NO" id="kpr-qx-8Yl">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sittingIllustration" translatesAutoresizingMaskIntoConstraints="NO" id="kpr-qx-8Yl" customClass="FLAnimatedImageView">
                                                 <rect key="frame" x="17.5" y="313.5" width="340" height="200"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="340" id="d8r-4b-FIj"/>
@@ -482,7 +482,7 @@
                                     <outlet property="actionButtonBottom" destination="wxN-mw-1Je" id="DZG-yD-gxP"/>
                                     <outlet property="gradientView" destination="fZW-5J-Njf" id="Sl1-Id-PnF"/>
                                     <outlet property="imageBottomConstant" destination="YwC-k6-s7s" id="hJf-4Z-adX"/>
-                                    <outlet property="imageView" destination="kpr-qx-8Yl" id="lJN-Fi-tnK"/>
+                                    <outlet property="imageView" destination="kpr-qx-8Yl" id="Tcq-vE-DEP"/>
                                     <outlet property="subTitle" destination="v5m-Ai-JS2" id="6dR-zq-tkt"/>
                                     <outlet property="subtitleTop" destination="mrg-Od-hL1" id="q1j-Pf-dFA"/>
                                     <outlet property="titleLable" destination="JGe-6h-irO" id="ZlG-2P-Qz9"/>

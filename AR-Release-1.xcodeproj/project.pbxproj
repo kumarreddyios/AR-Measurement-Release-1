@@ -21,10 +21,12 @@
 		2DAB9B9F1F7245C000E0293F /* PlaneNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB9B9E1F7245C000E0293F /* PlaneNode.m */; };
 		2DB14EC31F7C24350008D86C /* ARIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB14EC21F7C24350008D86C /* ARIntroViewController.m */; };
 		2DC4ADD11F8338C10014F8FE /* LaunchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4ADD01F8338C10014F8FE /* LaunchView.m */; };
+		8E121F142447E10402718BF2 /* libPods-AR-Release-1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8D340CD0AAE4B65D2B460E /* libPods-AR-Release-1.a */; };
 		ED06CC441F879CC7004FD4EB /* Whitney-Book-Bas.otf in Resources */ = {isa = PBXBuildFile; fileRef = ED06CC3E1F879C5F004FD4EB /* Whitney-Book-Bas.otf */; };
 		ED06CC451F879CC7004FD4EB /* Whitney-BookItal-Bas.otf in Resources */ = {isa = PBXBuildFile; fileRef = ED06CC3F1F879C5F004FD4EB /* Whitney-BookItal-Bas.otf */; };
 		ED06CC461F879CC7004FD4EB /* Whitney-Semibold-Bas.otf in Resources */ = {isa = PBXBuildFile; fileRef = ED06CC401F879C5F004FD4EB /* Whitney-Semibold-Bas.otf */; };
 		ED06CC4C1F87A3EA004FD4EB /* ARPermissionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED06CC4B1F87A3EA004FD4EB /* ARPermissionViewController.m */; };
+		ED375FBD1F8BD4600064B328 /* Plane-Detection.gif in Resources */ = {isa = PBXBuildFile; fileRef = ED375FBC1F8BD4600064B328 /* Plane-Detection.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,11 +54,15 @@
 		2DB14EC21F7C24350008D86C /* ARIntroViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARIntroViewController.m; sourceTree = "<group>"; };
 		2DC4ADCF1F8338C10014F8FE /* LaunchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchView.h; sourceTree = "<group>"; };
 		2DC4ADD01F8338C10014F8FE /* LaunchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchView.m; sourceTree = "<group>"; };
+		5206E5405EBB89F2E19CCB96 /* Pods-AR-Release-1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AR-Release-1.release.xcconfig"; path = "Pods/Target Support Files/Pods-AR-Release-1/Pods-AR-Release-1.release.xcconfig"; sourceTree = "<group>"; };
+		5CB4C8ACA5BFF0CB18B6032E /* Pods-AR-Release-1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AR-Release-1.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AR-Release-1/Pods-AR-Release-1.debug.xcconfig"; sourceTree = "<group>"; };
+		EA8D340CD0AAE4B65D2B460E /* libPods-AR-Release-1.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AR-Release-1.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED06CC3E1F879C5F004FD4EB /* Whitney-Book-Bas.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Whitney-Book-Bas.otf"; sourceTree = "<group>"; };
 		ED06CC3F1F879C5F004FD4EB /* Whitney-BookItal-Bas.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Whitney-BookItal-Bas.otf"; sourceTree = "<group>"; };
 		ED06CC401F879C5F004FD4EB /* Whitney-Semibold-Bas.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Whitney-Semibold-Bas.otf"; sourceTree = "<group>"; };
 		ED06CC4A1F87A3EA004FD4EB /* ARPermissionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARPermissionViewController.h; sourceTree = "<group>"; };
 		ED06CC4B1F87A3EA004FD4EB /* ARPermissionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARPermissionViewController.m; sourceTree = "<group>"; };
+		ED375FBC1F8BD4600064B328 /* Plane-Detection.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Plane-Detection.gif"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,12 +70,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E121F142447E10402718BF2 /* libPods-AR-Release-1.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06860A16FEC57E3284D80B03 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5CB4C8ACA5BFF0CB18B6032E /* Pods-AR-Release-1.debug.xcconfig */,
+				5206E5405EBB89F2E19CCB96 /* Pods-AR-Release-1.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		2D8ACD681F7C466B00957A91 /* InstructionViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +102,8 @@
 			children = (
 				2DAB9B841F723E3F00E0293F /* AR-Release-1 */,
 				2DAB9B831F723E3F00E0293F /* Products */,
+				06860A16FEC57E3284D80B03 /* Pods */,
+				55BEA5DECD79903EB8803F17 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -108,6 +126,7 @@
 				ED06CC3D1F879C5F004FD4EB /* Fonts */,
 				2DAB9B881F723E3F00E0293F /* art.scnassets */,
 				2DAB9B901F723E3F00E0293F /* Assets.xcassets */,
+				ED375FBC1F8BD4600064B328 /* Plane-Detection.gif */,
 				2DAB9B951F723E3F00E0293F /* Info.plist */,
 				2DAB9B961F723E3F00E0293F /* main.m */,
 				2DAB9B9D1F7245C000E0293F /* PlaneNode.h */,
@@ -143,6 +162,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		55BEA5DECD79903EB8803F17 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EA8D340CD0AAE4B65D2B460E /* libPods-AR-Release-1.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		ED06CC3D1F879C5F004FD4EB /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,9 +187,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DAB9B9A1F723E3F00E0293F /* Build configuration list for PBXNativeTarget "AR-Release-1" */;
 			buildPhases = (
+				6756D2CD810DF6E7F8067958 /* [CP] Check Pods Manifest.lock */,
 				2DAB9B7E1F723E3F00E0293F /* Sources */,
 				2DAB9B7F1F723E3F00E0293F /* Frameworks */,
 				2DAB9B801F723E3F00E0293F /* Resources */,
+				06AF9ECFA6CF82C2CA8CE283 /* [CP] Embed Pods Frameworks */,
+				2943979E001D9E5B3CFD490E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -217,12 +247,61 @@
 				2DAB9B891F723E3F00E0293F /* art.scnassets in Resources */,
 				2DAB9B941F723E3F00E0293F /* LaunchScreen.storyboard in Resources */,
 				2D6A52201F739AA600B0ACF1 /* ShoeSizeData.json in Resources */,
+				ED375FBD1F8BD4600064B328 /* Plane-Detection.gif in Resources */,
 				2DAB9B911F723E3F00E0293F /* Assets.xcassets in Resources */,
 				2DAB9B8F1F723E3F00E0293F /* ARKit.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		06AF9ECFA6CF82C2CA8CE283 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AR-Release-1/Pods-AR-Release-1-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2943979E001D9E5B3CFD490E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AR-Release-1/Pods-AR-Release-1-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6756D2CD810DF6E7F8067958 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2DAB9B7E1F723E3F00E0293F /* Sources */ = {
@@ -372,6 +451,7 @@
 		};
 		2DAB9B9B1F723E3F00E0293F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5CB4C8ACA5BFF0CB18B6032E /* Pods-AR-Release-1.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -389,6 +469,7 @@
 		};
 		2DAB9B9C1F723E3F00E0293F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5206E5405EBB89F2E19CCB96 /* Pods-AR-Release-1.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
