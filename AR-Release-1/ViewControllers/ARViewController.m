@@ -42,6 +42,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *bandSizeInCms;
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *actionButtonView;
 @property (weak, nonatomic) IBOutlet UIButton *actionButtonTitle;
+@property (weak, nonatomic) IBOutlet UIButton *resetButton;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString*,PlaneNode*> *dectedAnchors;
 @property (nonatomic) SCNVector3 startPosition; //startpoint is fixed, it will change only if you reset the tracking or restart the process.
@@ -66,7 +68,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.sceneView.delegate = self;
-    self.sceneView.showsStatistics = true;
+    //self.sceneView.showsStatistics = true;
     self.sceneView.scene = [[SCNScene alloc] init];
     self.dectedAnchors = [[NSMutableDictionary alloc] init];
     self.tapEnabled = false;
@@ -74,6 +76,8 @@
     [self loadSizeChart];
     self.scaleNodesDict = [[NSMutableDictionary alloc] init];
     self.scaleNumber = 1;
+    [[self backButton] setHidden:true];
+    [[self resetButton] setHidden:true];
     [UIApplication.sharedApplication setIdleTimerDisabled:true];
     /*SCNScene *scene = [SCNScene sceneNamed:@"art.scnassets/marker.scn"];
     self.testNode = [[scene rootNode] childNodeWithName:@"EndNode" recursively:YES];*/
@@ -222,8 +226,8 @@
 }
 
 -(void)setupGestures{
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedOnPlane:)];
-    [self.sceneView addGestureRecognizer:tapGesture];
+    //UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedOnPlane:)];
+    //[self.sceneView addGestureRecognizer:tapGesture];
 
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panningOnPlane:)];
     [self.sceneView addGestureRecognizer:panGesture];
@@ -527,8 +531,11 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
             }else{
                 //TODO: we should show an error that the iPhone does not support world tracking.
             }
+            self.panEnabled = true;
             [self setupGestures];
             [self.actionButtonView setHidden:true];
+            [[self backButton] setHidden:false];
+            [[self resetButton] setHidden:false];
             [self.actionButtonTitle setTitle:@"SAVE MY SIZE" forState:UIControlStateNormal];
             break;
         default:
