@@ -44,6 +44,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *actionButtonTitle;
 @property (weak, nonatomic) IBOutlet UIButton *resetButton;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UIView *toastView;
+@property (weak, nonatomic) IBOutlet UILabel *toastLabel;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString*,PlaneNode*> *dectedAnchors;
 @property (nonatomic) SCNVector3 startPosition; //startpoint is fixed, it will change only if you reset the tracking or restart the process.
@@ -78,6 +80,7 @@
     self.scaleNumber = 1;
     [[self backButton] setHidden:true];
     [[self resetButton] setHidden:true];
+    [[self toastView] setHidden:true];
     [UIApplication.sharedApplication setIdleTimerDisabled:true];
     /*SCNScene *scene = [SCNScene sceneNamed:@"art.scnassets/marker.scn"];
     self.testNode = [[scene rootNode] childNodeWithName:@"EndNode" recursively:YES];*/
@@ -196,6 +199,7 @@
             // it means that plane got detected.
             if (self.dectedAnchors.count == 1) {
                 [self.actionButtonView setHidden:false];
+                [self hideToastViewWithTime];
                 [self createInitialScaleOnPlaneAnchor:pAnchor];
                 [self createEndPointsInScale];
             }
@@ -214,7 +218,9 @@
 }
 
 - (void)session:(ARSession *)session didFailWithError:(NSError *)error {
-    // Present an error message to the user
+    if (self.currentlyShowingInstruction.type == ARMeasure) {
+        [self showToastViewWithErrorMessage:error.localizedDescription];
+    }
 }
 
 - (void)sessionWasInterrupted:(ARSession *)session {
@@ -224,6 +230,33 @@
 - (void)sessionInterruptionEnded:(ARSession *)session {
     // Reset tracking and/or remove existing anchors if consistent tracking is required
 }
+
+# pragma mark - Toast View
+
+- (void)showToastViewWithErrorMessage:(NSString *)message {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[self toastLabel] setText:message];
+        _toastView.alpha = 0;
+        [[self toastView] setHidden:false];
+        [UIView animateWithDuration:0.3 animations:^{
+            _toastView.alpha = 1;
+        } completion: ^(BOOL finished) {
+            [[self toastView] setHidden:!finished];
+        }];
+    });
+}
+
+- (void)hideToastViewWithTime {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:0.3 animations:^{
+            _toastView.alpha = 0;
+        } completion: ^(BOOL finished) {
+            [[self toastView] setHidden:finished];
+        }];
+    });
+}
+
+#pragma mark - Gestures
 
 -(void)setupGestures{
     //UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedOnPlane:)];
@@ -528,8 +561,9 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
             [self.baseInstructionView popInstructionView];
             if (ARWorldTrackingConfiguration.isSupported){
                 [self resetTracking:true];
+                [self showToastViewWithErrorMessage:@"Detecting Plane"];
             }else{
-                //TODO: we should show an error that the iPhone does not support world tracking.
+                [self showToastViewWithErrorMessage:@"AR Tracking Not Supported!"];
             }
             self.panEnabled = true;
             [self setupGestures];

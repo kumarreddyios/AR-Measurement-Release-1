@@ -40,25 +40,25 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUN-V3-E91">
-                                <rect key="frame" x="147.5" y="124" width="81" height="38.5"/>
+                                <rect key="frame" x="147.5" y="124" width="81" height="37.5"/>
                                 <fontDescription key="fontDescription" name="Whitney-Semibold" family="Whitney" pointSize="32"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Myntra FootAR App" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWo-5g-e2a">
-                                <rect key="frame" x="65" y="186.5" width="245" height="22"/>
+                                <rect key="frame" x="57.5" y="185.5" width="260.5" height="21"/>
                                 <fontDescription key="fontDescription" name="Whitney-Book" family="Whitney" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please select your gender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fpF-EZ-m92">
-                                <rect key="frame" x="93" y="213.5" width="190" height="22"/>
+                                <rect key="frame" x="84" y="211.5" width="208.5" height="21"/>
                                 <fontDescription key="fontDescription" name="Whitney-Book" family="Whitney" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oaW-81-iln">
-                                <rect key="frame" x="78.5" y="280.5" width="85" height="85"/>
+                                <rect key="frame" x="78.5" y="277.5" width="85" height="85"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="men" translatesAutoresizingMaskIntoConstraints="NO" id="2LY-NP-7al">
                                         <rect key="frame" x="19.5" y="17.5" width="46" height="50"/>
@@ -77,13 +77,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MALE" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HrH-7y-1mU">
-                                <rect key="frame" x="101.5" y="370.5" width="39" height="19.5"/>
+                                <rect key="frame" x="101.5" y="367.5" width="39" height="19.5"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
                                 <color key="textColor" red="0.62745098039215685" green="0.5490196078431373" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w2F-mj-wvF">
-                                <rect key="frame" x="211.5" y="280.5" width="85" height="85"/>
+                                <rect key="frame" x="211.5" y="277.5" width="85" height="85"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="women" translatesAutoresizingMaskIntoConstraints="NO" id="Ad4-xT-E6V">
                                         <rect key="frame" x="19.5" y="17.5" width="46" height="50"/>
@@ -96,13 +96,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FEMALE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfv-BN-hmP">
-                                <rect key="frame" x="226.5" y="370.5" width="55.5" height="19.5"/>
+                                <rect key="frame" x="226.5" y="367.5" width="55.5" height="19.5"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
                                 <color key="textColor" red="0.62745098039215685" green="0.5490196078431373" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note: Please remove your footwear while measuring." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4a-Ms-U99">
-                                <rect key="frame" x="40" y="483.5" width="295" height="34"/>
+                                <rect key="frame" x="40" y="480.5" width="295" height="33"/>
                                 <fontDescription key="fontDescription" name="Whitney-Book" family="Whitney" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -237,7 +237,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4bi-oY-6Fx">
-                                <rect key="frame" x="50" y="351.5" width="275" height="96"/>
+                                <rect key="frame" x="50" y="351.5" width="275" height="93.5"/>
                                 <string key="text">Our augmented reality experience helps you to find the perfect foot wear fit. We require your permission in accessing the phone camera. Please proceed to allow camera access.</string>
                                 <fontDescription key="fontDescription" name="Whitney-Book" family="Whitney" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -253,7 +253,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find Your Foot Size" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s3g-of-nlv">
-                                <rect key="frame" x="50" y="156" width="275" height="22"/>
+                                <rect key="frame" x="50" y="156" width="275" height="21"/>
                                 <fontDescription key="fontDescription" name="Whitney-Book" family="Whitney" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -294,7 +294,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </arscnView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMe-jl-YWs" userLabel="Reset Button">
-                                <rect key="frame" x="305" y="20" width="50" height="27"/>
+                                <rect key="frame" x="305" y="20" width="50" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="4eA-Dk-yc1"/>
                                 </constraints>
@@ -356,6 +356,33 @@
                                     <action selector="clickedOnBackButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="LAU-1V-co2"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Fo-iX-B4u" userLabel="Toast View">
+                                <rect key="frame" x="134.5" y="321" width="107" height="24"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Pl-fl-nd2">
+                                        <rect key="frame" x="8" y="2" width="91" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="5uD-Hf-1Ll"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Whitney-Book" family="Whitney" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="4Pl-fl-nd2" firstAttribute="leading" secondItem="3Fo-iX-B4u" secondAttribute="leading" constant="8" id="Ffx-Nz-ezc"/>
+                                    <constraint firstItem="4Pl-fl-nd2" firstAttribute="top" secondItem="3Fo-iX-B4u" secondAttribute="top" constant="2" id="LZZ-IZ-NhH"/>
+                                    <constraint firstAttribute="bottom" secondItem="4Pl-fl-nd2" secondAttribute="bottom" constant="2" id="OQ1-Pf-vIO"/>
+                                    <constraint firstAttribute="trailing" secondItem="4Pl-fl-nd2" secondAttribute="trailing" constant="8" id="kTz-9h-fac"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9lX-0c-cvc" customClass="BaseInstructionVIew">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
@@ -363,13 +390,13 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGe-6h-irO">
-                                                <rect key="frame" x="35" y="60" width="305" height="38.5"/>
+                                                <rect key="frame" x="35" y="60" width="305" height="37.5"/>
                                                 <fontDescription key="fontDescription" name="Whitney-Semibold" family="Whitney" pointSize="32"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5m-Ai-JS2">
-                                                <rect key="frame" x="35" y="113.5" width="305" height="19.5"/>
+                                                <rect key="frame" x="35" y="112.5" width="305" height="19"/>
                                                 <fontDescription key="fontDescription" name="Whitney-Book" family="Whitney" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -490,9 +517,11 @@
                         <constraints>
                             <constraint firstItem="2LF-id-qFf" firstAttribute="leading" secondItem="bmb-hD-mne" secondAttribute="leading" id="2K2-GC-FmY"/>
                             <constraint firstItem="bmb-hD-mne" firstAttribute="bottom" secondItem="9lX-0c-cvc" secondAttribute="bottom" id="3Az-5i-CbZ"/>
+                            <constraint firstItem="3Fo-iX-B4u" firstAttribute="centerX" secondItem="rcs-kW-4dp" secondAttribute="centerX" id="3bg-uK-UfC"/>
                             <constraint firstItem="5DV-uW-GsG" firstAttribute="top" secondItem="rcs-kW-4dp" secondAttribute="top" id="94F-1i-c6E"/>
                             <constraint firstItem="5DV-uW-GsG" firstAttribute="centerX" secondItem="2LF-id-qFf" secondAttribute="centerX" id="CJ6-u3-uy1"/>
                             <constraint firstItem="bmb-hD-mne" firstAttribute="trailing" secondItem="2LF-id-qFf" secondAttribute="trailing" id="Fhr-mi-EDy"/>
+                            <constraint firstItem="3Fo-iX-B4u" firstAttribute="centerY" secondItem="rcs-kW-4dp" secondAttribute="centerY" id="OhL-Lp-08p"/>
                             <constraint firstItem="dMe-jl-YWs" firstAttribute="top" secondItem="rcs-kW-4dp" secondAttribute="top" constant="20" id="R8e-Mg-ZJ6"/>
                             <constraint firstItem="9lX-0c-cvc" firstAttribute="leading" secondItem="bmb-hD-mne" secondAttribute="leading" id="SDM-Tv-BNq"/>
                             <constraint firstItem="bmb-hD-mne" firstAttribute="bottom" secondItem="2LF-id-qFf" secondAttribute="bottom" id="X4V-qX-MYx"/>
@@ -520,6 +549,8 @@
                         <outlet property="gradientView" destination="LZV-1k-JIb" id="mVT-SU-b3e"/>
                         <outlet property="resetButton" destination="dMe-jl-YWs" id="bwZ-Hy-AXu"/>
                         <outlet property="sceneView" destination="2LF-id-qFf" id="uAe-Pu-rs7"/>
+                        <outlet property="toastLabel" destination="4Pl-fl-nd2" id="l7s-ji-bne"/>
+                        <outlet property="toastView" destination="3Fo-iX-B4u" id="ehi-tX-dQD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
