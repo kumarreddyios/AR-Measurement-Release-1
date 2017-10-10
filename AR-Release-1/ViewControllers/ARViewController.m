@@ -53,6 +53,7 @@
 @property (nonatomic, strong) SCNNode *startNode;
 @property (nonatomic, strong) SCNNode *endNode;
 @property (nonatomic, strong) SCNNode *nobNode;
+@property (nonatomic, strong) SCNNode *scaleBaseNode;
 @property (nonatomic) BOOL tapEnabled;
 @property (nonatomic) BOOL panEnabled;
 @property (nonatomic, strong) SizeChart *sizeChart;
@@ -288,7 +289,7 @@
 }
 
 -(void)createInitialScaleOnPlaneAnchor:(ARPlaneAnchor*)anchor {
-    self.startPosition = SCNVector3Make(anchor.transform.columns[3].x, anchor.transform.columns[3].y, anchor.transform.columns[3].z + anchor.extent.z/3);
+    self.startPosition = SCNVector3Make(anchor.transform.columns[3].x, anchor.transform.columns[3].y, anchor.transform.columns[3].z + (anchor.extent.z*2/3));
     self.startNode = [self createAndAddToRootNode:MarkerWidth andHeight:MarkerHeight andLength:MarkerLength atPosition:self.startPosition withMaterial:[UIColor whiteColor] withRotation:SCNVector4Zero];
 }
 
@@ -297,17 +298,15 @@
     self.endNode = [self createAndAddToRootNode:MarkerWidth andHeight:MarkerHeight andLength:MarkerLength atPosition:self.endPosition withMaterial:[UIColor whiteColor] withRotation:SCNVector4Zero];
     // create a nob for the end line, as the given 3D marker model is not working due to scaling issues.
 
-    //SCNSphere *nob = [SCNSphere sphereWithRadius:NobRadius];
-    //nob.firstMaterial.diffuse.contents = [UIColor whiteColor];
+    // Torus
     SCNTorus *torus = [SCNTorus torusWithRingRadius:NobRadius pipeRadius:NobRadius/5];
     torus.ringSegmentCount = 12;
     torus.pipeSegmentCount = 6;
     torus.firstMaterial.diffuse.contents = [UIColor whiteColor];
     self.nobNode = [SCNNode nodeWithGeometry:torus];
-    
     self.nobNode.position = SCNVector3Make(self.endPosition.x + (MarkerWidth/2), self.endPosition.y, self.endPosition.z - NobRadius);
     [self.sceneView.scene.rootNode addChildNode:self.nobNode];
-
+    
     [self drawCentimeterScale];
 
     /* extracted the rotarion from camera, however we could not able to apply it to node and to get the line perpendicular to camera.*/
@@ -425,6 +424,8 @@
         SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - (MarkerWidth*0.5) - (ScaleWIdth*0.5), self.startPosition.y, self.startPosition.z - (distanceInMeters*0.5));
         self.cmScaleNode = [self createAndAddToRootNode:ScaleWIdth andHeight:ScaleHeight andLength:distanceInMeters atPosition:scaleStartPosition withMaterial:[UIColor yellowColor] withRotation:SCNVector4Zero];
         [self addLineAndTextNodesToCentimeterScale:0 andNewDistance:distanceInMeters];
+        [self drawScaleBaseMarker];
+        [self drawBaseMarkerText];
     }else{
         SCNBox *box = (SCNBox*)self.cmScaleNode.geometry;
         SCNVector3 scaleStartPosition = SCNVector3Make(self.startPosition.x - (MarkerWidth*0.5) - (ScaleWIdth*0.5), self.startPosition.y, self.startPosition.z - (distanceInMeters*0.5));
@@ -432,6 +433,30 @@
         self.cmScaleNode.position = scaleStartPosition;
         [self addLineAndTextNodesToCentimeterScale:self.presentDistance andNewDistance:distanceInMeters];
     }
+}
+
+- (void)drawScaleBaseMarker {
+    UIBezierPath *rectPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, 0.07, ScaleHeight) cornerRadius:0.05];
+    SCNShape *rectShape = [SCNShape shapeWithPath:rectPath extrusionDepth:0.020];
+    rectShape.chamferMode = SCNChamferModeBack;
+    rectShape.chamferRadius = 0.05;
+    rectShape.firstMaterial.diffuse.contents = [UIColor colorWithRed:62.0/255.0 green:65.0/255.0 blue:82.0/255.0 alpha:1.0];
+    self.scaleBaseNode = [SCNNode nodeWithGeometry:rectShape];
+    self.scaleBaseNode.position = SCNVector3Make(self.startPosition.x - (MarkerWidth) + 0.04, self.startPosition.y, self.startPosition.z - 0.009);
+    [self.sceneView.scene.rootNode addChildNode:self.scaleBaseNode];
+}
+
+- (void)drawBaseMarkerText {
+    SCNText *scnText = [SCNText textWithString:@"Bottom Marker"  extrusionDepth:0.5];
+    scnText.firstMaterial.diffuse.contents = [UIColor whiteColor];
+    scnText.font = [UIFont systemFontOfSize:4.0];
+    scnText.flatness = 1.0;
+    
+    SCNNode *textNode = [SCNNode nodeWithGeometry:scnText];
+    textNode.position = SCNVector3Make(self.startPosition.x - (MarkerWidth/4), self.startPosition.y, self.startPosition.z + 0.02);
+    textNode.eulerAngles = SCNVector3Make(-M_PI_2, 0, 0);
+    textNode.scale = SCNVector3Make(0.003, 0.003, 0.003);
+    [self.sceneView.scene.rootNode addChildNode:textNode];
 }
 
 -(void)addLineAndTextNodesToCentimeterScale:(CGFloat)presentDistance andNewDistance:(CGFloat)newDistance{
@@ -490,6 +515,7 @@
 -(SCNNode*)createAndAddToRootNode:(CGFloat)width andHeight:(CGFloat)height andLength:(CGFloat)length atPosition:(SCNVector3)position withMaterial:(UIColor*)color withRotation:(SCNVector4)rotation{
     SCNBox *box = [SCNBox boxWithWidth:width height:height length:length chamferRadius:0];
     box.firstMaterial.diffuse.contents = color;
+    box.firstMaterial.transparency = 0.8;
     SCNNode *node = [SCNNode nodeWithGeometry:box];
     node.position = position;
     /* rotation
