@@ -48,7 +48,7 @@
     self.imageBottomConstant.constant = 500;
     self.actionButtonBottom.constant = -500;
     [[self superview] layoutIfNeeded];
-    [UIView animateWithDuration:0.7 delay:0.0 options:(UIViewAnimationOptionCurveEaseIn) animations:^{
+    [UIView animateWithDuration:0.8 delay:0.0 usingSpringWithDamping:0.9 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
         self.subtitleTop.constant = 160;
         self.imageBottomConstant.constant = 80;
         self.alpha = 1.0;
@@ -56,7 +56,7 @@
     } completion:^(BOOL finished) {
         [self.actionButton setTitle:model.buttonTitle forState:UIControlStateNormal];
     }];
-    [UIView animateWithDuration:1.0 delay:0.1 options:(UIViewAnimationOptionCurveEaseIn) animations:^{
+    [UIView animateWithDuration:0.8 delay:0.05 usingSpringWithDamping:0.9 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
         self.titleTop.constant = 105;
         self.actionButtonBottom.constant = 40;
         [[self superview] layoutIfNeeded];
