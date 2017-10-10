@@ -201,7 +201,7 @@
             // it means that plane got detected.
             if (self.dectedAnchors.count == 1) {
                 [self.actionButtonView setHidden:false];
-                [self hideToastViewWithTime];
+                [self hideToastViewWithTime:0];
                 [self createInitialScaleOnPlaneAnchor:pAnchor];
                 [self createEndPointsInScale];
             }
@@ -232,7 +232,7 @@
 
 - (void)sessionInterruptionEnded:(ARSession *)session {
     // Reset tracking and/or remove existing anchors if consistent tracking is required
-    [self hideToastViewWithTime];
+    [self hideToastViewWithTime:1];
     [self resetTracking:true showFeaturePoints:true];
 }
 
@@ -251,8 +251,8 @@
     });
 }
 
-- (void)hideToastViewWithTime {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+- (void)hideToastViewWithTime:(int)seconds {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [UIView animateWithDuration:0.3 animations:^{
             _toastView.alpha = 0;
         } completion: ^(BOOL finished) {
@@ -287,8 +287,8 @@
     //}
 }
 
--(void)createInitialScaleOnPlaneAnchor:(ARAnchor*)anchor {
-    self.startPosition = SCNVector3Make(anchor.transform.columns[3].x, anchor.transform.columns[3].y, anchor.transform.columns[3].z);
+-(void)createInitialScaleOnPlaneAnchor:(ARPlaneAnchor*)anchor {
+    self.startPosition = SCNVector3Make(anchor.transform.columns[3].x, anchor.transform.columns[3].y, anchor.transform.columns[3].z + anchor.extent.z/3);
     self.startNode = [self createAndAddToRootNode:MarkerWidth andHeight:MarkerHeight andLength:MarkerLength atPosition:self.startPosition withMaterial:[UIColor whiteColor] withRotation:SCNVector4Zero];
 }
 
