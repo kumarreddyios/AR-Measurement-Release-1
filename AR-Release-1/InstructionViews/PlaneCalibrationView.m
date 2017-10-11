@@ -56,6 +56,11 @@
     gradientLayer.colors = @[(id)colorOne.CGColor, (id)colorTwo.CGColor];
     gradientLayer.locations = locationArray;
     [self.backgroundView.layer insertSublayer:gradientLayer atIndex:0];
+    CAGradientLayer *gradientLayer2 = [CAGradientLayer layer];
+    gradientLayer2.frame = CGRectMake(0, 0, bounds.size.width,bounds.size.height);
+    gradientLayer2.colors = @[(id)colorOne.CGColor, (id)colorTwo.CGColor];
+    gradientLayer2.locations = locationArray;
+    [self.endMessageView.layer insertSublayer:gradientLayer2 atIndex:0];
 }
 
 -(void)beginPlaneCalibration {
@@ -89,6 +94,8 @@
             break;
         case TiltBottom:
             [self calibrateBottomPitch];
+            break;
+        case UpDownMessage:
             break;
     }
 }
@@ -180,8 +187,12 @@
             [_mapImageView setImage:[UIImage imageNamed:@"4"]];
             break;
         case TiltBottom:
-            _currentState = Inactive;
-            //TODO: move to up down state.
+            _currentState = UpDownMessage;
+            [self stopPlaneCalibration];
+            [self.backgroundView setHidden:true];
+            [self.endMessageView setHidden:false];
+            break;
+        case UpDownMessage:
             break;
     }
 }

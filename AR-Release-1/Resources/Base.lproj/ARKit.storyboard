@@ -38,19 +38,19 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUN-V3-E91">
-                                <rect key="frame" x="137.5" y="102" width="101" height="47"/>
+                                <rect key="frame" x="137.5" y="101" width="101" height="48"/>
                                 <fontDescription key="fontDescription" name="Whitney-Semibold" family="Whitney" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Myntra FootAR App" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWo-5g-e2a">
-                                <rect key="frame" x="43.5" y="173" width="289" height="24"/>
+                                <rect key="frame" x="51.5" y="173" width="272.5" height="24"/>
                                 <fontDescription key="fontDescription" name="Whitney-Book" family="Whitney" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please select your gender" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fpF-EZ-m92">
-                                <rect key="frame" x="72" y="202" width="231.5" height="24"/>
+                                <rect key="frame" x="83" y="202" width="211" height="24"/>
                                 <fontDescription key="fontDescription" name="Whitney-Book" family="Whitney" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -78,7 +78,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MALE" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HrH-7y-1mU">
-                                        <rect key="frame" x="31.5" y="108" width="38" height="19.5"/>
+                                        <rect key="frame" x="32" y="108" width="36.5" height="19.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="19.5" id="kMG-NC-YgQ"/>
                                         </constraints>
@@ -106,7 +106,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FEMALE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfv-BN-hmP">
-                                        <rect key="frame" x="173.5" y="108" width="54.5" height="19.5"/>
+                                        <rect key="frame" x="175.5" y="108" width="50.5" height="19.5"/>
                                         <fontDescription key="fontDescription" name="Whitney-Semibold" family="Whitney" pointSize="14"/>
                                         <color key="textColor" red="0.62745098039215685" green="0.5490196078431373" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -128,7 +128,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note: Please remove your footwear while measuring." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4a-Ms-U99">
-                                <rect key="frame" x="40" y="511.5" width="295" height="35"/>
+                                <rect key="frame" x="40" y="511.5" width="295" height="36"/>
                                 <fontDescription key="fontDescription" name="Whitney-Book" family="Whitney" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -253,7 +253,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4bi-oY-6Fx">
-                                <rect key="frame" x="50" y="351.5" width="275" height="93.5"/>
+                                <rect key="frame" x="50" y="351.5" width="275" height="96"/>
                                 <string key="text">Our augmented reality experience helps you to find the perfect foot wear fit. We require your permission in accessing the phone camera. Please proceed to allow camera access.</string>
                                 <fontDescription key="fontDescription" name="Whitney-Book" family="Whitney" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -310,7 +310,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </arscnView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMe-jl-YWs" userLabel="Reset Button">
-                                <rect key="frame" x="305" y="20" width="50" height="26"/>
+                                <rect key="frame" x="305" y="20" width="50" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="4eA-Dk-yc1"/>
                                 </constraints>
@@ -382,10 +382,10 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Fo-iX-B4u" userLabel="Toast View">
-                                <rect key="frame" x="134.5" y="321" width="107" height="24"/>
+                                <rect key="frame" x="137.5" y="321" width="100.5" height="24"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Pl-fl-nd2">
-                                        <rect key="frame" x="8" y="2" width="91" height="20"/>
+                                        <rect key="frame" x="8" y="2" width="84.5" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="5uD-Hf-1Ll"/>
                                         </constraints>
@@ -412,28 +412,28 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="74D-aj-zJg" userLabel="Container View">
-                                        <rect key="frame" x="20" y="111" width="335" height="445.5"/>
+                                        <rect key="frame" x="20" y="110" width="335" height="447.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plane Detection" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ci8-0v-t4n">
-                                                <rect key="frame" x="40" y="40" width="255" height="33"/>
+                                                <rect key="frame" x="40" y="40" width="255" height="34"/>
                                                 <fontDescription key="fontDescription" name="Whitney-Semibold" family="Whitney" pointSize="28"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tilt your phone and move the ball towards the ends, one-by-one." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZCe-VK-sie">
-                                                <rect key="frame" x="40" y="93" width="255" height="37.5"/>
+                                                <rect key="frame" x="40" y="94" width="255" height="38.5"/>
                                                 <fontDescription key="fontDescription" name="Whitney-Book" family="Whitney" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="xYX-Xs-9Eg">
-                                                <rect key="frame" x="40" y="150.5" width="255" height="255"/>
+                                                <rect key="frame" x="40" y="152.5" width="255" height="255"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="xYX-Xs-9Eg" secondAttribute="height" multiplier="1:1" id="XMg-Ia-Sib"/>
                                                 </constraints>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="oval" translatesAutoresizingMaskIntoConstraints="NO" id="NnQ-Sk-jTV">
-                                                <rect key="frame" x="142.5" y="252.5" width="51" height="51"/>
+                                                <rect key="frame" x="142.5" y="254.5" width="51" height="51"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -453,11 +453,42 @@
                                             <constraint firstItem="ZCe-VK-sie" firstAttribute="leading" secondItem="74D-aj-zJg" secondAttribute="leading" constant="40" id="lbn-ha-dk6"/>
                                             <constraint firstItem="NnQ-Sk-jTV" firstAttribute="centerY" secondItem="xYX-Xs-9Eg" secondAttribute="centerY" id="n0R-3v-kNW"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mbu-rP-fd6">
+                                        <rect key="frame" x="60" y="304.5" width="255" height="58.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please move your phone up and then go back to the same position" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RpC-PA-UrL">
+                                                <rect key="frame" x="8" y="10" width="239" height="38.5"/>
+                                                <fontDescription key="fontDescription" name="Whitney-Book" family="Whitney" pointSize="16"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="RpC-PA-UrL" firstAttribute="top" secondItem="Mbu-rP-fd6" secondAttribute="top" constant="10" id="UbH-yk-1Qg"/>
+                                            <constraint firstAttribute="bottom" secondItem="RpC-PA-UrL" secondAttribute="bottom" constant="10" id="pas-2E-zb7"/>
+                                            <constraint firstAttribute="trailing" secondItem="RpC-PA-UrL" secondAttribute="trailing" constant="8" id="uKc-o5-gS0"/>
+                                            <constraint firstItem="RpC-PA-UrL" firstAttribute="leading" secondItem="Mbu-rP-fd6" secondAttribute="leading" constant="8" id="yQK-Wv-I1c"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Mbu-rP-fd6" secondAttribute="trailing" constant="60" id="7El-R6-nyW"/>
                                     <constraint firstAttribute="trailing" secondItem="74D-aj-zJg" secondAttribute="trailing" constant="20" id="Gyz-p4-emG"/>
+                                    <constraint firstItem="Mbu-rP-fd6" firstAttribute="centerY" secondItem="MJx-YH-xT1" secondAttribute="centerY" id="NiE-DT-zBo"/>
+                                    <constraint firstItem="Mbu-rP-fd6" firstAttribute="leading" secondItem="MJx-YH-xT1" secondAttribute="leading" constant="60" id="dQY-rf-Phl"/>
                                     <constraint firstItem="74D-aj-zJg" firstAttribute="leading" secondItem="MJx-YH-xT1" secondAttribute="leading" constant="20" id="ij6-rs-Qpd"/>
                                     <constraint firstItem="74D-aj-zJg" firstAttribute="centerY" secondItem="MJx-YH-xT1" secondAttribute="centerY" id="y4T-QI-Ta4"/>
                                 </constraints>
@@ -465,6 +496,7 @@
                                     <outlet property="backgroundView" destination="74D-aj-zJg" id="NVd-44-iOA"/>
                                     <outlet property="centerXConstraint" destination="NeJ-lN-hf5" id="LNI-Ni-a7p"/>
                                     <outlet property="centerYConstrant" destination="n0R-3v-kNW" id="4SU-ze-fXs"/>
+                                    <outlet property="endMessageView" destination="Mbu-rP-fd6" id="7N7-YM-BiP"/>
                                     <outlet property="indicatorImageView" destination="NnQ-Sk-jTV" id="ucI-iw-H7o"/>
                                     <outlet property="mapImageView" destination="xYX-Xs-9Eg" id="XHR-R1-G8X"/>
                                     <outlet property="primaryInstructionLabel" destination="ci8-0v-t4n" id="buX-pB-eS6"/>
@@ -478,7 +510,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGe-6h-irO">
-                                                <rect key="frame" x="35" y="115" width="305" height="37.5"/>
+                                                <rect key="frame" x="35" y="115" width="305" height="38.5"/>
                                                 <fontDescription key="fontDescription" name="Whitney-Semibold" family="Whitney" pointSize="32"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>

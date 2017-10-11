@@ -13,7 +13,8 @@ enum PlaneCalibrationState {
     TiltLeft,
     TiltRight,
     TiltTop,
-    TiltBottom
+    TiltBottom,
+    UpDownMessage
 };
 
 @interface PlaneCalibrationView : UIView
@@ -23,6 +24,7 @@ enum PlaneCalibrationState {
 @property (nonatomic, weak) IBOutlet UILabel *primaryInstructionLabel;
 @property (nonatomic, weak) IBOutlet UILabel *secondaryInstructionLabel;
 @property (nonatomic, weak) IBOutlet UIView *backgroundView;
+@property (nonatomic, weak) IBOutlet UIView *endMessageView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *centerYConstrant;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *centerXConstraint;
