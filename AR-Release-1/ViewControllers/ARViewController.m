@@ -11,6 +11,7 @@
 #import "SizeChart.h"
 #import "InstructionsModel.h"
 #import "BaseInstructionVIew.h"
+#import "PlaneCalibrationView.h"
 
 // start and end marker geometry
 #define MarkerWidth 0.20
@@ -46,6 +47,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIView *toastView;
 @property (weak, nonatomic) IBOutlet UILabel *toastLabel;
+@property (weak, nonatomic) IBOutlet PlaneCalibrationView *planeCalibrationView;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString*,PlaneNode*> *dectedAnchors;
 @property (nonatomic) SCNVector3 startPosition; //startpoint is fixed, it will change only if you reset the tracking or restart the process.
