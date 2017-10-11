@@ -124,11 +124,10 @@
     double currentRollPercentage = currentRollExtent / ROLL_EXTENT;
     double requiredRollDistance = (_mapImageView.bounds.size.width / 2) - (_indicatorImageView.bounds.size.width / 2);
     double currentRollDistance = requiredRollDistance*currentRollPercentage;
-    NSLog(@"\n%fd\n%fd", currentRollPercentage, currentRollDistance);
     if(currentRollPercentage < 1.05) {
         [_centerXConstraint setConstant:-currentRollDistance];
         if(currentRollPercentage < -1) {
-            [_centerXConstraint setConstant:0];
+            //[_centerXConstraint setConstant:0];
             [self moveForwardState];
         }
     }
@@ -138,15 +137,27 @@
     if(_initialPitch == 0) {
         _initialPitch = _pitch;
     }
-    double currentPitchExtent = _initialPitch - _pitch;
-    double currentPitchPercentage = currentPitchExtent / PITCH_EXTENT;
-    double requiredPitchDistance = (_mapImageView.bounds.size.height / 2) - (_indicatorImageView.bounds.size.height / 2);
-    double currentPitchDistance = requiredPitchDistance*currentPitchPercentage;
-    NSLog(@"\n%fd\n%fd", currentPitchPercentage, currentPitchDistance);
-    if(currentPitchPercentage > -1.05 && currentPitchPercentage < 1.05) {
-        [_centerYConstrant setConstant:-currentPitchDistance];
-        if(currentPitchPercentage > 0.95) {
-            [self moveForwardState];
+    double currentRollExtent = _initialRoll - _roll;
+    double currentRollPercentage = currentRollExtent / ROLL_EXTENT;
+    double requiredRollDistance = (_mapImageView.bounds.size.width / 2) - (_indicatorImageView.bounds.size.width / 2);
+    double currentRollDistance = requiredRollDistance*currentRollPercentage;
+    //NSLog(@"\n%fd\n%fd", currentRollPercentage, currentRollDistance);
+    if(currentRollPercentage > -1.05) {
+        if(_centerXConstraint.constant != 0) {
+            [_centerXConstraint setConstant:-currentRollDistance];
+        }
+        if(currentRollPercentage > -0.05) {
+            [_centerXConstraint setConstant:0];
+            double currentPitchExtent = _initialPitch - _pitch;
+            double currentPitchPercentage = currentPitchExtent / PITCH_EXTENT;
+            double requiredPitchDistance = (_mapImageView.bounds.size.height / 2) - (_indicatorImageView.bounds.size.height / 2);
+            double currentPitchDistance = requiredPitchDistance*currentPitchPercentage;
+            if(currentPitchPercentage > -1.05 && currentPitchPercentage < 1.05) {
+                [_centerYConstrant setConstant:-currentPitchDistance];
+                if(currentPitchPercentage > 0.95) {
+                    [self moveForwardState];
+                }
+            }
         }
     }
 }
@@ -159,7 +170,6 @@
     double currentPitchPercentage = currentPitchExtent / PITCH_EXTENT;
     double requiredPitchDistance = (_mapImageView.bounds.size.height / 2) - (_indicatorImageView.bounds.size.height / 2);
     double currentPitchDistance = requiredPitchDistance*currentPitchPercentage;
-    NSLog(@"\n%fd\n%fd", currentPitchPercentage, currentPitchDistance);
     if(currentPitchPercentage > -1.05 && currentPitchPercentage < 1.05) {
         [_centerYConstrant setConstant:-currentPitchDistance];
         if(currentPitchPercentage < -0.95) {
