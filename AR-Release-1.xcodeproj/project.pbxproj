@@ -26,6 +26,7 @@
 		ED06CC461F879CC7004FD4EB /* Whitney-Semibold-Bas.otf in Resources */ = {isa = PBXBuildFile; fileRef = ED06CC401F879C5F004FD4EB /* Whitney-Semibold-Bas.otf */; };
 		ED06CC4C1F87A3EA004FD4EB /* ARPermissionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED06CC4B1F87A3EA004FD4EB /* ARPermissionViewController.m */; };
 		EDD976861F8E095900870C12 /* PlaneCalibrationView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD976851F8E095900870C12 /* PlaneCalibrationView.m */; };
+		EDD976891F8E141800870C12 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDD976881F8E140300870C12 /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		ED06CC4B1F87A3EA004FD4EB /* ARPermissionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARPermissionViewController.m; sourceTree = "<group>"; };
 		EDD976841F8E095900870C12 /* PlaneCalibrationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaneCalibrationView.h; sourceTree = "<group>"; };
 		EDD976851F8E095900870C12 /* PlaneCalibrationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaneCalibrationView.m; sourceTree = "<group>"; };
+		EDD976881F8E140300870C12 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDD976891F8E141800870C12 /* CoreMotion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +94,7 @@
 			children = (
 				2DAB9B841F723E3F00E0293F /* AR-Release-1 */,
 				2DAB9B831F723E3F00E0293F /* Products */,
+				EDD976871F8E140300870C12 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -156,6 +160,14 @@
 				ED06CC401F879C5F004FD4EB /* Whitney-Semibold-Bas.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		EDD976871F8E140300870C12 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EDD976881F8E140300870C12 /* CoreMotion.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

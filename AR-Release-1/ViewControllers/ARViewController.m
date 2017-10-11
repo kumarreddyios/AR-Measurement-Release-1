@@ -167,6 +167,8 @@
     ARWorldTrackingConfiguration *configuration = [ARWorldTrackingConfiguration new];
     if (isPlaneDetection) {
         configuration.planeDetection = ARPlaneDetectionHorizontal;
+        //[self.planeCalibrationView setHidden:false];
+        //[self.planeCalibrationView beginPlaneCalibration];
     }
     if (showFeaturePoints) {
         self.sceneView.debugOptions = ARSCNDebugOptionShowFeaturePoints;
@@ -609,7 +611,8 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
             [self.baseInstructionView popInstructionView];
             if (ARWorldTrackingConfiguration.isSupported){
                 [self resetTracking:true showFeaturePoints:true];
-                [self showToastViewWithErrorMessage:@"Detecting Plane..."];
+                //[self.planeCalibrationView setHidden:false];
+                //[self.planeCalibrationView beginPlaneCalibration];
             }else{
                 [self showToastViewWithErrorMessage:@"AR Tracking Not Supported!"];
             }
@@ -626,6 +629,7 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
 }
 
 - (IBAction)clickedOnBackButton:(id)sender {
+    [self.planeCalibrationView setHidden:true];
     [self.navigationController popViewControllerAnimated:true];
 }
 - (IBAction)clickedOnNextButton:(id)sender {

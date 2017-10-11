@@ -397,7 +397,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MJx-YH-xT1" customClass="PlaneCalibrationView">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MJx-YH-xT1" customClass="PlaneCalibrationView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="bBl-d6-AcL" userLabel="Left Indicator ImageView">
@@ -407,21 +407,21 @@
                                             <constraint firstAttribute="height" constant="35" id="M8Q-NQ-gj3"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2LI-8s-4Uk" userLabel="Right Indicator ImageView">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="2LI-8s-4Uk" userLabel="Right Indicator ImageView">
                                         <rect key="frame" x="340" y="286" width="35" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="35" id="3t7-Ny-7aX"/>
                                             <constraint firstAttribute="height" constant="35" id="w6h-zt-elZ"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OYi-ST-9Tr" userLabel="Top Indicator ImageView">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="OYi-ST-9Tr" userLabel="Top Indicator ImageView">
                                         <rect key="frame" x="169.5" y="0.0" width="35" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="35" id="KyR-Ma-HHp"/>
                                             <constraint firstAttribute="height" constant="35" id="vsA-dy-Acc"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZUU-Bu-Fqx" userLabel="Bottom Indicator ImageView">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="ZUU-Bu-Fqx" userLabel="Bottom Indicator ImageView">
                                         <rect key="frame" x="169.5" y="632" width="35" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="35" id="ew9-Js-wJU"/>
@@ -431,7 +431,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhM-Lh-EcI" userLabel="Container View">
                                         <rect key="frame" x="60" y="262.5" width="255" height="141.5"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tilt_left" translatesAutoresizingMaskIntoConstraints="NO" id="fDm-pX-tfC" userLabel="Instruction ImageView">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone_left" translatesAutoresizingMaskIntoConstraints="NO" id="fDm-pX-tfC" userLabel="Instruction ImageView">
                                                 <rect key="frame" x="95.5" y="0.0" width="64" height="64"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="64" id="Y7k-A5-6FG"/>
@@ -484,11 +484,15 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="bottomIndicatorConstraint" destination="TDb-P6-6lg" id="0cO-Bw-RVm"/>
+                                    <outlet property="bottomIndicatorImageView" destination="ZUU-Bu-Fqx" id="SSp-1r-g9g"/>
                                     <outlet property="leftIndicatorConstraint" destination="UVw-uq-zP8" id="NsA-7S-fH2"/>
+                                    <outlet property="leftIndicatorImageView" destination="bBl-d6-AcL" id="ol7-fG-trQ"/>
                                     <outlet property="primaryImageView" destination="fDm-pX-tfC" id="5Mr-f0-TFN"/>
                                     <outlet property="primaryInstructionLabel" destination="RbV-VP-SVu" id="lmL-qm-O4Z"/>
                                     <outlet property="rightIndicatorConstraint" destination="nVB-qo-e2n" id="BJg-BX-mbc"/>
+                                    <outlet property="rightIndicatorImageView" destination="2LI-8s-4Uk" id="S4u-ai-Sai"/>
                                     <outlet property="topIndicatorConstraint" destination="xUy-ES-Fjq" id="rfb-Mi-het"/>
+                                    <outlet property="topIndicatorImageView" destination="OYi-ST-9Tr" id="QRM-Ma-fzU"/>
                                 </connections>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9lX-0c-cvc" customClass="BaseInstructionVIew">
@@ -698,7 +702,7 @@
         <image name="back" width="8" height="14"/>
         <image name="camera" width="66" height="50"/>
         <image name="men" width="47" height="51"/>
-        <image name="tilt_left" width="60" height="67"/>
+        <image name="phone_left" width="60" height="67"/>
         <image name="women" width="47" height="52"/>
     </resources>
 </document>
