@@ -10,7 +10,7 @@
 @import CoreMotion;
 
 #define ROLL_EXTENT 30
-#define PITCH_EXTENT 60
+#define PITCH_EXTENT 30
 #define TILT_LEFT_TEXT @"Tilt your phone clockwise till the arrow touches the left edge of the screen"
 #define TILT_RIGHT_TEXT @"Tilt your phone anti-clockwise till the arrow touches the right edge of the screen"
 #define TILT_TOP_TEXT @"Tilt your phone forward till the arrow touches the top of the screen"
@@ -38,12 +38,24 @@
 -(void)awakeFromNib{
     [super awakeFromNib];
     _currentState = Inactive;
-    [_topIndicatorImageView setTransform:CGAffineTransformMakeRotation(M_PI_2)];
-    [_rightIndicatorImageView setTransform:CGAffineTransformMakeRotation(-M_PI)];
-    [_bottomIndicatorImageView setTransform:CGAffineTransformMakeRotation(-M_PI_2)];
     _initialRoll = 0;
     _initialPitch = 0;
     _screenBounds = [[UIScreen mainScreen] bounds];
+    [self createGradient];
+}
+
+-(void)createGradient {
+    UIColor *colorOne = [UIColor colorWithRed:48.0/255.0 green:35.0/255.0 blue:174.0/255.0 alpha:0.7];
+    UIColor *colorTwo = [UIColor colorWithRed:147.0/255.0 green:61.0/255.0 blue:224.0/255.0 alpha:0.7];
+    NSNumber *locationOne = [NSNumber numberWithFloat:0.3];
+    NSNumber *locationTwo = [NSNumber numberWithFloat:0.7];
+    NSArray *locationArray = @[locationOne, locationTwo];
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    gradientLayer.frame = CGRectMake(0, 0, bounds.size.width,bounds.size.height);
+    gradientLayer.colors = @[(id)colorOne.CGColor, (id)colorTwo.CGColor];
+    gradientLayer.locations = locationArray;
+    [self.backgroundView.layer insertSublayer:gradientLayer atIndex:0];
 }
 
 -(void)beginPlaneCalibration {
@@ -57,7 +69,6 @@
             CMQuaternion quat = motion.attitude.quaternion;
             _pitch = [self radiansToDegrees:(atan2(2 * (quat.x * quat.w + quat.y * quat.z), 1 - 2 * quat.x * quat.x - 2 * quat.z * quat.z))];
             _roll = [self radiansToDegrees:(atan2(2 * (quat.y * quat.w - quat.x * quat.z), 1 - 2 * quat.y * quat.y - 2 * quat.z * quat.z))];
-            [self.primaryInstructionLabel setText:[NSString stringWithFormat:@"Pitch:%fd\nRoll:%fd",_pitch,_roll]];
             [self updateStateUI];
         }];
     }];
@@ -86,15 +97,15 @@
     if(_initialRoll == 0) {
         _initialRoll = _roll;
     }
-    double currentRollExtent = _roll - _initialRoll;
+    double currentRollExtent = _initialRoll - _roll;
     double currentRollPercentage = currentRollExtent / ROLL_EXTENT;
-    double requiredRollDistance = ((_screenBounds.size.width / 2) - 90);
-    NSLog(@"%fd", currentRollPercentage);
-    if (currentRollPercentage < 1 && currentRollPercentage > 0) {
-        double currentRollDistance = requiredRollDistance*(1-currentRollPercentage);
-        [_leftIndicatorConstraint setConstant:currentRollDistance];
-    } else if (currentRollPercentage > 1) {
-        [self moveForwardState];
+    double requiredRollDistance = (_mapImageView.bounds.size.width / 2) - (_indicatorImageView.bounds.size.width / 2);
+    double currentRollDistance = requiredRollDistance*currentRollPercentage;
+    if(currentRollPercentage > 0) {
+        [_centerXConstraint setConstant:-currentRollDistance];
+        if(currentRollPercentage > 0.95) {
+            [self moveForwardState];
+        }
     }
 }
 
@@ -104,13 +115,15 @@
     }
     double currentRollExtent = _initialRoll - _roll;
     double currentRollPercentage = currentRollExtent / ROLL_EXTENT;
-    double requiredRollDistance = ((_screenBounds.size.width / 2) - 90);
-    NSLog(@"%fd", currentRollPercentage);
-    if (currentRollPercentage < 1 && currentRollPercentage > 0) {
-        double currentRollDistance = requiredRollDistance*(1-currentRollPercentage);
-        [_rightIndicatorConstraint setConstant:currentRollDistance];
-    } else if (currentRollPercentage > 1) {
-        [self moveForwardState];
+    double requiredRollDistance = (_mapImageView.bounds.size.width / 2) - (_indicatorImageView.bounds.size.width / 2);
+    double currentRollDistance = requiredRollDistance*currentRollPercentage;
+    NSLog(@"\n%fd\n%fd", currentRollPercentage, currentRollDistance);
+    if(currentRollPercentage < 1.05) {
+        [_centerXConstraint setConstant:-currentRollDistance];
+        if(currentRollPercentage < -1) {
+            [_centerXConstraint setConstant:0];
+            [self moveForwardState];
+        }
     }
 }
 
@@ -120,13 +133,14 @@
     }
     double currentPitchExtent = _initialPitch - _pitch;
     double currentPitchPercentage = currentPitchExtent / PITCH_EXTENT;
-    double requiredPitchDistance = ((_screenBounds.size.height / 2) - 120);
-    NSLog(@"%fd", currentPitchPercentage);
-    if (currentPitchPercentage < 1 && currentPitchPercentage > 0) {
-        double currentRollDistance = requiredPitchDistance*(1-requiredPitchDistance);
-        [_topIndicatorConstraint setConstant:currentRollDistance];
-    } else if (requiredPitchDistance > 1) {
-        [self moveForwardState];
+    double requiredPitchDistance = (_mapImageView.bounds.size.height / 2) - (_indicatorImageView.bounds.size.height / 2);
+    double currentPitchDistance = requiredPitchDistance*currentPitchPercentage;
+    NSLog(@"\n%fd\n%fd", currentPitchPercentage, currentPitchDistance);
+    if(currentPitchPercentage > -1.05 && currentPitchPercentage < 1.05) {
+        [_centerYConstrant setConstant:-currentPitchDistance];
+        if(currentPitchPercentage > 0.95) {
+            [self moveForwardState];
+        }
     }
 }
 
@@ -136,49 +150,38 @@
     }
     double currentPitchExtent = _initialPitch - _pitch;
     double currentPitchPercentage = currentPitchExtent / PITCH_EXTENT;
-    double requiredPitchDistance = ((_screenBounds.size.height / 2) - 120);
-    NSLog(@"%fd", currentPitchPercentage);
-    if (currentPitchPercentage < 1 && currentPitchPercentage > 0) {
-        double currentRollDistance = requiredPitchDistance*(1-requiredPitchDistance);
-        [_bottomIndicatorConstraint setConstant:currentRollDistance];
-    } else if (requiredPitchDistance > 1) {
-        [self moveForwardState];
+    double requiredPitchDistance = (_mapImageView.bounds.size.height / 2) - (_indicatorImageView.bounds.size.height / 2);
+    double currentPitchDistance = requiredPitchDistance*currentPitchPercentage;
+    NSLog(@"\n%fd\n%fd", currentPitchPercentage, currentPitchDistance);
+    if(currentPitchPercentage > -1.05 && currentPitchPercentage < 1.05) {
+        [_centerYConstrant setConstant:-currentPitchDistance];
+        if(currentPitchPercentage < -0.95) {
+            [self moveForwardState];
+        }
     }
 }
 
 -(void)moveForwardState {
-    [_leftIndicatorImageView setHidden:true];
-    [_rightIndicatorImageView setHidden:true];
-    [_topIndicatorImageView setHidden:true];
-    [_bottomIndicatorImageView setHidden:true];
     switch (_currentState) {
         case Inactive:
             _currentState = TiltLeft;
-            [_leftIndicatorImageView setHidden:false];
-            [_primaryImageView setImage:[UIImage imageNamed:@"phone_left"]];
-            [self.primaryInstructionLabel setText:TILT_LEFT_TEXT];
+            [_mapImageView setImage:[UIImage imageNamed:@"1"]];
             break;
         case TiltLeft:
             _currentState = TiltRight;
-            [_rightIndicatorImageView setHidden:false];
-            [_primaryImageView setImage:[UIImage imageNamed:@"phone_right"]];
-            [_primaryInstructionLabel setText:TILT_RIGHT_TEXT];
+            [_mapImageView setImage:[UIImage imageNamed:@"2"]];
             break;
         case TiltRight:
             _currentState = TiltTop;
-            [_topIndicatorImageView setHidden:false];
-            [_primaryImageView setImage:[UIImage imageNamed:@"phone_top"]];
-            [_primaryInstructionLabel setText:TILT_TOP_TEXT];
+            [_mapImageView setImage:[UIImage imageNamed:@"3"]];
             break;
         case TiltTop:
             _currentState = TiltBottom;
-            [_bottomIndicatorImageView setHidden:false];
-            [_primaryImageView setImage:[UIImage imageNamed:@"phone_bottom"]];
-            [_primaryInstructionLabel setText:TILT_BOTTOM_TEXT];
+            [_mapImageView setImage:[UIImage imageNamed:@"4"]];
             break;
         case TiltBottom:
             _currentState = Inactive;
-            [_primaryInstructionLabel setText:@"Detecting Plane..."];
+            //TODO: move to up down state.
             break;
     }
 }

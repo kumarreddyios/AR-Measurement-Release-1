@@ -18,18 +18,14 @@ enum PlaneCalibrationState {
 
 @interface PlaneCalibrationView : UIView
 
-@property (nonatomic, weak) IBOutlet UIImageView *primaryImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *indicatorImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *mapImageView;
 @property (nonatomic, weak) IBOutlet UILabel *primaryInstructionLabel;
+@property (nonatomic, weak) IBOutlet UILabel *secondaryInstructionLabel;
+@property (nonatomic, weak) IBOutlet UIView *backgroundView;
 
-@property (nonatomic, weak) IBOutlet UIImageView *leftIndicatorImageView;
-@property (nonatomic, weak) IBOutlet UIImageView *rightIndicatorImageView;
-@property (nonatomic, weak) IBOutlet UIImageView *topIndicatorImageView;
-@property (nonatomic, weak) IBOutlet UIImageView *bottomIndicatorImageView;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftIndicatorConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightIndicatorConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topIndicatorConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomIndicatorConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *centerYConstrant;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *centerXConstraint;
 
 -(void)beginPlaneCalibration;
 
