@@ -42,32 +42,51 @@
     }
 }
 
--(NSString*)getSizeFromCentimeters:(CGFloat)cms{
-    NSMutableArray *dataArray;
+-(NSMutableArray*)getDataArray {
     switch (self.gender) {
         case Men:
-        dataArray = [self.sizeChart objectForKey:@"men"];
-        break;
+            return [self.sizeChart objectForKey:@"men"];
+            break;
         case Women:
-        dataArray = [self.sizeChart objectForKey:@"women"];
+            return [self.sizeChart objectForKey:@"women"];
         default:
-        break;
+            break;
     }
+    return [[NSMutableArray alloc] init];
+}
 
+-(SizeClass* _Nullable)getSizeClassForCM:(CGFloat)cms {
+    NSMutableArray *dataArray = [self getDataArray];
     for (SizeClass *sizeClass in dataArray) {
         if (cms >= sizeClass.startCms && cms < sizeClass.endCms) {
-            switch (self.gender) {
-                case Men:
-                return [NSString stringWithFormat:@"UK %@ US %@",sizeClass.ukSize,sizeClass.usSize];
-                break;
-                case Women:
-                return [NSString stringWithFormat:@"Euro %@",sizeClass.euroSize];
-                default:
-                break;
-            }
+            return sizeClass;
         }
     }
-    return @" . . . ";
+    return nil;
+}
+
+-(NSString* _Nullable)getUKSizeFromCM:(CGFloat)cms {
+    SizeClass *sizeClass = [self getSizeClassForCM:cms];
+    if(sizeClass != nil) {
+        return [NSString stringWithFormat:@"EU %@",sizeClass.ukSize];
+    }
+    return nil;
+}
+
+-(NSString* _Nullable)getUSSizeFromCM:(CGFloat)cms {
+    SizeClass *sizeClass = [self getSizeClassForCM:cms];
+    if(sizeClass != nil) {
+        return [NSString stringWithFormat:@"EU %@",sizeClass.usSize];
+    }
+    return nil;
+}
+
+-(NSString* _Nullable)getEUSizeFromCM:(CGFloat)cms {
+    SizeClass *sizeClass = [self getSizeClassForCM:cms];
+    if(sizeClass != nil) {
+        return [NSString stringWithFormat:@"EU %@",sizeClass.euroSize];
+    }
+    return nil;
 }
 
 @end

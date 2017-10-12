@@ -8,10 +8,10 @@
 
 #import "ARViewController.h"
 #import "PlaneNode.h"
-#import "SizeChart.h"
 #import "InstructionsModel.h"
 #import "BaseInstructionVIew.h"
 #import "PlaneCalibrationView.h"
+#import "SizeStatsView.h"
 
 // start and end marker geometry
 #define MarkerWidth 0.20
@@ -37,10 +37,7 @@
 @interface ARViewController () <ARSCNViewDelegate>
 @property (nonatomic, strong) IBOutlet ARSCNView *sceneView;
 @property (weak, nonatomic) IBOutlet BaseInstructionVIew *baseInstructionView;
-@property (weak, nonatomic) IBOutlet UIView *footSizeStatsView;
-@property (weak, nonatomic) IBOutlet UIView *gradientView;
-@property (weak, nonatomic) IBOutlet UILabel *bandSize;
-@property (weak, nonatomic) IBOutlet UILabel *bandSizeInCms;
+@property (weak, nonatomic) IBOutlet SizeStatsView *footSizeStatsView;
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *actionButtonView;
 @property (weak, nonatomic) IBOutlet UIButton *actionButtonTitle;
 @property (weak, nonatomic) IBOutlet UIButton *resetButton;
@@ -58,7 +55,6 @@
 @property (nonatomic, strong) SCNNode *scaleBaseNode;
 @property (nonatomic) BOOL tapEnabled;
 @property (nonatomic) BOOL panEnabled;
-@property (nonatomic, strong) SizeChart *sizeChart;
 @property (nonatomic, strong) SCNNode *cmScaleNode; // this is the centimeter scale node, to which we will add the line and text nodes.
 @property (nonatomic, strong) NSMutableDictionary<NSNumber*,NSMutableArray<SCNNode*>*> *scaleNodesDict; // it will be having the list of nodes ( line node & text node ) for each centimeter.
 @property (nonatomic) NSInteger scaleNumber; // it represents the scale number starting from 1.
@@ -78,7 +74,6 @@
     self.dectedAnchors = [[NSMutableDictionary alloc] init];
     self.tapEnabled = false;
     self.panEnabled = false;
-    [self loadSizeChart];
     self.scaleNodesDict = [[NSMutableDictionary alloc] init];
     self.scaleNumber = 1;
     [[self backButton] setHidden:true];
@@ -93,19 +88,8 @@
     [super viewWillAppear:animated];
     //views decoration
     [self.footSizeStatsView setHidden:true];
-    UIColor *colorOne = [UIColor colorWithRed:48.0/255.0 green:35.0/255.0 blue:174.0/255.0 alpha:1.0];
-    UIColor *colorTwo = [UIColor colorWithRed:147.0/255.0 green:61.0/255.0 blue:224.0/255.0 alpha:1.0];
-    NSNumber *locationOne = [NSNumber numberWithFloat:0.3];
-    NSNumber *locationTwo = [NSNumber numberWithFloat:0.7];
-    NSArray *locationArray = @[locationOne, locationTwo];
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    CGRect bounds = self.footSizeStatsView.frame;
-    gradientLayer.frame = CGRectMake(0, 0, bounds.size.width,bounds.size.height);
-    gradientLayer.colors = @[(id)colorOne.CGColor, (id)colorTwo.CGColor];
-    gradientLayer.locations = locationArray;
-    gradientLayer.cornerRadius = 2.0f;
-    [self.gradientView.layer insertSublayer:gradientLayer atIndex:0];
-
+    [self.footSizeStatsView setCurrentGender:self.gender];
+    
     //camera permission code
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     if (status == AVAuthorizationStatusAuthorized) {
@@ -134,6 +118,7 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    //TODO: nudge animate sizes view if isExpandable.
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -384,11 +369,7 @@
         if (panGesture.state == UIGestureRecognizerStateEnded) {
             CGFloat distance = ExtSCNVectorDistanceInCms(self.startPosition,self.endPosition);
             [self.footSizeStatsView setHidden:false];
-            NSString* formattedString = [NSString stringWithFormat:@"%.2f", distance];
-            CGFloat cms = formattedString.floatValue;
-            NSString *bandSize = [self.sizeChart getSizeFromCentimeters:cms];
-            [self.bandSizeInCms setText:[NSString stringWithFormat:@" ( %@ cm )",formattedString]];
-            [self.bandSize setText:bandSize];
+            [self.footSizeStatsView updateSizesWithDistance:distance];
             return;
         }
         if (panGesture.state == UIGestureRecognizerStateBegan) {
@@ -570,16 +551,6 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
     distance = distance * 100;
     NSString* formattedString = [NSString stringWithFormat:@"%.1f", distance];
     return formattedString.floatValue;
-}
-
-#pragma mark - Load the size data
-
--(void)loadSizeChart {
-    NSError *error;
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"ShoeSizeData" ofType:@"json"];
-    NSData *sizeData = [NSData dataWithContentsOfFile:path];
-    NSDictionary *sizeDictionary = [NSJSONSerialization JSONObjectWithData:sizeData options:kNilOptions error:&error];
-    self.sizeChart = [[SizeChart alloc] initWithSizeDictionary:sizeDictionary];
 }
 
 #pragma mark - Get View Controller

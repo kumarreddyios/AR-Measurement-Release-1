@@ -10,10 +10,12 @@
 #import <SceneKit/SceneKit.h>
 #import <ARKit/ARKit.h>
 #import "BaseInstructionVIew.h"
+#import "SizeChart.h"
 
 @interface ARViewController : UIViewController<InstructionDelegate>
 
 @property enum Gender gender;
+
 +(ARViewController*)getARViewController;
 
 @end

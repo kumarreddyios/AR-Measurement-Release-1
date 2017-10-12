@@ -322,42 +322,97 @@
                                     <action selector="clickedOnReset:" destination="BV1-FR-VrT" eventType="touchUpInside" id="AKG-gW-L9g"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5DV-uW-GsG">
-                                <rect key="frame" x="87.5" y="0.0" width="200" height="92.5"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5DV-uW-GsG" customClass="SizeStatsView">
+                                <rect key="frame" x="87.5" y="0.0" width="200" height="209.5"/>
                                 <subviews>
                                     <view alpha="0.94999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LZV-1k-JIb" userLabel="Stats View Type 1">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="92.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="209.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WTk-T3-CiY">
-                                                <rect key="frame" x="82" y="12" width="37" height="18"/>
-                                                <fontDescription key="fontDescription" name="Whitney-Book" family="Whitney" pointSize="15"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YqD-w0-0Lv">
-                                                <rect key="frame" x="69" y="30" width="64" height="30.5"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="CJK-1y-9cc">
+                                                <rect key="frame" x="93" y="4" width="14" height="14"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="14" id="SHD-RX-Lbf"/>
+                                                    <constraint firstAttribute="width" constant="14" id="UyR-qz-N8K"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1oq-jG-keL">
+                                                <rect key="frame" x="0.0" y="22" width="200" height="30.5"/>
                                                 <fontDescription key="fontDescription" name="Whitney-Semibold" family="Whitney" pointSize="26"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Perfect Fit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7sB-1q-Q9E" userLabel="Band Fit Label">
-                                                <rect key="frame" x="66" y="62.5" width="69" height="18"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fh8-YX-qlB">
+                                                <rect key="frame" x="0.0" y="54.5" width="200" height="14"/>
+                                                <fontDescription key="fontDescription" name="Whitney-Semibold" family="Whitney" pointSize="12"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQv-n3-tyw">
+                                                <rect key="frame" x="0.0" y="70.5" width="200" height="30.5"/>
+                                                <fontDescription key="fontDescription" name="Whitney-Semibold" family="Whitney" pointSize="26"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lks-Fs-puG">
+                                                <rect key="frame" x="0.0" y="103" width="200" height="14"/>
+                                                <fontDescription key="fontDescription" name="Whitney-Semibold" family="Whitney" pointSize="12"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WTk-T3-CiY">
+                                                <rect key="frame" x="0.0" y="119" width="200" height="18"/>
                                                 <fontDescription key="fontDescription" name="Whitney-Book" family="Whitney" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YqD-w0-0Lv">
+                                                <rect key="frame" x="0.0" y="137" width="200" height="30.5"/>
+                                                <fontDescription key="fontDescription" name="Whitney-Semibold" family="Whitney" pointSize="26"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Perfect Fit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7sB-1q-Q9E" userLabel="Band Fit Label">
+                                                <rect key="frame" x="0.0" y="169.5" width="200" height="18"/>
+                                                <fontDescription key="fontDescription" name="Whitney-Book" family="Whitney" pointSize="15"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="4h2-W4-Jze">
+                                                <rect key="frame" x="93" y="191.5" width="14" height="14"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="14" id="3OP-3W-DF8"/>
+                                                    <constraint firstAttribute="width" constant="14" id="4Qh-zz-b2K"/>
+                                                </constraints>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="WTk-T3-CiY" firstAttribute="centerX" secondItem="LZV-1k-JIb" secondAttribute="centerX" id="Ei7-z2-xEr"/>
-                                            <constraint firstItem="YqD-w0-0Lv" firstAttribute="centerX" secondItem="LZV-1k-JIb" secondAttribute="centerX" id="FfZ-KA-kpX"/>
-                                            <constraint firstItem="7sB-1q-Q9E" firstAttribute="centerX" secondItem="LZV-1k-JIb" secondAttribute="centerX" id="FzG-65-umi"/>
+                                            <constraint firstItem="CJK-1y-9cc" firstAttribute="top" secondItem="LZV-1k-JIb" secondAttribute="top" constant="4" id="4fb-oK-Ktn"/>
+                                            <constraint firstAttribute="trailing" secondItem="Lks-Fs-puG" secondAttribute="trailing" id="7WS-2Y-jgG"/>
+                                            <constraint firstItem="YqD-w0-0Lv" firstAttribute="leading" secondItem="LZV-1k-JIb" secondAttribute="leading" id="ENw-PO-y7u"/>
                                             <constraint firstItem="7sB-1q-Q9E" firstAttribute="top" secondItem="YqD-w0-0Lv" secondAttribute="bottom" constant="2" id="Hea-ie-nTv"/>
-                                            <constraint firstAttribute="bottom" secondItem="7sB-1q-Q9E" secondAttribute="bottom" constant="12" id="N97-Vt-5i9"/>
-                                            <constraint firstItem="WTk-T3-CiY" firstAttribute="top" secondItem="LZV-1k-JIb" secondAttribute="top" constant="12" id="SdO-oT-oli"/>
-                                            <constraint firstItem="WTk-T3-CiY" firstAttribute="centerX" secondItem="LZV-1k-JIb" secondAttribute="centerX" id="adH-B5-hFa"/>
+                                            <constraint firstItem="1oq-jG-keL" firstAttribute="leading" secondItem="LZV-1k-JIb" secondAttribute="leading" id="K0C-te-7lo"/>
+                                            <constraint firstAttribute="trailing" secondItem="fh8-YX-qlB" secondAttribute="trailing" id="KkQ-Ja-aBU"/>
+                                            <constraint firstItem="CJK-1y-9cc" firstAttribute="centerX" secondItem="LZV-1k-JIb" secondAttribute="centerX" id="NQ8-0d-moG"/>
+                                            <constraint firstItem="1oq-jG-keL" firstAttribute="top" secondItem="CJK-1y-9cc" secondAttribute="bottom" constant="4" id="OYc-Q9-gmN"/>
+                                            <constraint firstItem="nQv-n3-tyw" firstAttribute="top" secondItem="fh8-YX-qlB" secondAttribute="bottom" constant="2" id="Rbh-7B-BzP"/>
+                                            <constraint firstAttribute="trailing" secondItem="nQv-n3-tyw" secondAttribute="trailing" id="T4S-Fn-XEM"/>
+                                            <constraint firstItem="Lks-Fs-puG" firstAttribute="top" secondItem="nQv-n3-tyw" secondAttribute="bottom" constant="2" id="ULc-Zh-FGM"/>
+                                            <constraint firstItem="7sB-1q-Q9E" firstAttribute="leading" secondItem="LZV-1k-JIb" secondAttribute="leading" id="VkF-VE-a0F"/>
+                                            <constraint firstItem="fh8-YX-qlB" firstAttribute="top" secondItem="1oq-jG-keL" secondAttribute="bottom" constant="2" id="YG5-pt-3bd"/>
+                                            <constraint firstAttribute="trailing" secondItem="1oq-jG-keL" secondAttribute="trailing" id="bla-Hn-d2P"/>
+                                            <constraint firstAttribute="bottom" secondItem="4h2-W4-Jze" secondAttribute="bottom" constant="4" id="dcW-JR-czp"/>
                                             <constraint firstItem="YqD-w0-0Lv" firstAttribute="top" secondItem="WTk-T3-CiY" secondAttribute="bottom" id="eUB-v7-YIP"/>
-                                            <constraint firstItem="YqD-w0-0Lv" firstAttribute="centerX" secondItem="LZV-1k-JIb" secondAttribute="centerX" id="sGJ-Pv-gPI"/>
+                                            <constraint firstAttribute="trailing" secondItem="7sB-1q-Q9E" secondAttribute="trailing" id="esj-uO-AGY"/>
+                                            <constraint firstItem="nQv-n3-tyw" firstAttribute="leading" secondItem="LZV-1k-JIb" secondAttribute="leading" id="gCI-d7-4qd"/>
+                                            <constraint firstItem="4h2-W4-Jze" firstAttribute="centerX" secondItem="LZV-1k-JIb" secondAttribute="centerX" id="gdD-dO-2wL"/>
+                                            <constraint firstItem="4h2-W4-Jze" firstAttribute="top" secondItem="7sB-1q-Q9E" secondAttribute="bottom" constant="4" id="jt8-3i-r8A"/>
+                                            <constraint firstItem="fh8-YX-qlB" firstAttribute="leading" secondItem="LZV-1k-JIb" secondAttribute="leading" id="kos-cy-tmk"/>
+                                            <constraint firstItem="WTk-T3-CiY" firstAttribute="top" secondItem="Lks-Fs-puG" secondAttribute="bottom" constant="2" id="lSo-gf-yQi"/>
+                                            <constraint firstAttribute="trailing" secondItem="YqD-w0-0Lv" secondAttribute="trailing" id="lex-IC-tSj"/>
+                                            <constraint firstAttribute="trailing" secondItem="WTk-T3-CiY" secondAttribute="trailing" id="qxB-Vt-v1i"/>
+                                            <constraint firstItem="Lks-Fs-puG" firstAttribute="leading" secondItem="LZV-1k-JIb" secondAttribute="leading" id="wNM-de-RpJ"/>
+                                            <constraint firstItem="WTk-T3-CiY" firstAttribute="leading" secondItem="LZV-1k-JIb" secondAttribute="leading" id="xgi-1q-Aor"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -369,6 +424,15 @@
                                     <constraint firstAttribute="bottom" secondItem="LZV-1k-JIb" secondAttribute="bottom" id="raw-8O-zdh"/>
                                     <constraint firstItem="LZV-1k-JIb" firstAttribute="leading" secondItem="5DV-uW-GsG" secondAttribute="leading" id="uo9-J3-n3w"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="botArrowImageView" destination="4h2-W4-Jze" id="2g5-mx-7wd"/>
+                                    <outlet property="containerViewTypeSingle" destination="LZV-1k-JIb" id="SnQ-QF-hh2"/>
+                                    <outlet property="sizeLabel1" destination="1oq-jG-keL" id="Xb4-oV-oZk"/>
+                                    <outlet property="sizeLabel2" destination="nQv-n3-tyw" id="wLD-rL-hPA"/>
+                                    <outlet property="sizeLabel3" destination="YqD-w0-0Lv" id="mMH-0m-oeK"/>
+                                    <outlet property="sizeLabelCM" destination="WTk-T3-CiY" id="unk-Cm-XKh"/>
+                                    <outlet property="topArrowImageView" destination="CJK-1y-9cc" id="5E3-ja-pOg"/>
+                                </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9T9-mb-16A" userLabel="Back Button">
                                 <rect key="frame" x="0.0" y="15" width="44" height="44"/>
@@ -671,11 +735,8 @@
                         <outlet property="actionButtonTitle" destination="8YN-OG-WKX" id="sTf-HW-m0N"/>
                         <outlet property="actionButtonView" destination="9cH-jS-Psp" id="FE2-B4-e53"/>
                         <outlet property="backButton" destination="9T9-mb-16A" id="i8H-If-ZP0"/>
-                        <outlet property="bandSize" destination="YqD-w0-0Lv" id="o80-ZX-8Jl"/>
-                        <outlet property="bandSizeInCms" destination="WTk-T3-CiY" id="UfR-Wq-5xd"/>
                         <outlet property="baseInstructionView" destination="9lX-0c-cvc" id="9lu-xx-cH0"/>
-                        <outlet property="footSizeStatsView" destination="5DV-uW-GsG" id="bsT-k3-1HJ"/>
-                        <outlet property="gradientView" destination="LZV-1k-JIb" id="mVT-SU-b3e"/>
+                        <outlet property="footSizeStatsView" destination="5DV-uW-GsG" id="RfL-Z9-MwA"/>
                         <outlet property="planeCalibrationView" destination="MJx-YH-xT1" id="tSP-89-P0X"/>
                         <outlet property="resetButton" destination="dMe-jl-YWs" id="bwZ-Hy-AXu"/>
                         <outlet property="sceneView" destination="2LF-id-qFf" id="uAe-Pu-rs7"/>
