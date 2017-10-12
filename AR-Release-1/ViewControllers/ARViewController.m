@@ -45,6 +45,7 @@
 @property (weak, nonatomic) IBOutlet UIView *toastView;
 @property (weak, nonatomic) IBOutlet UILabel *toastLabel;
 @property (weak, nonatomic) IBOutlet PlaneCalibrationView *planeCalibrationView;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *statsViewTopConstraint;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString*,PlaneNode*> *dectedAnchors;
 @property (nonatomic) SCNVector3 startPosition; //startpoint is fixed, it will change only if you reset the tracking or restart the process.
@@ -89,6 +90,7 @@
     //views decoration
     [self.footSizeStatsView setHidden:true];
     [self.footSizeStatsView setCurrentGender:self.gender];
+    [self toggleStatsViewExpand];
     
     //camera permission code
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
@@ -189,6 +191,8 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             // it means that plane got detected.
             if (self.dectedAnchors.count == 1) {
+                [self.planeCalibrationView stopPlaneCalibration];
+                [self.planeCalibrationView setHidden:true];
                 [self.actionButtonView setHidden:false];
                 [self hideToastViewWithTime:0];
                 [self createInitialScaleOnPlaneAnchor:pAnchor];
@@ -253,11 +257,17 @@
 #pragma mark - Gestures
 
 -(void)setupGestures{
-    //UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedOnPlane:)];
-    //[self.sceneView addGestureRecognizer:tapGesture];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOnSizeStatsView:)];
+    [self.footSizeStatsView addGestureRecognizer:tapGesture];
 
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panningOnPlane:)];
     [self.sceneView addGestureRecognizer:panGesture];
+}
+
+-(void)didTapOnSizeStatsView:(UITapGestureRecognizer*)tapGesture {
+    if([self.footSizeStatsView isExpandable]) {
+        [self toggleStatsViewExpand];
+    }
 }
 
 -(void)tappedOnPlane:(UITapGestureRecognizer*)tapGesture {
@@ -567,10 +577,12 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
         case ARIntroduction:
             [self.baseInstructionView popInstructionsAndPresent:[self.instructionModels objectAtIndex:1]];
             self.currentlyShowingInstruction = [self.instructionModels objectAtIndex:1];
+            [[self backButton] setHidden:false];
             break;
         case ARPlane:
             [self.baseInstructionView popInstructionsAndPresent:[self.instructionModels objectAtIndex:3]];
             self.currentlyShowingInstruction = [self.instructionModels objectAtIndex:3];
+            [[self backButton] setHidden:false];
             break;
         case ARMarker:
             //NOTE: Case not used in new flow.
@@ -588,7 +600,6 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
             self.panEnabled = true;
             [self setupGestures];
             [self.actionButtonView setHidden:true];
-            [[self backButton] setHidden:false];
             [[self resetButton] setHidden:false];
             [self.actionButtonTitle setTitle:@"SAVE MY SIZE" forState:UIControlStateNormal];
             break;
@@ -614,6 +625,27 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
         default:
             break;
     }
+}
+
+#pragma mark - Size Stats View
+
+-(void)toggleStatsViewExpand {
+    if([self.footSizeStatsView isExpandable]) {
+        CGFloat height = [self.footSizeStatsView getToggleAnimationHeight];
+        [self.view layoutIfNeeded];
+        if(self.statsViewTopConstraint.constant == 0) {
+            [self.statsViewTopConstraint setConstant:-height];
+        } else {
+            [self.statsViewTopConstraint setConstant:0];
+        }
+        [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.9 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
+            [self.view layoutIfNeeded];
+        } completion:nil];
+    }
+}
+
+-(void)performExpandabilityNudge {
+    
 }
 
 @end

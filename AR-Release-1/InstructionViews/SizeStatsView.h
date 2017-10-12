@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MultipleSizesView.h"
 
 enum SizeStatState {
     InactiveSize,
@@ -20,7 +21,7 @@ enum SizeStatState {
 @property (nonatomic, weak) IBOutlet UIImageView *botArrowImageView;
 
 @property (nonatomic, weak) IBOutlet UIView *containerViewTypeSingle;
-@property (nonatomic, weak) IBOutlet UIView *containerViewTypeMultiple;
+@property (nonatomic, weak) IBOutlet MultipleSizesView *containerViewTypeMultiple;
 
 @property (nonatomic, weak) IBOutlet UILabel *sizeLabel1;
 @property (nonatomic, weak) IBOutlet UILabel *sizeLabel2;
@@ -30,7 +31,9 @@ enum SizeStatState {
 @property enum SizeStatState currentState;
 @property enum Gender currentGender;
 
+-(void)setActiveState:(enum SizeStatState)state;
 -(void)updateSizesWithDistance:(CGFloat)distance;
 -(BOOL)isExpandable;
+-(CGFloat)getToggleAnimationHeight;
 
 @end

@@ -26,6 +26,7 @@
 		ED06CC461F879CC7004FD4EB /* Whitney-Semibold-Bas.otf in Resources */ = {isa = PBXBuildFile; fileRef = ED06CC401F879C5F004FD4EB /* Whitney-Semibold-Bas.otf */; };
 		ED06CC4C1F87A3EA004FD4EB /* ARPermissionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED06CC4B1F87A3EA004FD4EB /* ARPermissionViewController.m */; };
 		ED98349B1F8F6786008F3F01 /* SizeStatsView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED98349A1F8F6786008F3F01 /* SizeStatsView.m */; };
+		ED98349E1F8FB0DF008F3F01 /* MultipleSizesView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED98349D1F8FB0DF008F3F01 /* MultipleSizesView.m */; };
 		EDD976861F8E095900870C12 /* PlaneCalibrationView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD976851F8E095900870C12 /* PlaneCalibrationView.m */; };
 		EDD976891F8E141800870C12 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDD976881F8E140300870C12 /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,8 @@
 		ED06CC4B1F87A3EA004FD4EB /* ARPermissionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARPermissionViewController.m; sourceTree = "<group>"; };
 		ED9834991F8F6786008F3F01 /* SizeStatsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SizeStatsView.h; sourceTree = "<group>"; };
 		ED98349A1F8F6786008F3F01 /* SizeStatsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SizeStatsView.m; sourceTree = "<group>"; };
+		ED98349C1F8FB0DF008F3F01 /* MultipleSizesView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultipleSizesView.h; sourceTree = "<group>"; };
+		ED98349D1F8FB0DF008F3F01 /* MultipleSizesView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MultipleSizesView.m; sourceTree = "<group>"; };
 		EDD976841F8E095900870C12 /* PlaneCalibrationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaneCalibrationView.h; sourceTree = "<group>"; };
 		EDD976851F8E095900870C12 /* PlaneCalibrationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaneCalibrationView.m; sourceTree = "<group>"; };
 		EDD976881F8E140300870C12 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -88,6 +91,8 @@
 				EDD976851F8E095900870C12 /* PlaneCalibrationView.m */,
 				ED9834991F8F6786008F3F01 /* SizeStatsView.h */,
 				ED98349A1F8F6786008F3F01 /* SizeStatsView.m */,
+				ED98349C1F8FB0DF008F3F01 /* MultipleSizesView.h */,
+				ED98349D1F8FB0DF008F3F01 /* MultipleSizesView.m */,
 				2D8ACD7F1F7D393D00957A91 /* InstructionsModel.h */,
 				2D8ACD801F7D393D00957A91 /* InstructionsModel.m */,
 			);
@@ -254,6 +259,7 @@
 				2DAB9B9F1F7245C000E0293F /* PlaneNode.m in Sources */,
 				EDD976861F8E095900870C12 /* PlaneCalibrationView.m in Sources */,
 				2DC4ADD11F8338C10014F8FE /* LaunchView.m in Sources */,
+				ED98349E1F8FB0DF008F3F01 /* MultipleSizesView.m in Sources */,
 				ED06CC4C1F87A3EA004FD4EB /* ARPermissionViewController.m in Sources */,
 				2DAB9B8C1F723E3F00E0293F /* ARViewController.m in Sources */,
 				2DB14EC31F7C24350008D86C /* ARIntroViewController.m in Sources */,

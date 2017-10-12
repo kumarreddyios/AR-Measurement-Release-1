@@ -11,15 +11,15 @@
 
 #define ROLL_EXTENT 30
 #define PITCH_EXTENT 30
-#define TILT_LEFT_TEXT @"Tilt your phone clockwise till the arrow touches the left edge of the screen"
-#define TILT_RIGHT_TEXT @"Tilt your phone anti-clockwise till the arrow touches the right edge of the screen"
-#define TILT_TOP_TEXT @"Tilt your phone forward till the arrow touches the top of the screen"
-#define TILT_BOTTOM_TEXT @"Tilt your phone backward till the arrow reaches the bottom of the screen"
+#define TIMER_MAX_COUNT 3
 
 @interface PlaneCalibrationView()
 
 @property (nonatomic, strong) NSOperationQueue *defaultQueue;
 @property (nonatomic, strong) CMMotionManager *motionManager;
+
+@property NSTimer *timer;
+@property int timerCount;
 
 @property enum PlaneCalibrationState currentState;
 
@@ -63,11 +63,13 @@
     [self.endMessageView.layer insertSublayer:gradientLayer2 atIndex:0];
 }
 
+#pragma mark - Plane Calibration
+
 -(void)beginPlaneCalibration {
     _currentState = TiltLeft;
     _motionManager = [[CMMotionManager alloc] init];
     _defaultQueue = [[NSOperationQueue alloc] init];
-    [_motionManager setDeviceMotionUpdateInterval:0.1];
+    [_motionManager setDeviceMotionUpdateInterval:0.05];
     
     [self.motionManager startDeviceMotionUpdatesToQueue:_defaultQueue withHandler:^(CMDeviceMotion *motion, NSError *error) {
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -77,6 +79,11 @@
             [self updateStateUI];
         }];
     }];
+}
+
+-(void)stopPlaneCalibration {
+    _motionManager = nil;
+    _defaultQueue = nil;
 }
 
 -(void)updateStateUI {
@@ -201,16 +208,32 @@
             [self stopPlaneCalibration];
             [self.backgroundView setHidden:true];
             [self.endMessageView setHidden:false];
+            [self startTimer];
             break;
         case UpDownMessage:
             break;
     }
 }
 
--(void)stopPlaneCalibration {
-    _motionManager = nil;
-    _defaultQueue = nil;
+#pragma mark - Timer
+
+-(void)startTimer {
+    self.timerCount = 0;
+    self.timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerDidFire:) userInfo:nil repeats:true];
+    
+    NSRunLoop *runner = [NSRunLoop currentRunLoop];
+    [runner addTimer:self.timer forMode: NSDefaultRunLoopMode];
 }
+
+-(void)timerDidFire:(NSTimer*)timer {
+    self.timerCount += 1;
+    if (self.timerCount > TIMER_MAX_COUNT) {
+        [self.timer invalidate];
+        [self setHidden:true];
+    }
+}
+
+#pragma mark - Helpers
 
 -(double)radiansToDegrees:(double)radians {
     return radians * (180.0 / M_PI);

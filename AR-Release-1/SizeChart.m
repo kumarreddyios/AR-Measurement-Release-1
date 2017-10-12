@@ -68,7 +68,7 @@
 -(NSString* _Nullable)getUKSizeFromCM:(CGFloat)cms {
     SizeClass *sizeClass = [self getSizeClassForCM:cms];
     if(sizeClass != nil) {
-        return [NSString stringWithFormat:@"EU %@",sizeClass.ukSize];
+        return [NSString stringWithFormat:@"UK %@",sizeClass.ukSize];
     }
     return nil;
 }
@@ -76,7 +76,7 @@
 -(NSString* _Nullable)getUSSizeFromCM:(CGFloat)cms {
     SizeClass *sizeClass = [self getSizeClassForCM:cms];
     if(sizeClass != nil) {
-        return [NSString stringWithFormat:@"EU %@",sizeClass.usSize];
+        return [NSString stringWithFormat:@"US %@",sizeClass.usSize];
     }
     return nil;
 }

@@ -30,5 +30,6 @@ enum PlaneCalibrationState {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *centerXConstraint;
 
 -(void)beginPlaneCalibration;
+-(void)stopPlaneCalibration;
 
 @end
