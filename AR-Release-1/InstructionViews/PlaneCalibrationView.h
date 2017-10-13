@@ -14,7 +14,8 @@ enum PlaneCalibrationState {
     TiltRight,
     TiltTop,
     TiltBottom,
-    UpDownMessage
+    UpDownMessage,
+    UnableToDetect
 };
 
 @interface PlaneCalibrationView : UIView

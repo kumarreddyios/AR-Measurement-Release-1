@@ -11,7 +11,7 @@
 
 #define ROLL_EXTENT 30
 #define PITCH_EXTENT 30
-#define TIMER_MAX_COUNT 3
+#define TIMER_MAX_COUNT 5
 
 @interface PlaneCalibrationView()
 
@@ -66,7 +66,8 @@
 #pragma mark - Plane Calibration
 
 -(void)beginPlaneCalibration {
-    _currentState = TiltLeft;
+    _currentState = Inactive;
+    [self moveForwardState];
     _motionManager = [[CMMotionManager alloc] init];
     _defaultQueue = [[NSOperationQueue alloc] init];
     [_motionManager setDeviceMotionUpdateInterval:0.05];
@@ -76,6 +77,7 @@
             CMQuaternion quat = motion.attitude.quaternion;
             _pitch = [self radiansToDegrees:(atan2(2 * (quat.x * quat.w + quat.y * quat.z), 1 - 2 * quat.x * quat.x - 2 * quat.z * quat.z))];
             _roll = [self radiansToDegrees:(atan2(2 * (quat.y * quat.w - quat.x * quat.z), 1 - 2 * quat.y * quat.y - 2 * quat.z * quat.z))];
+            printf("\nPitch: %fd | Roll: %fd",_pitch,_roll);
             [self updateStateUI];
         }];
     }];
@@ -103,6 +105,8 @@
             [self calibrateBottomPitch];
             break;
         case UpDownMessage:
+            break;
+        case UnableToDetect:
             break;
     }
 }
@@ -189,7 +193,12 @@
     switch (_currentState) {
         case Inactive:
             _currentState = TiltLeft;
+            [_centerXConstraint setConstant:0];
+            [_centerYConstrant setConstant:0];
+            [self.backgroundView setHidden:false];
+            [self.endMessageView setHidden:true];
             [_mapImageView setImage:[UIImage imageNamed:@"1"]];
+            [_secondaryInstructionLabel setText:@"Tilt your phone and move the ball towards the ends, one-by-one."];
             break;
         case TiltLeft:
             _currentState = TiltRight;
@@ -206,11 +215,15 @@
         case TiltBottom:
             _currentState = UpDownMessage;
             [self stopPlaneCalibration];
-            [self.backgroundView setHidden:true];
-            [self.endMessageView setHidden:false];
+            [_secondaryInstructionLabel setText:@"Now, move your phone up and down (back to same position)"];
             [self startTimer];
             break;
         case UpDownMessage:
+            _currentState = UnableToDetect;
+            [self.backgroundView setHidden:true];
+            [self.endMessageView setHidden:false];
+            break;
+        case UnableToDetect:
             break;
     }
 }
@@ -229,7 +242,7 @@
     self.timerCount += 1;
     if (self.timerCount > TIMER_MAX_COUNT) {
         [self.timer invalidate];
-        [self setHidden:true];
+        [self moveForwardState];
     }
 }
 
