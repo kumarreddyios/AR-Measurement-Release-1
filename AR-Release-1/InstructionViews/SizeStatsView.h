@@ -17,7 +17,6 @@ enum SizeStatState {
 
 @interface SizeStatsView : UIView
 
-@property (nonatomic, weak) IBOutlet UIImageView *topArrowImageView;
 @property (nonatomic, weak) IBOutlet UIImageView *botArrowImageView;
 
 @property (nonatomic, weak) IBOutlet UIView *containerViewTypeSingle;

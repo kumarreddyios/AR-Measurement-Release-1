@@ -84,6 +84,7 @@
 }
 
 -(void)stopPlaneCalibration {
+    [_motionManager stopDeviceMotionUpdates];
     _motionManager = nil;
     _defaultQueue = nil;
 }
@@ -215,12 +216,14 @@
         case TiltBottom:
             _currentState = UpDownMessage;
             [self stopPlaneCalibration];
+            [self setHidden:true];
             [_secondaryInstructionLabel setText:@"Now, move your phone up and down (back to same position)"];
-            [self startTimer];
+            //[self startTimer];
             break;
         case UpDownMessage:
             _currentState = UnableToDetect;
             [self.backgroundView setHidden:true];
+            //[self setHidden:false];
             [self.endMessageView setHidden:false];
             break;
         case UnableToDetect:

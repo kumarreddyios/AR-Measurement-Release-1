@@ -96,7 +96,11 @@
 - (IBAction)clickedOnNext:(id)sender {
     ARViewController *arViewController = [ARViewController getARViewController];
     arViewController.gender = self.gender;
-    [self.navigationController pushViewController:arViewController animated:true];
+    CATransition* transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.type = kCATransitionFade;
+    [self.navigationController.view.layer addAnimation:transition forKey:nil];
+    [self.navigationController pushViewController:arViewController animated:false];
 }
 
 

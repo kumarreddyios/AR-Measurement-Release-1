@@ -19,7 +19,6 @@
 @property (nonatomic, weak) IBOutlet UILabel *sizeLabel21;
 @property (nonatomic, weak) IBOutlet UILabel *sizeLabelCM;
 
-@property (nonatomic, weak) IBOutlet UIImageView *topArrowImageView;
 @property (nonatomic, weak) IBOutlet UIImageView *botArrowImageView;
 
 -(void)updateSizesWithDistance:(CGFloat)distance forGender:(enum Gender)gender andSizeChart:(SizeChart*)sizeChart;

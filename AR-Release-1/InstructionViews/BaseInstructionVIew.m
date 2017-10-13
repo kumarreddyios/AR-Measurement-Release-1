@@ -93,6 +93,10 @@
     [self.delegate clickedOnInstruction:self.presentShowingInstruction];
 }
 
+- (IBAction)clickedOnBackButton:(id)sender {
+    [self.delegate didTapOnBackButton];
+}
+
 - (IBAction)actionButton:(UIButton *)sender {
 }
 @end

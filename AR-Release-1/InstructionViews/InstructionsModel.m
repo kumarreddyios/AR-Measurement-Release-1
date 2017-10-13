@@ -14,7 +14,7 @@
     NSMutableArray *instructionsDS = [[NSMutableArray alloc] init];
     InstructionsModel *iModel1 = [[InstructionsModel alloc] init];
     iModel1.mainTitle = @"Let's get started";
-    iModel1.subTitle = @"Remove your footwear and sit comfortably. Bend a little and point your phone towards the floor";
+    iModel1.subTitle = @"Remove your footwear and sit comfortably. Bend a little and point your phone towards the floor. When ready, tap Next.";
     iModel1.imageName = @"Lets Get Started";
     iModel1.buttonTitle = @"NEXT";
     iModel1.type = ARIntroduction;

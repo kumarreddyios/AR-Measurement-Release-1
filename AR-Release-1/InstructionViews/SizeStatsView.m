@@ -22,16 +22,17 @@
     [self setActiveState:NoSize];
     [self setBackgroundGradient];
     if([self isExpandable]) {
-        [self.topArrowImageView setTransform:CGAffineTransformMakeRotation(M_PI_2)];
         [self.botArrowImageView setTransform:CGAffineTransformMakeRotation(-M_PI_2)];
-        [self.containerViewTypeMultiple.topArrowImageView setTransform:CGAffineTransformMakeRotation(M_PI_2)];
         [self.containerViewTypeMultiple.botArrowImageView setTransform:CGAffineTransformMakeRotation(-M_PI_2)];
     } else {
-        [self.topArrowImageView setHidden:true];
         [self.botArrowImageView setHidden:true];
-        [self.containerViewTypeMultiple.topArrowImageView setHidden:true];
         [self.containerViewTypeMultiple.botArrowImageView setHidden:true];
     }
+    // drop shadow
+    [self.layer setShadowColor:[UIColor blackColor].CGColor];
+    [self.layer setShadowOpacity:0.8];
+    [self.layer setShadowRadius:3.0];
+    [self.layer setShadowOffset:CGSizeMake(1.0, 1.0)];
 }
 
 -(void)setBackgroundGradient {
@@ -163,9 +164,9 @@
 
 -(CGFloat)getToggleAnimationHeight {
     if(self.currentState == MultipleSize) {
-        return [[self.containerViewTypeMultiple sizeLabelCM] frame].origin.y;
+        return [[self.containerViewTypeMultiple sizeLabelCM] frame].origin.y - 6;
     } else {
-        return [self.sizeLabelCM frame].origin.y;
+        return [self.sizeLabelCM frame].origin.y - 6;
     }
 }
 

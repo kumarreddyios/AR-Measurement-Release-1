@@ -53,6 +53,9 @@
 @property (nonatomic, strong) SCNNode *startNode;
 @property (nonatomic, strong) SCNNode *endNode;
 @property (nonatomic, strong) SCNNode *nobNode;
+@property (nonatomic, strong) SCNNode *nobArrowTop;
+@property (nonatomic, strong) SCNNode *nobArrowBot;
+@property (nonatomic, strong) SCNNode *topTextNode;
 @property (nonatomic, strong) SCNNode *scaleBaseNode;
 @property (nonatomic) BOOL tapEnabled;
 @property (nonatomic) BOOL panEnabled;
@@ -161,8 +164,12 @@
     if (showFeaturePoints) {
         self.sceneView.debugOptions = ARSCNDebugOptionShowFeaturePoints;
     }
+    [self.sceneView setAlpha:0];
     [self.sceneView.session runWithConfiguration:configuration options:(ARSessionRunOptionRemoveExistingAnchors)];
     [self.sceneView.session runWithConfiguration:configuration options:(ARSessionRunOptionResetTracking)];
+    [UIView animateWithDuration:1.5 delay:0.4 options:UIViewAnimationOptionCurveLinear animations:^{
+        [self.sceneView setAlpha:1.0];
+    } completion:nil];
     [self deleteAllTheNodes];
     self.scaleNumber = 1;
 }
@@ -195,6 +202,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             // it means that plane got detected.
             if (self.dectedAnchors.count == 1) {
+                self.sceneView.debugOptions = SCNDebugOptionNone;
                 [self.planeCalibrationView stopPlaneCalibration];
                 [self.planeCalibrationView setHidden:true];
                 [self.actionButtonView setHidden:false];
@@ -263,6 +271,9 @@
 -(void)setupGestures{
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOnSizeStatsView:)];
     [self.footSizeStatsView addGestureRecognizer:tapGesture];
+    
+    UITapGestureRecognizer *tapGesture2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedOnPlane:)];
+    [self.view addGestureRecognizer:tapGesture2];
 
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panningOnPlane:)];
     [self.sceneView addGestureRecognizer:panGesture];
@@ -275,24 +286,42 @@
 }
 
 -(void)tappedOnPlane:(UITapGestureRecognizer*)tapGesture {
-    CGPoint point = [tapGesture locationInView:self.sceneView];
-    SCNVector3 worldLocation = [self worldLocationFromPoint:point];
-    //if (!self.tapEnabled) {
-        //CGPoint point = [tapGesture locationInView:self.sceneView];
-        if (worldLocation.x == 0 && worldLocation.y == 0 && worldLocation.z == 0) {
-            return;
-        }else{
-            self.tapEnabled = true;
-            self.panEnabled = true;
-            self.startPosition = worldLocation;
-            self.startNode = [self createAndAddToRootNode:MarkerWidth andHeight:MarkerHeight andLength:MarkerLength atPosition:self.startPosition withMaterial:[UIColor whiteColor] withRotation:SCNVector4Zero];
-        }
-    //}
+    [self dismissStatsViewExpandedState];
+//    CGPoint point = [tapGesture locationInView:self.sceneView];
+//    SCNVector3 worldLocation = [self worldLocationFromPoint:point];
+//    //if (!self.tapEnabled) {
+//        //CGPoint point = [tapGesture locationInView:self.sceneView];
+//        if (worldLocation.x == 0 && worldLocation.y == 0 && worldLocation.z == 0) {
+//            return;
+//        }else{
+//            self.tapEnabled = true;
+//            self.panEnabled = true;
+//            self.startPosition = worldLocation;
+//            self.startNode = [self createAndAddToRootNode:MarkerWidth andHeight:MarkerHeight andLength:MarkerLength atPosition:self.startPosition withMaterial:[UIColor whiteColor] withRotation:SCNVector4Zero];
+//        }
+//    //}
 }
 
 -(void)createInitialScaleOnPlaneAnchor:(ARPlaneAnchor*)anchor {
     self.startPosition = SCNVector3Make(anchor.transform.columns[3].x, anchor.transform.columns[3].y, anchor.transform.columns[3].z + (anchor.extent.z*0.5));
     self.startNode = [self createAndAddToRootNode:MarkerWidth andHeight:MarkerHeight andLength:MarkerLength atPosition:self.startPosition withMaterial:[UIColor whiteColor] withRotation:SCNVector4Zero];
+}
+
+-(void)createLayoverImage {
+    CGFloat distance = ExtSCNVectorDistanceInCms(self.startPosition,self.endPosition)/100;
+    SCNBox *box = [SCNBox boxWithWidth:distance*0.394 height:NobRadius length:distance chamferRadius:0.0];
+    box.firstMaterial.diffuse.contents = [UIImage imageNamed:@"Foot"];
+    box.firstMaterial.transparency = 0.3;
+    SCNNode *footNode = [SCNNode nodeWithGeometry:box];
+    footNode.position = SCNVector3Make(self.endPosition.x, self.endPosition.y, self.endPosition.z + distance*0.5);
+    [self.sceneView.scene.rootNode addChildNode:footNode];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [SCNTransaction begin];
+        [SCNTransaction setAnimationDuration:2.0];
+        footNode.opacity = 0;
+        [SCNTransaction commit];
+        [SCNTransaction flush];
+    });
 }
 
 -(void)createEndPointsInScale {
@@ -301,13 +330,50 @@
     // create a nob for the end line, as the given 3D marker model is not working due to scaling issues.
 
     // Torus
-    SCNTorus *torus = [SCNTorus torusWithRingRadius:NobRadius pipeRadius:NobRadius/5];
-    torus.ringSegmentCount = 12;
-    torus.pipeSegmentCount = 6;
-    torus.firstMaterial.diffuse.contents = [UIColor whiteColor];
-    self.nobNode = [SCNNode nodeWithGeometry:torus];
-    self.nobNode.position = SCNVector3Make(self.endPosition.x + (MarkerWidth/2), self.endPosition.y, self.endPosition.z - NobRadius);
+//    SCNTorus *torus = [SCNTorus torusWithRingRadius:NobRadius pipeRadius:NobRadius/5];
+//    torus.ringSegmentCount = 12;
+//    torus.pipeSegmentCount = 6;
+//    torus.firstMaterial.diffuse.contents = [UIColor whiteColor];
+//    self.nobNode = [SCNNode nodeWithGeometry:torus];
+//    self.nobNode.position = SCNVector3Make(self.endPosition.x + (MarkerWidth/2), self.endPosition.y, self.endPosition.z - NobRadius);
+//    [self.sceneView.scene.rootNode addChildNode:self.nobNode];
+    
+    // Nob Shape
+    SCNBox *box = [SCNBox boxWithWidth:NobRadius*4 height:NobRadius length:NobRadius*4 chamferRadius:NobRadius*0.5];
+    box.firstMaterial.diffuse.contents = [UIColor whiteColor];
+    self.nobNode = [SCNNode nodeWithGeometry:box];
+    self.nobNode.position = SCNVector3Make(self.endPosition.x + (MarkerWidth/2), self.endPosition.y, self.endPosition.z);
     [self.sceneView.scene.rootNode addChildNode:self.nobNode];
+    
+    // Up Arrow Shape
+    SCNPyramid *pyramid1 = [SCNPyramid pyramidWithWidth:NobRadius height:NobRadius length:NobRadius/3];
+    pyramid1.firstMaterial.diffuse.contents = [UIColor blackColor];
+    self.nobArrowTop = [SCNNode nodeWithGeometry:pyramid1];
+    self.nobArrowTop.eulerAngles = SCNVector3Make(-M_PI_2, 0, 0);
+    self.nobArrowTop.position = SCNVector3Make(self.endPosition.x + (MarkerWidth/2), self.endPosition.y + NobRadius, self.endPosition.z - NobRadius*0.5);
+    [self.sceneView.scene.rootNode addChildNode:self.nobArrowTop];
+    
+    // Down Arrow Shape
+    SCNPyramid *pyramid2 = [SCNPyramid pyramidWithWidth:NobRadius height:NobRadius length:NobRadius/3];
+    pyramid2.firstMaterial.diffuse.contents = [UIColor blackColor];
+    self.nobArrowBot = [SCNNode nodeWithGeometry:pyramid2];
+    self.nobArrowBot.eulerAngles = SCNVector3Make(M_PI_2, 0, 0);
+    self.nobArrowBot.position = SCNVector3Make(self.endPosition.x + (MarkerWidth/2), self.endPosition.y + NobRadius, self.endPosition.z + NobRadius*0.5);
+    [self.sceneView.scene.rootNode addChildNode:self.nobArrowBot];
+    
+    // Top Text Node
+    SCNText *scnText = [SCNText textWithString:@"Drag to the tip of your toe"  extrusionDepth:0.5];
+    scnText.firstMaterial.diffuse.contents = [UIColor whiteColor];
+    scnText.font = [UIFont systemFontOfSize:4.0];
+    scnText.flatness = 1.0;
+    
+    self.topTextNode = [SCNNode nodeWithGeometry:scnText];
+    self.topTextNode.position = SCNVector3Make(self.endPosition.x - (MarkerWidth/2), self.endPosition.y, self.endPosition.z - 0.01);
+    self.topTextNode.eulerAngles = SCNVector3Make(-M_PI_2, 0, 0);
+    self.topTextNode.scale = SCNVector3Make(0.003, 0.003, 0.003);
+    [self.sceneView.scene.rootNode addChildNode:self.topTextNode];
+    
+    [self createLayoverImage];
     
     [self drawCentimeterScale];
 
@@ -390,6 +456,10 @@
         if (panGesture.state == UIGestureRecognizerStateBegan) {
             [self.footSizeStatsView setHidden:true];
         }
+        //IF Gesture Begain
+        // - Find tap location on object.
+        // - If object near bottom marker or on scale, move bottom marker.
+        // - If object near top marker, move top marker.
         CGPoint point = [panGesture locationInView:self.sceneView];
         SCNVector3 worldLocation = [self worldLocationFromPoint:point];
         if (worldLocation.x == 0 && worldLocation.y == 0 && worldLocation.z == 0) {
@@ -408,7 +478,11 @@
             }
             self.endPosition = newEndPosition;
             self.endNode.position = self.endPosition;
-            self.nobNode.position = SCNVector3Make(self.nobNode.position.x, self.nobNode.position.y, newEndPosition.z - NobRadius);
+            //self.nobNode.position = SCNVector3Make(self.endPosition.x + (MarkerWidth/2), self.endPosition.y, self.endPosition.z);
+            self.nobNode.position = SCNVector3Make(self.nobNode.position.x, self.nobNode.position.y, newEndPosition.z);
+            self.nobArrowTop.position = SCNVector3Make(self.nobArrowTop.position.x, self.nobArrowTop.position.y, newEndPosition.z - NobRadius*0.5);
+            self.nobArrowBot.position = SCNVector3Make(self.nobArrowBot.position.x, self.nobArrowBot.position.y, newEndPosition.z + NobRadius*0.5);
+            self.topTextNode.position = SCNVector3Make(self.topTextNode.position.x, self.topTextNode.position.y, newEndPosition.z - 0.01);
             [self drawCentimeterScale];
         }
     }
@@ -449,13 +523,13 @@
 }
 
 - (void)drawBaseMarkerText {
-    SCNText *scnText = [SCNText textWithString:@"Bottom Marker"  extrusionDepth:0.5];
+    SCNText *scnText = [SCNText textWithString:@"Place back of heel here"  extrusionDepth:0.5];
     scnText.firstMaterial.diffuse.contents = [UIColor whiteColor];
     scnText.font = [UIFont systemFontOfSize:4.0];
     scnText.flatness = 1.0;
     
     SCNNode *textNode = [SCNNode nodeWithGeometry:scnText];
-    textNode.position = SCNVector3Make(self.startPosition.x - (MarkerWidth/4), self.startPosition.y, self.startPosition.z + 0.02);
+    textNode.position = SCNVector3Make(self.startPosition.x - (MarkerWidth/3), self.startPosition.y, self.startPosition.z + 0.02);
     textNode.eulerAngles = SCNVector3Make(-M_PI_2, 0, 0);
     textNode.scale = SCNVector3Make(0.003, 0.003, 0.003);
     [self.sceneView.scene.rootNode addChildNode:textNode];
@@ -580,9 +654,21 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
 -(void)clickedOnInstruction:(InstructionsModel *)model{
     switch (model.type) {
         case ARIntroduction:
-            [self.baseInstructionView popInstructionsAndPresent:[self.instructionModels objectAtIndex:1]];
-            self.currentlyShowingInstruction = [self.instructionModels objectAtIndex:1];
+//            [self.baseInstructionView popInstructionsAndPresent:[self.instructionModels objectAtIndex:1]];
+//            self.currentlyShowingInstruction = [self.instructionModels objectAtIndex:1];
+//            [[self backButton] setHidden:false];
+            [self.baseInstructionView popInstructionView];
+            if (ARWorldTrackingConfiguration.isSupported){
+                [self resetTracking:true showFeaturePoints:true];
+            }else{
+                [self showToastViewWithErrorMessage:@"AR Tracking Not Supported!"];
+            }
+            self.panEnabled = true;
+            [self setupGestures];
+            [self.actionButtonView setHidden:true];
             [[self backButton] setHidden:false];
+            [[self resetButton] setHidden:false];
+            [self.actionButtonTitle setTitle:@"SAVE MY SIZE" forState:UIControlStateNormal];
             break;
         case ARPlane:
             [self.baseInstructionView popInstructionsAndPresent:[self.instructionModels objectAtIndex:3]];
@@ -613,6 +699,14 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
     }
 }
 
+-(void)didTapOnBackButton {
+    CATransition* transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.type = kCATransitionFade;
+    [self.navigationController.view.layer addAnimation:transition forKey:nil];
+    [self.navigationController popViewControllerAnimated:false];
+}
+
 - (IBAction)clickedOnBackButton:(id)sender {
     [self.planeCalibrationView setHidden:true];
     [self.navigationController popViewControllerAnimated:true];
@@ -624,6 +718,7 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
             [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:2]];
             self.currentlyShowingInstruction = [self.instructionModels objectAtIndex:2];
             break;
+            
         case ARMarker:
             [self.baseInstructionView presentInstructionView:[self.instructionModels objectAtIndex:3]];
             self.currentlyShowingInstruction = [self.instructionModels objectAtIndex:3];
@@ -638,14 +733,38 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
 -(void)toggleStatsViewExpand {
     CGFloat height = [self.footSizeStatsView getToggleAnimationHeight];
     [self.view layoutIfNeeded];
+    BOOL transformTop = true;
     if(self.statsViewTopConstraint.constant == 0) {
         [self.statsViewTopConstraint setConstant:-height];
+        transformTop = false;
     } else {
         [self.statsViewTopConstraint setConstant:0];
     }
     [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.9 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
+        if(transformTop) {
+            [self.footSizeStatsView.botArrowImageView setTransform:CGAffineTransformMakeRotation(M_PI_2)];
+            [self.footSizeStatsView.containerViewTypeMultiple.botArrowImageView setTransform:CGAffineTransformMakeRotation(M_PI_2)];
+        } else {
+            [self.footSizeStatsView.botArrowImageView setTransform:CGAffineTransformMakeRotation(-M_PI_2)];
+            [self.footSizeStatsView.containerViewTypeMultiple.botArrowImageView setTransform:CGAffineTransformMakeRotation(-M_PI_2)];
+        }
+        
         [self.view layoutIfNeeded];
     } completion:nil];
+}
+
+-(void)dismissStatsViewExpandedState {
+    CGFloat height = [self.footSizeStatsView getToggleAnimationHeight];
+    [self.view layoutIfNeeded];
+    if (self.statsViewTopConstraint.constant == 0) { //Is in expanded state
+        [self.statsViewTopConstraint setConstant:-height];
+        [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.9 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
+            [self.footSizeStatsView.botArrowImageView setTransform:CGAffineTransformMakeRotation(-M_PI_2)];
+            [self.footSizeStatsView.containerViewTypeMultiple.botArrowImageView setTransform:CGAffineTransformMakeRotation(-M_PI_2)];
+            [self.view layoutIfNeeded];
+        } completion:nil];
+    }
+    
 }
 
 @end

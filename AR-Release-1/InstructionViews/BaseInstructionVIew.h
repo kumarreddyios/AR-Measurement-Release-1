@@ -12,6 +12,7 @@
 @protocol InstructionDelegate
 
 -(void)clickedOnInstruction:(InstructionsModel*)model;
+-(void)didTapOnBackButton;
 
 @end
 
@@ -21,6 +22,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *subTitle;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UIButton *actionButton;
+@property (nonatomic, weak) IBOutlet UIButton *backButton;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleTop;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *actionButtonBottom;
