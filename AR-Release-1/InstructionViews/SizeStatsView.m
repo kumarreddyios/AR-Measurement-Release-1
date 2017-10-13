@@ -75,6 +75,7 @@
                         [self.sizeLabel1 setText:euSize[0]?:@"-"];
                     }
                 } else {
+                    [self setActiveState:NoSize];
                     [self.sizeLabel1 setText:@"-"];
                 }
                 //UK Size
