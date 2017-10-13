@@ -22,9 +22,9 @@ enum Gender{
 @property enum Gender gender;
 
 -(instancetype)initWithSizeDictionary:(NSDictionary*)sizeDictionary;
--(NSString*)getUKSizeFromCM:(CGFloat)cms;
--(NSString*)getUSSizeFromCM:(CGFloat)cms;
--(NSString*)getEUSizeFromCM:(CGFloat)cms;
+-(NSArray* _Nullable)getUKSizeFromCM:(CGFloat)cms;
+-(NSArray* _Nullable)getUSSizeFromCM:(CGFloat)cms;
+-(NSArray* _Nullable)getEUSizeFromCM:(CGFloat)cms;
 
 @end
 

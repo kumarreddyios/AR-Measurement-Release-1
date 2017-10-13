@@ -80,6 +80,9 @@
     [[self backButton] setHidden:true];
     [[self resetButton] setHidden:true];
     [[self toastView] setHidden:true];
+    [self.footSizeStatsView setHidden:true];
+    [self.footSizeStatsView setCurrentGender:self.gender];
+    [self.footSizeStatsView loadSizeChart];
     [UIApplication.sharedApplication setIdleTimerDisabled:true];
     /*SCNScene *scene = [SCNScene sceneNamed:@"art.scnassets/marker.scn"];
     self.testNode = [[scene rootNode] childNodeWithName:@"EndNode" recursively:YES];*/
@@ -88,8 +91,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     //views decoration
-    [self.footSizeStatsView setHidden:true];
-    [self.footSizeStatsView setCurrentGender:self.gender];
     [self toggleStatsViewExpand];
     
     //camera permission code
@@ -378,6 +379,7 @@
     if (self.panEnabled) {
         if (panGesture.state == UIGestureRecognizerStateEnded) {
             CGFloat distance = ExtSCNVectorDistanceInCms(self.startPosition,self.endPosition);
+            printf("PanningOnPlane CM = %fd", distance);
             [self.footSizeStatsView setHidden:false];
             [self.footSizeStatsView updateSizesWithDistance:distance];
             return;
@@ -629,23 +631,18 @@ static inline CGFloat ExtSCNVectorDistanceInCms(SCNVector3 vectorA, SCNVector3 v
 
 #pragma mark - Size Stats View
 
+//Always call this method with check to footSizeStatsView isExpandable if required.
 -(void)toggleStatsViewExpand {
-    if([self.footSizeStatsView isExpandable]) {
-        CGFloat height = [self.footSizeStatsView getToggleAnimationHeight];
-        [self.view layoutIfNeeded];
-        if(self.statsViewTopConstraint.constant == 0) {
-            [self.statsViewTopConstraint setConstant:-height];
-        } else {
-            [self.statsViewTopConstraint setConstant:0];
-        }
-        [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.9 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
-            [self.view layoutIfNeeded];
-        } completion:nil];
+    CGFloat height = [self.footSizeStatsView getToggleAnimationHeight];
+    [self.view layoutIfNeeded];
+    if(self.statsViewTopConstraint.constant == 0) {
+        [self.statsViewTopConstraint setConstant:-height];
+    } else {
+        [self.statsViewTopConstraint setConstant:0];
     }
-}
-
--(void)performExpandabilityNudge {
-    
+    [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.9 initialSpringVelocity:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
+        [self.view layoutIfNeeded];
+    } completion:nil];
 }
 
 @end

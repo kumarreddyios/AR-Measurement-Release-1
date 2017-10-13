@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SizeChart.h"
 
 @interface MultipleSizesView : UIView
 
@@ -20,5 +21,7 @@
 
 @property (nonatomic, weak) IBOutlet UIImageView *topArrowImageView;
 @property (nonatomic, weak) IBOutlet UIImageView *botArrowImageView;
+
+-(void)updateSizesWithDistance:(CGFloat)distance forGender:(enum Gender)gender andSizeChart:(SizeChart*)sizeChart;
 
 @end

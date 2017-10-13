@@ -10,9 +10,9 @@
 #import "MultipleSizesView.h"
 
 enum SizeStatState {
-    InactiveSize,
     SingleSize,
-    MultipleSize
+    MultipleSize,
+    NoSize
 };
 
 @interface SizeStatsView : UIView
@@ -31,6 +31,7 @@ enum SizeStatState {
 @property enum SizeStatState currentState;
 @property enum Gender currentGender;
 
+-(void)loadSizeChart;
 -(void)setActiveState:(enum SizeStatState)state;
 -(void)updateSizesWithDistance:(CGFloat)distance;
 -(BOOL)isExpandable;
