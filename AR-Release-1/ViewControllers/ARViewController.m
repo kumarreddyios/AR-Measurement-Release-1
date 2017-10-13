@@ -187,6 +187,9 @@
         PlaneNode *planeNode = [[PlaneNode alloc] initWithAnchor:pAnchor];
         //planeNode.simdTransform = pAnchor.transform;
         planeNode.position = SCNVector3Make(pAnchor.transform.columns[3].x, pAnchor.transform.columns[3].y, pAnchor.transform.columns[3].z);
+        if(self.dectedAnchors.count > 0) {
+            return; //To prevent multiple planes being added to the same scene.
+        }
         [self.sceneView.scene.rootNode addChildNode:planeNode];
         self.dectedAnchors[pAnchor.identifier.UUIDString]=planeNode;
         dispatch_async(dispatch_get_main_queue(), ^{
