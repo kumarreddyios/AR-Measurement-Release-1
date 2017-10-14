@@ -87,8 +87,6 @@
     [self.footSizeStatsView setCurrentGender:self.gender];
     [self.footSizeStatsView loadSizeChart];
     [UIApplication.sharedApplication setIdleTimerDisabled:true];
-    /*SCNScene *scene = [SCNScene sceneNamed:@"art.scnassets/marker.scn"];
-    self.testNode = [[scene rootNode] childNodeWithName:@"EndNode" recursively:YES];*/
 }
 
 - (void)viewWillAppear:(BOOL)animated {

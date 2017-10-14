@@ -12,7 +12,6 @@
 		2D8ACD7B1F7C531200957A91 /* BaseInstructionVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8ACD7A1F7C531200957A91 /* BaseInstructionVIew.m */; };
 		2D8ACD811F7D393D00957A91 /* InstructionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8ACD801F7D393D00957A91 /* InstructionsModel.m */; };
 		2DAB9B871F723E3F00E0293F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB9B861F723E3F00E0293F /* AppDelegate.m */; };
-		2DAB9B891F723E3F00E0293F /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DAB9B881F723E3F00E0293F /* art.scnassets */; };
 		2DAB9B8C1F723E3F00E0293F /* ARViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB9B8B1F723E3F00E0293F /* ARViewController.m */; };
 		2DAB9B8F1F723E3F00E0293F /* ARKit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DAB9B8D1F723E3F00E0293F /* ARKit.storyboard */; };
 		2DAB9B911F723E3F00E0293F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DAB9B901F723E3F00E0293F /* Assets.xcassets */; };
@@ -41,7 +40,6 @@
 		2DAB9B821F723E3F00E0293F /* AR-Release-1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AR-Release-1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DAB9B851F723E3F00E0293F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2DAB9B861F723E3F00E0293F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		2DAB9B881F723E3F00E0293F /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		2DAB9B8A1F723E3F00E0293F /* ARViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARViewController.h; sourceTree = "<group>"; };
 		2DAB9B8B1F723E3F00E0293F /* ARViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARViewController.m; sourceTree = "<group>"; };
 		2DAB9B8E1F723E3F00E0293F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ARKit.storyboard; sourceTree = "<group>"; };
@@ -122,7 +120,6 @@
 				2DAB9B851F723E3F00E0293F /* AppDelegate.h */,
 				2DAB9B861F723E3F00E0293F /* AppDelegate.m */,
 				ED06CC3D1F879C5F004FD4EB /* Fonts */,
-				2DAB9B881F723E3F00E0293F /* art.scnassets */,
 				2DAB9B901F723E3F00E0293F /* Assets.xcassets */,
 				2DAB9B951F723E3F00E0293F /* Info.plist */,
 				2DAB9B961F723E3F00E0293F /* main.m */,
@@ -236,7 +233,6 @@
 				ED06CC441F879CC7004FD4EB /* Whitney-Book-Bas.otf in Resources */,
 				ED06CC451F879CC7004FD4EB /* Whitney-BookItal-Bas.otf in Resources */,
 				ED06CC461F879CC7004FD4EB /* Whitney-Semibold-Bas.otf in Resources */,
-				2DAB9B891F723E3F00E0293F /* art.scnassets in Resources */,
 				2DAB9B941F723E3F00E0293F /* LaunchScreen.storyboard in Resources */,
 				2D6A52201F739AA600B0ACF1 /* ShoeSizeData.json in Resources */,
 				2DAB9B911F723E3F00E0293F /* Assets.xcassets in Resources */,
