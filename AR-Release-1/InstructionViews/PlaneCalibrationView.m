@@ -122,7 +122,7 @@
     double currentRollDistance = requiredRollDistance*currentRollPercentage;
     if(currentRollPercentage > 0) {
         [_centerXConstraint setConstant:-currentRollDistance];
-        [UIView animateWithDuration:0.8 animations:^{
+        [UIView animateWithDuration:0.5 animations:^{
             [self layoutIfNeeded];
         }];
         if(currentRollPercentage > 0.95) {
@@ -141,7 +141,7 @@
     double currentRollDistance = requiredRollDistance*currentRollPercentage;
     if(currentRollPercentage < 1.05) {
         [_centerXConstraint setConstant:-currentRollDistance];
-        [UIView animateWithDuration:0.8 animations:^{
+        [UIView animateWithDuration:0.5 animations:^{
             [self layoutIfNeeded];
         }];
         if(currentRollPercentage < -1) {
@@ -163,13 +163,13 @@
     if(currentRollPercentage > -1.05) {
         if(_centerXConstraint.constant != 0) {
             [_centerXConstraint setConstant:-currentRollDistance];
-            [UIView animateWithDuration:0.8 animations:^{
+            [UIView animateWithDuration:0.5 animations:^{
                 [self layoutIfNeeded];
             }];
         }
         if(currentRollPercentage > -0.05) {
             [_centerXConstraint setConstant:0];
-            [UIView animateWithDuration:0.8 animations:^{
+            [UIView animateWithDuration:0.5 animations:^{
                 [self layoutIfNeeded];
             }];
             double currentPitchExtent = _initialPitch - _pitch;
@@ -178,7 +178,7 @@
             double currentPitchDistance = requiredPitchDistance*currentPitchPercentage;
             if(currentPitchPercentage > -1.05 && currentPitchPercentage < 1.05) {
                 [_centerYConstrant setConstant:-currentPitchDistance];
-                [UIView animateWithDuration:0.8 animations:^{
+                [UIView animateWithDuration:0.5 animations:^{
                     [self layoutIfNeeded];
                 }];
                 if(currentPitchPercentage > 0.95) {
@@ -199,7 +199,7 @@
     double currentPitchDistance = requiredPitchDistance*currentPitchPercentage;
     if(currentPitchPercentage > -1.05 && currentPitchPercentage < 1.05) {
         [_centerYConstrant setConstant:-currentPitchDistance];
-        [UIView animateWithDuration:0.8 animations:^{
+        [UIView animateWithDuration:0.5 animations:^{
             [self layoutIfNeeded];
         }];
         if(currentPitchPercentage < -0.95) {
