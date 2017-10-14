@@ -70,7 +70,7 @@
     [self moveForwardState];
     _motionManager = [[CMMotionManager alloc] init];
     _defaultQueue = [[NSOperationQueue alloc] init];
-    [_motionManager setDeviceMotionUpdateInterval:0.05];
+    [_motionManager setDeviceMotionUpdateInterval:0.08];
     
     [self.motionManager startDeviceMotionUpdatesToQueue:_defaultQueue withHandler:^(CMDeviceMotion *motion, NSError *error) {
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -122,6 +122,9 @@
     double currentRollDistance = requiredRollDistance*currentRollPercentage;
     if(currentRollPercentage > 0) {
         [_centerXConstraint setConstant:-currentRollDistance];
+        [UIView animateWithDuration:0.8 animations:^{
+            [self layoutIfNeeded];
+        }];
         if(currentRollPercentage > 0.95) {
             [self moveForwardState];
         }
@@ -138,6 +141,9 @@
     double currentRollDistance = requiredRollDistance*currentRollPercentage;
     if(currentRollPercentage < 1.05) {
         [_centerXConstraint setConstant:-currentRollDistance];
+        [UIView animateWithDuration:0.8 animations:^{
+            [self layoutIfNeeded];
+        }];
         if(currentRollPercentage < -1) {
             //[_centerXConstraint setConstant:0];
             [self moveForwardState];
@@ -157,15 +163,24 @@
     if(currentRollPercentage > -1.05) {
         if(_centerXConstraint.constant != 0) {
             [_centerXConstraint setConstant:-currentRollDistance];
+            [UIView animateWithDuration:0.8 animations:^{
+                [self layoutIfNeeded];
+            }];
         }
         if(currentRollPercentage > -0.05) {
             [_centerXConstraint setConstant:0];
+            [UIView animateWithDuration:0.8 animations:^{
+                [self layoutIfNeeded];
+            }];
             double currentPitchExtent = _initialPitch - _pitch;
             double currentPitchPercentage = currentPitchExtent / PITCH_EXTENT;
             double requiredPitchDistance = (_mapImageView.bounds.size.height / 2) - (_indicatorImageView.bounds.size.height / 2);
             double currentPitchDistance = requiredPitchDistance*currentPitchPercentage;
             if(currentPitchPercentage > -1.05 && currentPitchPercentage < 1.05) {
                 [_centerYConstrant setConstant:-currentPitchDistance];
+                [UIView animateWithDuration:0.8 animations:^{
+                    [self layoutIfNeeded];
+                }];
                 if(currentPitchPercentage > 0.95) {
                     [self moveForwardState];
                 }
@@ -184,6 +199,9 @@
     double currentPitchDistance = requiredPitchDistance*currentPitchPercentage;
     if(currentPitchPercentage > -1.05 && currentPitchPercentage < 1.05) {
         [_centerYConstrant setConstant:-currentPitchDistance];
+        [UIView animateWithDuration:0.8 animations:^{
+            [self layoutIfNeeded];
+        }];
         if(currentPitchPercentage < -0.95) {
             [self moveForwardState];
         }
