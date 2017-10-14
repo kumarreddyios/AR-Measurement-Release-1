@@ -20,7 +20,6 @@
 		2DAB9B971F723E3F00E0293F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB9B961F723E3F00E0293F /* main.m */; };
 		2DAB9B9F1F7245C000E0293F /* PlaneNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB9B9E1F7245C000E0293F /* PlaneNode.m */; };
 		2DB14EC31F7C24350008D86C /* ARIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB14EC21F7C24350008D86C /* ARIntroViewController.m */; };
-		2DC4ADD11F8338C10014F8FE /* LaunchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4ADD01F8338C10014F8FE /* LaunchView.m */; };
 		ED06CC441F879CC7004FD4EB /* Whitney-Book-Bas.otf in Resources */ = {isa = PBXBuildFile; fileRef = ED06CC3E1F879C5F004FD4EB /* Whitney-Book-Bas.otf */; };
 		ED06CC451F879CC7004FD4EB /* Whitney-BookItal-Bas.otf in Resources */ = {isa = PBXBuildFile; fileRef = ED06CC3F1F879C5F004FD4EB /* Whitney-BookItal-Bas.otf */; };
 		ED06CC461F879CC7004FD4EB /* Whitney-Semibold-Bas.otf in Resources */ = {isa = PBXBuildFile; fileRef = ED06CC401F879C5F004FD4EB /* Whitney-Semibold-Bas.otf */; };
@@ -54,8 +53,6 @@
 		2DAB9B9E1F7245C000E0293F /* PlaneNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaneNode.m; sourceTree = "<group>"; };
 		2DB14EC11F7C24350008D86C /* ARIntroViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARIntroViewController.h; sourceTree = "<group>"; };
 		2DB14EC21F7C24350008D86C /* ARIntroViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARIntroViewController.m; sourceTree = "<group>"; };
-		2DC4ADCF1F8338C10014F8FE /* LaunchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchView.h; sourceTree = "<group>"; };
-		2DC4ADD01F8338C10014F8FE /* LaunchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchView.m; sourceTree = "<group>"; };
 		ED06CC3E1F879C5F004FD4EB /* Whitney-Book-Bas.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Whitney-Book-Bas.otf"; sourceTree = "<group>"; };
 		ED06CC3F1F879C5F004FD4EB /* Whitney-BookItal-Bas.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Whitney-BookItal-Bas.otf"; sourceTree = "<group>"; };
 		ED06CC401F879C5F004FD4EB /* Whitney-Semibold-Bas.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Whitney-Semibold-Bas.otf"; sourceTree = "<group>"; };
@@ -134,8 +131,6 @@
 				2D6A521F1F739AA600B0ACF1 /* ShoeSizeData.json */,
 				2D6A52211F73A50C00B0ACF1 /* SizeChart.h */,
 				2D6A52221F73A50C00B0ACF1 /* SizeChart.m */,
-				2DC4ADCF1F8338C10014F8FE /* LaunchView.h */,
-				2DC4ADD01F8338C10014F8FE /* LaunchView.m */,
 			);
 			path = "AR-Release-1";
 			sourceTree = "<group>";
@@ -258,7 +253,6 @@
 			files = (
 				2DAB9B9F1F7245C000E0293F /* PlaneNode.m in Sources */,
 				EDD976861F8E095900870C12 /* PlaneCalibrationView.m in Sources */,
-				2DC4ADD11F8338C10014F8FE /* LaunchView.m in Sources */,
 				ED98349E1F8FB0DF008F3F01 /* MultipleSizesView.m in Sources */,
 				ED06CC4C1F87A3EA004FD4EB /* ARPermissionViewController.m in Sources */,
 				2DAB9B8C1F723E3F00E0293F /* ARViewController.m in Sources */,
